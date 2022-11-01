@@ -1,0 +1,11 @@
+{
+  "name": "nomicon",
+  "version": "0.0.1",
+  "description": "book of knowledge",
+  "homepage": "https://github.com/nomicon/ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nomicon/ts"
+  },
+  "license": "MIT OR Apache-2.0"
+}
