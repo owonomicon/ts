@@ -1,0 +1,14 @@
+{
+  "name": "@nomicon/types",
+  "version": "0.0.1",
+  "description": "collection of useful TypeScript types",
+  "homepage": "https://github.com/nomicon/ts/packages/types",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nomicon/ts"
+  },
+  "license": "MIT OR Apache-2.0",
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
