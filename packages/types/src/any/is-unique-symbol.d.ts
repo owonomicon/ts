@@ -1,6 +1,6 @@
 import { And } from "../bool/and";
 import { Not } from "../bool/not";
-import { IsUnion } from "../union/is-union";
+import { IsUnion } from "../set/is-union";
 import { Extends } from "../_meta/extends";
 
 /**

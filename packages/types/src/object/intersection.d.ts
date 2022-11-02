@@ -1,4 +1,4 @@
-import type { SetIntersection } from "../union/intersection"
+import type { SetIntersection } from "../set/intersection"
 
 /**
  * gets the intersection of the keys of `A` and `B`

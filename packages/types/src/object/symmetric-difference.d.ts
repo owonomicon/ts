@@ -1,4 +1,4 @@
-import type { SymmetricDifference } from "../union/symmetric-difference"
+import type { SymmetricDifference } from "../set/symmetric-difference"
 import { KeyIntersection } from "./intersection"
 
 export type KeySymmetricDifference<A, B> = SymmetricDifference<keyof A, keyof B>

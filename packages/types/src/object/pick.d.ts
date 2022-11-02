@@ -1,7 +1,7 @@
 import type { Equals } from "../_meta/equals"
 import type { If } from "../bool/if"
 import { IsNever } from "../any/is-never"
-import { Select } from "../union/select"
+import { Select } from "../set/select"
 import { OptionalKeys, RequiredKeys } from "./keys"
 import { Relation } from "../_meta/relates"
 import { Not } from "../bool/not"
