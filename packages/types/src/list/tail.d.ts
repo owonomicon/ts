@@ -1,10 +1,14 @@
+import { IsNever } from "../any/is-never";
+import { If } from "../bool/if";
 import { List } from "./list";
 import { OmitFirst } from "./omit-first-n";
 
 type _Tail<T extends List, R = OmitFirst<T>> =
-  R extends never
-    ? []
-    : R
+  If<
+    IsNever<R>,
+    [],
+    R
+  >
 
 /**
  * extracts the tail of list `T`.
