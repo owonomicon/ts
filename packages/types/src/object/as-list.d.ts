@@ -78,7 +78,7 @@ type OmitMappedNumeric<O> =
 type _MappedValues<O, K extends keyof O> =
   number extends keyof O
     // as with named keys, prioritize string over number keys.
-    // here, we additionaly remove the intersection with the number values, as by default
+    // here, we additionally remove the intersection with the number values, as by default
     ? Cut<O[K], O[number]>[]
     : O[K][]
 type MappedValues<O> =
@@ -106,9 +106,8 @@ type MappedValues<O> =
  * ```
  */
 export type AsList<O extends object> =
-  // should this be reordered so the `number extends keyof O` is top level? idk how typescript internals exactly work i.e. how/when things are computed
   Concat<
-    // "named" list keys (i.e. `0..whatever`)
+    /// "named" list keys (i.e. `0..whatever`)
     // need to use `Satisfies` here to assert it is in fact a list
     Satisfies<
       _AsList<
