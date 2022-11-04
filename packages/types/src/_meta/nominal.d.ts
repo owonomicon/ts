@@ -31,6 +31,8 @@ type BlackBox<Id> = { readonly [__NOMINAL_TYPE__]: Id }
  * `Id` must be a string literal, number literal, or unique symbol; if not, the type resolves to `never`
  * Users are recommended to declare a unique symbol type for each id.
  * 
+ * @warn DOES NOT WORK WITH `null` OR `undefined`.
+ * 
  * @example
  * type e0 = Nominal<string, 'e0'>
  * type t0 = string extends e0 ? 1 : 0 // 0
@@ -43,6 +45,10 @@ type BlackBox<Id> = { readonly [__NOMINAL_TYPE__]: Id }
  * type e3 = Nominal<string, number> // never // number ids must be number literals
  * type e4 = Nominal<string, symbol> // never // symbol ids must be unique symbols
  * type e5 = Nominal<string, 0 | 1>  // never // ids cannot be union types
+ * 
+ * type w6 = Nominal<null, 'null'> // never // `Nominal` does not work well with `null`
+ * type w7 = Nominal<undefined, 'undefined'> // never // `Nominal` does not work well with `undefined`
+ * type w8 = Nominal<string | undefined, ''> // string & BlackBox<''> // `undefined` is lost
  */
 export type Nominal<T, Id extends Key> =
   If<
