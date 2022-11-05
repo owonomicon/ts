@@ -7,6 +7,7 @@
  * type e1 = Cut<{ a: 0 } & { b: 1, c: 2 }, { b: 1, c: 2 }> // { a: 0 }
  * type e2 = Cut<{ a: 0, b: 1, c: 2 }, { b: 1, c: 2 }, 'failed'> // 'failed' // `T` is not an intersection type so it doesn't match 
  */
-export type Cut<I, T, F = I> = I extends (infer U & T)
-  ? U
-  : F
+export type Cut<I, T, F = I> =
+  I extends (infer U & T)
+    ? U
+    : F
