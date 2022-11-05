@@ -3,7 +3,7 @@ import { Increment, Iterate, Iteration, Value } from "../_meta/iterate";
 import { Resolve, ShallowResolve } from "../_meta/resolve";
 import { Unreachable } from "../_meta/unreachable";
 import { ElementOf } from "./element-of";
-import { IsFiniteList } from "./is-finite-list";
+import { IsVariadic } from "./is-variadic";
 import { List } from "./list";
 import { OmitFirstN } from "./omit-first-n";
 
@@ -34,7 +34,7 @@ type _AsObject<A extends List, Named, N extends Iteration = Iterate<0>> =
 export type AsObject<A extends List> =
   ShallowResolve<
     If<
-      IsFiniteList<A>,  
+      IsVariadic<A>,  
       Omit<A, keyof any[]>,
       Omit<A, keyof any[]> extends infer X
         ? { [x: number]: ElementOf<OmitFirstN<A, _AsObject<A, X>>> } & X

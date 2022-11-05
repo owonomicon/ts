@@ -4,9 +4,9 @@ import { Length } from "./length";
 import { List } from "./list";
 
 /**
- * whether `T` is a finite length array type (including readonly)
+ * whether `T` is a variadic list
  */
-export type IsFiniteList<T> =
+export type IsVariadic<T> =
   T extends List
     ? Not<Extends<number, Length<T>>>
     : 0
