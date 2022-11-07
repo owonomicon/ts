@@ -35,9 +35,9 @@ export type AsObject<A extends List> =
   ShallowResolve<
     If<
       IsVariadic<A>,  
-      Omit<A, keyof any[]>,
       Omit<A, keyof any[]> extends infer X
         ? { [x: number]: ElementOf<OmitFirstN<A, _AsObject<A, X>>> } & X
-        : Unreachable
+        : Unreachable,
+      Omit<A, keyof any[]>
     >  
   >
