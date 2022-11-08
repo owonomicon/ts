@@ -30,7 +30,7 @@ type _AsObject<A extends List, Named, N extends Iteration = Iterate<0>> =
  * 
  * type e3 = AsObject<[string, number, object, ...boolean[], null]> // { [x: number]: boolean | null, 0: string, 1: number, 2: object } // all types following the first spread of a variadic tuple are combined
  * 
- * type e4 = AsObject<[string, number, object?, ...boolean[]] // { [x: number]: boolean, 0: string, 1: number, 2?: object | undefined } // optionality is preserved (and TypeScript converts `T?` to `(T | undefined)?`)
+ * type e4 = AsObject<[string, number, object?, ...boolean[]]> // { [x: number]: boolean, 0: string, 1: number, 2?: object | undefined } // optionality is preserved (and TypeScript converts `T?` to `(T | undefined)?`)
  */
 export type AsObject<A extends List> =
   ShallowResolve<
