@@ -1,3 +1,5 @@
+import { Omit } from "./omit";
+
 /**
  * extracts just the properties of type `T`
  * this is useful for e.g. extending functions with properties: we can extract the properties of the function,

@@ -1,6 +1,7 @@
 import { If } from "../bool/if";
+import { Omit } from "../object/omit";
 import { Increment, Iterate, Iteration, Value } from "../_meta/iterate";
-import { Resolve, ShallowResolve } from "../_meta/resolve";
+import { ShallowResolve } from "../_meta/resolve";
 import { Unreachable } from "../_meta/unreachable";
 import { ElementOf } from "./element-of";
 import { IsVariadic } from "./is-variadic";

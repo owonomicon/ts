@@ -1,3 +1,5 @@
+import { Select } from "./select";
+
 /**
  * converts a union type into an intersection type
  */
@@ -6,5 +8,5 @@ export type UnionToIntersection<U> =
     ? (_: U) => 0
     : never
   ) extends (_: infer I) => 0
-    ? Extract<I, U> // I
+    ? Select<I, U> // I
     : never

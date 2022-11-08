@@ -1,5 +1,6 @@
 import type { SymmetricDifference } from "../set/symmetric-difference"
 import { KeyIntersection } from "./intersection"
+import { Omit } from "./omit"
 
 export type KeySymmetricDifference<A, B> = SymmetricDifference<keyof A, keyof B>
 

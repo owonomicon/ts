@@ -4,27 +4,30 @@ import { NonNull, NonNullish, NonUndefined, Nullable, Nullishable, Undefinable }
 import { IsTuple } from "../list/is-tuple"
 import { IsUnknown } from "../any/is-unknown"
 import { Mutable } from "./mutable"
+import { Optional } from "./optional"
+import { Required } from "./required"
+import { Readonly } from "./readonly"
 
 /**
- * recursively makes keys of an object optional
+ * makes (nested) keys of an object optional
  */
-export type DeepPartial<T> =
+export type DeepOptional<T> =
   T extends Builtin ? T
-  : T extends Promise<infer U> ? Promise<DeepPartial<U>>
-  : IsTuple<T> extends 1 ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : T extends List<infer U> ? List<DeepPartial<U> | undefined>
-  : T extends Map<infer K, infer V> ? Map<DeepPartial<K>, DeepPartial<V>>
-  : T extends Set<infer U> ? Set<DeepPartial<U>>
-  : T extends ReadonlyMap<infer K, infer V> ? ReadonlyMap<DeepPartial<K>, DeepPartial<V>>
-  : T extends ReadonlySet<infer U> ? ReadonlySet<DeepPartial<U>>
-  : T extends WeakMap<infer K, infer V> ? WeakMap<DeepPartial<K>, DeepPartial<V>>
-  : T extends WeakSet<infer U> ? WeakSet<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : T extends Promise<infer U> ? Promise<DeepOptional<U>>
+  : IsTuple<T> extends 1 ? { [K in keyof T]?: DeepOptional<T[K]> }
+  : T extends List<infer U> ? List<DeepOptional<U> | undefined>
+  : T extends Map<infer K, infer V> ? Map<DeepOptional<K>, DeepOptional<V>>
+  : T extends Set<infer U> ? Set<DeepOptional<U>>
+  : T extends ReadonlyMap<infer K, infer V> ? ReadonlyMap<DeepOptional<K>, DeepOptional<V>>
+  : T extends ReadonlySet<infer U> ? ReadonlySet<DeepOptional<U>>
+  : T extends WeakMap<infer K, infer V> ? WeakMap<DeepOptional<K>, DeepOptional<V>>
+  : T extends WeakSet<infer U> ? WeakSet<DeepOptional<U>>
+  : T extends {} ? { [K in keyof T]?: DeepOptional<T[K]> }
   : IsUnknown<T> extends 1 ? unknown
-  : Partial<T>
+  : Optional<T>
 
 /**
- * recursively makes keys of an object required
+ * makes (nested) keys of an object required
  */
 export type DeepRequired<T> =
   T extends Builtin ? T
@@ -42,7 +45,7 @@ export type DeepRequired<T> =
   : Required<T>
 
 /**
- * recursively makes keys of an object readonly
+ * makes (nested) keys of an object readonly
  */
 export type DeepReadonly<T> = 
   T extends Builtin ? T
@@ -60,7 +63,7 @@ export type DeepReadonly<T> =
   : Readonly<T>
 
 /**
- * recursively makes keys of an object mutable (i.e. not readonly)
+ * makes (nested) keys of an object mutable (i.e. not readonly)
  */
 export type DeepMutable<T> = 
   T extends Builtin ? T
@@ -78,7 +81,7 @@ export type DeepMutable<T> =
   : Mutable<T>
 
 /**
- * recursively makes values of an object nullishable (i.e. possibly null or undefined)
+ * makes (nested) values of an object nullishable (i.e. possibly null or undefined)
  */
 export type DeepNullishable<T> =
   T extends Builtin ? Nullishable<T>
@@ -96,7 +99,7 @@ export type DeepNullishable<T> =
   : Nullishable<T>
 
 /**
- * recursively makes values of an object nullable
+ * makes (nested) values of an object nullable
  */
 export type DeepNullable<T> =
   T extends Builtin ? Nullable<T>
@@ -114,7 +117,7 @@ export type DeepNullable<T> =
   : Nullable<T>
 
 /**
- * recursively makes values of an object undefinable
+ * makes (nested) values of an object undefinable
  */
 export type DeepUndefinable<T> =
   T extends Builtin ? Undefinable<T>
@@ -132,7 +135,7 @@ export type DeepUndefinable<T> =
   : Undefinable<T>
 
 /**
- * recursively makes values of an object nonnullishable (i.e. cannot be null or undefined)
+ * makes (nested) values of an object nonnullishable (i.e. cannot be null or undefined)
  */
 export type DeepNonNullish<T> =
   T extends Builtin ? NonNullish<T>
@@ -150,7 +153,7 @@ export type DeepNonNullish<T> =
   : NonNullish<T>
 
 /**
- * recursively makes values of an object nonnullable
+ * makes (nested) values of an object nonnullable
  */
 export type DeepNonNull<T> =
   T extends Builtin ? NonNull<T>
@@ -168,7 +171,7 @@ export type DeepNonNull<T> =
   : NonNull<T>
 
 /**
- * recursively makes values of an object nonundefinable
+ * makes (nested) values of an object nonundefinable
  */
 export type DeepNonUndefined<T> =
   T extends Builtin ? NonUndefined<T>

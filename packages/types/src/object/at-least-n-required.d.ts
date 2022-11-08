@@ -1,11 +1,14 @@
 import { Increment, Iterate, Iteration, Value } from "../_meta/iterate"
+import { Omit } from "./omit"
+import { Optional } from "./optional"
+import { Pick } from "./pick"
 
 /**
  * @private
  */
 type _AtLeastNRequired<T, N extends number, A extends Iteration = Iterate<0>> =
   Value<A> extends N
-    ? Partial<T>
+    ? Optional<T>
     : { [K in keyof T]: Pick<T, K> & _AtLeastNRequired<Omit<T, K>, N, Increment<A>> }[keyof T]
 
 /**

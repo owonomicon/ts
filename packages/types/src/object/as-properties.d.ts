@@ -1,3 +1,4 @@
+import { Record } from "./record"
 import { SeparateProperties } from "./separate-properties"
 
 /**
