@@ -1,8 +1,8 @@
 import { If } from "../bool/if";
-import { IsStringLiteral } from "./is-string-literal";
+import { IsLiteral } from "./is-literal";
 
 /**
  * asserts a given string is a string literal
  */
-export type StringLiteral<T extends string> =
-  If<IsStringLiteral<T>, T>
+export type Literal<T extends string> =
+  If<IsLiteral<T>, T>

@@ -1,5 +1,5 @@
 import { IsNumberLiteral } from "../number/is-number-literal";
-import { IsStringLiteral } from "../string/is-string-literal";
+import { IsLiteral as IsStringLiteral } from "../string/is-literal";
 import { Or } from "../bool/or";
 
 /**
@@ -7,6 +7,8 @@ import { Or } from "../bool/or";
  */
 export type IsLiteral<T> =
   Or<
-    IsStringLiteral<T>,
+    T extends string
+      ? IsStringLiteral<T>
+      : 0,
     IsNumberLiteral<T>
   >
