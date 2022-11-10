@@ -1,10 +1,10 @@
 import { Select } from "./select";
 
 /**
- * converts a union type into an intersection type
+ * converts union `U` into an intersection of its members
  */
-export type UnionToIntersection<U> =
-  (U extends any
+export type AsIntersection<U> =
+  (U extends unknown
     ? (_: U) => 0
     : never
   ) extends (_: infer I) => 0
