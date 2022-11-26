@@ -37,6 +37,9 @@ export type DeepResolve<T, Memo = never> =
  * @example
  * 
  * type e4 = Resolve<string & {}> // string
+ * 
+ * @todo
+ * figure out how to resolve function intersections :c
  */
 export type Resolve<T, S extends Strategy = 'deep'> =
   S extends 'deep'
