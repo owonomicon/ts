@@ -9,9 +9,10 @@ import { List } from "./list";
  */
 type __Reverse<L extends List, Acc extends List = []> =
   L extends [...infer Spread, infer Last]
-    ? __Reverse<Spread, [...Acc, Last]>
+    ? L extends [...Spread, ...infer Last]
+      ? __Reverse<Spread, [...Acc, ...Last]>
+      : [...Acc, ...L] // unreachable
     : [...Acc, ...L] // since we assume `L` is a variadic tuple with leading spread, if we're at this branch then only the spread element is left
-
 /**
  * tail call optimized type to reverse a list.
  * properly handles variadic tuples with nonleading spreads.
@@ -19,17 +20,23 @@ type __Reverse<L extends List, Acc extends List = []> =
  */
 type _Reverse<L extends List, Acc extends List = []> =
   IsEmpty<L> extends 1 ? Acc
-  : L extends [infer H, ...infer T] ? _Reverse<T, [H, ...Acc]>
+  : L extends [infer H, ...infer T]
+    ? L extends [...infer H, ...T]
+      ? _Reverse<T, [...H, ...Acc]>
+      : never // unreachable
   : L extends [...any, any] ? [...__Reverse<L>, ...Acc]
   : L extends { 0?: any }
     ? L extends [_?: infer H, ...__: infer T]
-      ? _Reverse<T, [H, ...Acc]>
-      : Concat<L, Acc> // unreachable
+      ? L extends [...infer H, ...T]
+        ? _Reverse<T, [...Required<H>, ...Acc]>
+        : Concat<L, Acc> // unreachable
+      : never // unreachable
   : Concat<L, Acc>
 
 /**
  * reverses a list. works on infinite length lists including variadic tuples.
  * includes optional elements when reversing. said elements also can no longer be `undefined`.
+ * preserves labels.
  * 
  * @example
  * type e0 = Reverse<string[]> // string[]
@@ -42,6 +49,8 @@ type _Reverse<L extends List, Acc extends List = []> =
  * 
  * type e4 = Reverse<[string, number, boolean?]> // [boolean, number, string]
  * type e5 = Reverse<[string, number, (boolean | undefined)?, symbol?]> // [symbol, boolean, number, string]
+ * 
+ * type e6 = Reverse<[a: string, b: number, c?: boolean | undefined, d?: symbol]> // [d: symbol, c: boolean, b: number, a: string]
  */
 export type Reverse<T extends List> =
   _Reverse<T>
