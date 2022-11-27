@@ -2,6 +2,10 @@ import { Concat } from "./concat";
 import { IsEmpty } from "./is-empty";
 import { List } from "./list";
 
+type Options<PLN extends Boolean = Boolean> = {
+  preserve_labels_nonvariadic: PLN
+}
+
 /**
  * tail call optimized type to reverse a variadic tuple with leading spread (e.g. `[...A[], B]`).
  * variadic tuples can only have one spread element, so since we assume the list has a leading spread,
@@ -9,22 +13,38 @@ import { List } from "./list";
  */
 type __Reverse<L extends List, Acc extends List = []> =
   L extends [...infer Spread, infer Last]
-    ? L extends [...Spread, ...infer Last]
-      ? __Reverse<Spread, [...Acc, ...Last]>
-      : [...Acc, ...L] // unreachable
+    ? __Reverse<Spread, [...Acc, Last]>
     : [...Acc, ...L] // since we assume `L` is a variadic tuple with leading spread, if we're at this branch then only the spread element is left
+
 /**
- * tail call optimized type to reverse a list.
- * properly handles variadic tuples with nonleading spreads.
- * defers variadic tuples with leading spreads to `_ReverseLeft`, which is also tail call optimized.
- */
+* tail call optimized type to reverse a list.
+* properly handles variadic tuples with nonleading spreads.
+* defers variadic tuples with leading spreads to `_ReverseLeft`, which is also tail call optimized.
+*/
 type _Reverse<L extends List, Acc extends List = []> =
+  IsEmpty<L> extends 1 ? Acc
+  : L extends [infer H, ...infer T] ? _Reverse<T, [H, ...Acc]>
+  : L extends [...any, any] ? [...__Reverse<L>, ...Acc]
+  : L extends { 0?: any }
+    ? L extends [_?: infer H, ...__: infer T]
+      ? _Reverse<T, [H, ...Acc]>
+      : Concat<L, Acc> // unreachable
+  : Concat<L, Acc>
+
+type __ReverseNonvariadic<L extends List, Acc extends List = []> =
+  L extends [...infer Spread, any]          /// capture the Init
+    ? L extends [...Spread, ...infer Last]  //  and then use it to capture the Last with label
+      ? __ReverseNonvariadic<Spread, [...Acc, ...Last]>
+      : [...Acc, ...L] // unreachable
+    : [...Acc, ...L]
+
+type _ReverseNonvariadic<L extends List, Acc extends List = []> =
   IsEmpty<L> extends 1 ? Acc
   : L extends [infer H, ...infer T]
     ? L extends [...infer H, ...T]
-      ? _Reverse<T, [...H, ...Acc]>
+      ? _ReverseNonvariadic<T, [...H, ...Acc]>
       : never // unreachable
-  : L extends [...any, any] ? [...__Reverse<L>, ...Acc]
+  : L extends [...any, any] ? [...__ReverseNonvariadic<L>, ...Acc]
   : L extends { 0?: any }
     ? L extends [_?: infer H, ...__: infer T]
       ? L extends [...infer H, ...T]
@@ -36,7 +56,9 @@ type _Reverse<L extends List, Acc extends List = []> =
 /**
  * reverses a list. works on infinite length lists including variadic tuples.
  * includes optional elements when reversing. said elements also can no longer be `undefined`.
- * preserves labels.
+ * 
+ * by default does not preserve labels. the `preserve_labels_nonvariadic` option allows for preserving labels.
+ * however, this option should only be used with nonvariadic labeled tuples, as the algorithm for preserving labels is incompatible with variadic tuples.
  * 
  * @example
  * type e0 = Reverse<string[]> // string[]
@@ -50,7 +72,11 @@ type _Reverse<L extends List, Acc extends List = []> =
  * type e4 = Reverse<[string, number, boolean?]> // [boolean, number, string]
  * type e5 = Reverse<[string, number, (boolean | undefined)?, symbol?]> // [symbol, boolean, number, string]
  * 
- * type e6 = Reverse<[a: string, b: number, c?: boolean | undefined, d?: symbol]> // [d: symbol, c: boolean, b: number, a: string]
+ * type e6 = Reverse<[a: string, b: number, c?: boolean | undefined, d?: symbol]> // [symbol, boolean, number, string]
+ * type e7 = Reverse<[a: string, b: number, c?: boolean | undefined, d?: symbol], { preserve_labels_nonvariadic: true }> // [d: symbol, c: boolean, b: number, a: string]
+ * type w8 = Reverse<[a: 0, ...b: 1[]], { preserve_labels_nonvariadic: true }> // unknown[] // DO NOT MIX `preserve_labels_nonvariadic` WITH VARIADIC TUPLES
  */
-export type Reverse<T extends List> =
-  _Reverse<T>
+export type Reverse<T extends List, O extends Options = Options<false>> =
+  O extends Options<true>
+    ? _ReverseNonvariadic<T>
+    : _Reverse<T>
