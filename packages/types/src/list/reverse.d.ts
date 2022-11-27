@@ -76,7 +76,7 @@ type _ReverseNonvariadic<L extends List, Acc extends List = []> =
  * type e7 = Reverse<[a: string, b: number, c?: boolean | undefined, d?: symbol], { preserve_labels_nonvariadic: true }> // [d: symbol, c: boolean, b: number, a: string]
  * type w8 = Reverse<[a: 0, ...b: 1[]], { preserve_labels_nonvariadic: true }> // unknown[] // DO NOT MIX `preserve_labels_nonvariadic` WITH VARIADIC TUPLES
  */
-export type Reverse<L extends List, O extends Options = Options<false>> =
-  O extends Options<true>
+export type Reverse<L extends List, Opts extends Options = Options<false>> =
+  Opts extends Options<true>
     ? _ReverseNonvariadic<L>
     : _Reverse<L>
