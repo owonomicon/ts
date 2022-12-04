@@ -1,4 +1,3 @@
-import { Bool } from "../bool/bool";
 import { Required } from "../object/required";
 import { Length } from "./length";
 import { List } from "./list";

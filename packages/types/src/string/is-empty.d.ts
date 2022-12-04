@@ -1,4 +1,3 @@
-import { IsNever } from "../any/is-never"
 import { Equals } from "../_meta/equals"
 
 /**

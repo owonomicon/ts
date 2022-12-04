@@ -1,4 +1,3 @@
-import { If } from "../bool/if"
 import { Not } from "../bool/not"
 import { Or } from "../bool/or"
 import { Contains as ListContains } from "../list/contains"
