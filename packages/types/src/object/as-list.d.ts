@@ -33,7 +33,7 @@ type TryAppend<O, A extends List, N extends number> =
  * does not work with objects with a mapped number type.
  */
 type _AsList<O extends object, K , A extends List = [], N extends Iteration = Iterate<0>> =
-  /// use `{ 0: ..., 1: ... }[Bool]` to avoid type alias circular reference error
+  /// use `{ 0: ..., 1: ... }[boolean -> {0,1}]` to avoid type alias circular reference error
   {
     0: A
     1: _AsList<O, Exclude<K, Value<N>>, TryAppend<O, A, Value<N>>, Increment<N>>
@@ -45,7 +45,7 @@ type _AsList<O extends object, K , A extends List = [], N extends Iteration = It
       Extends<`${Value<N>}`, K>,
       Extends<Value<N>, K>
     >
-  >]
+  > extends true ? 1 : 0]
 
 /**
  * checks if type `T` maps across the `number` or `\`${number}\`` type

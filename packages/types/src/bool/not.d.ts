@@ -1,4 +1,4 @@
-import { Bool } from "./bool";
-
-export type Not<B extends Bool> = 
-  { 0: 1, 1: 0 }[B]
+export type Not<T extends boolean> = 
+  T extends true
+    ? false
+    : true

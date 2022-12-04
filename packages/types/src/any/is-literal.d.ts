@@ -9,6 +9,6 @@ export type IsLiteral<T> =
   Or<
     T extends string
       ? IsStringLiteral<T>
-      : 0,
+      : false,
     IsNumberLiteral<T>
   >

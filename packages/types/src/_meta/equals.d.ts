@@ -20,10 +20,10 @@ type Options<RI extends Boolean = Boolean> = {
  *  it is thus used as the check for this variadic tuple case.
  */
 type _Equals<A, B> =
-  (<T>() => T extends A ? 1 : 0) extends (<T>() => T extends B ? 1 : 0)
+  (<T>() => T extends A ? true : false) extends (<T>() => T extends B ? true : false)
     // instead of just returning "true" here, also do mutual assignability check to validate variadic tuple
     ? MutuallyAssignable<A, B>
-    : 0
+    : false
 
 /**
  * whether types `A` and `B` are identical.
@@ -40,35 +40,35 @@ type _Equals<A, B> =
  * @example
  * // many of these examples taken from the thread https://github.com/Microsoft/TypeScript/issues/27024
  * 
- * type e0   = Equals<number, string>                                                           // 0
- * type e1   = Equals<1, 1>                                                                     // 1
- * type e2   = Equals<any, 1>                                                                   // 0
- * type e3   = Equals<1 | 2, 1>                                                                 // 0
- * type e5   = Equals<any, never>                                                               / 0
- * type e6   = Equals<[any], [number]>                                                          // 0
+ * type e0   = Equals<number, string>                                                           // false
+ * type e1   = Equals<1, 1>                                                                     // true
+ * type e2   = Equals<any, 1>                                                                   // false
+ * type e3   = Equals<1 | 2, 1>                                                                 // false
+ * type e5   = Equals<any, never>                                                               // false
+ * type e6   = Equals<[any], [number]>                                                          // false
  * 
  * // object intersection
- * type e7   = Equals<{ x: 1 } & { y: 2 }, { x: 1, y: 2 }>                                      // 1
- * type e8   = Equals<{ x: 1 } & { y: 2 }, { x: 1, y: 2}, { resolve_intersections: false }>     // 0
+ * type e7   = Equals<{ x: 1 } & { y: 2 }, { x: 1, y: 2 }>                                      // true
+ * type e8   = Equals<{ x: 1 } & { y: 2 }, { x: 1, y: 2}, { resolve_intersections: false }>     // false
  * 
  * // primitive intersection
- * type e9   = Equals<number & {}, number>                                                      // 1
- * type e10  = Equals<number & {}, number, { resolve_intersections: false }>                    // 0
+ * type e9   = Equals<number & {}, number>                                                      // true
+ * type e10  = Equals<number & {}, number, { resolve_intersections: false }>                    // false
  * 
  * // variadic tuple
- * type e11  = Equals<[...string[], string], string[]>                                          // 0
- * type e11b = Equals<string[], [...string[], string]>                                          // 0
- * type e12 = Equals<[string, ...string[]], string[]>
- * type e12b = Equals<string[], [string, ...string[]]>
+ * type e11  = Equals<[...string[], string], string[]>                                          // false
+ * type e11b = Equals<string[], [...string[], string]>                                          // false
+ * type e12 = Equals<[string, ...string[]], string[]>                                           // false
+ * type e12b = Equals<string[], [string, ...string[]]>                                          // false
  * 
  * // function intersection
  * type t13a = (x: 0, y: null) => void
  * type t13b = (x: number, y: string) => void
  * type t13c = t13a & t13b
  * type t13d = t13b & t13a
- * type e13 = Equals<t13c, t13d>                                                                // 1
- * type e14 = Equals<t13c, t13c | t13d>                                                         // 0 // BUG: should produce 1
- * type e15 = Equals<                                                                           // 0
+ * type e13 = Equals<t13c, t13d>                                                                // true
+ * type e14 = Equals<t13c, t13c | t13d>                                                         // false // BUG: should produce `true`
+ * type e15 = Equals<                                                                           // false
  *   { (x: 0, y: null): void; (x: number, y: null): void },
  *   { (x: number, y: null): void; (x: 0, y: null): void }
  * >

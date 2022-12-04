@@ -1,7 +1,8 @@
-import { Bool } from "./bool";
-
-export type Xor<A extends Bool, B extends Bool> =
-  {
-    0: { 0: 0, 1: 1 }
-    1: { 0: 1, 1: 0 }
-  }[A][B]
+export type Xor<A extends boolean, B extends boolean> =
+  A extends true
+    ? B extends true
+      ? false
+      : true
+    : B extends true
+      ? true
+      : false

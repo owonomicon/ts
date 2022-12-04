@@ -35,11 +35,11 @@ type BlackBox<Id> = { readonly [__NOMINAL_TYPE__]: Id }
  * 
  * @example
  * type e0 = Nominal<string, 'e0'>
- * type t0 = string extends e0 ? 1 : 0 // 0
+ * type t0 = string extends e0 ? true : false // false
  * 
  * declare const s1: unique symbol
  * type e1 = Nominal<number, typeof s1>
- * type t1 = number extends e1 ? 1 : 0 // 0
+ * type t1 = number extends e1 ? true : false // false
  * 
  * type e2 = Nominal<string, string> // never // string ids must be string literals
  * type e3 = Nominal<string, number> // never // number ids must be number literals

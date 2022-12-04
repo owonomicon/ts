@@ -10,9 +10,9 @@ import { Extends } from "../_meta/extends";
  * @example
  * declare const a: unique symbol
  * declare const b: unique symbol
- * type e0 = IsUniqueSymbol<typeof a>             // 1
- * type e1 = IsUniqueSymbol<symbol>               // 0
- * type e2 = IsUniqueSymbol<typeof a | typeof b>  // 1
+ * type e0 = IsUniqueSymbol<typeof a>             // true
+ * type e1 = IsUniqueSymbol<symbol>               // false
+ * type e2 = IsUniqueSymbol<typeof a | typeof b>  // true
  */
 export type IsUniqueSymbol<T> =
   And<

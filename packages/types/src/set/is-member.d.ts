@@ -4,5 +4,5 @@
  */
 export type IsMember<S, E> =
   [E] extends [S]
-    ? 1
-    : 0
+    ? true
+    : false

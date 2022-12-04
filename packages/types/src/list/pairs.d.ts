@@ -23,7 +23,7 @@ type __Pairs<L extends List, Acc extends [unknown, unknown][] = []> =
  * - `S`, if not empty, is a plain array (i.e. consists of a single spread element and nothing else)
  */
 type _Pairs<I extends List, S extends List, T extends List> =
-  IsEmpty<S> extends 1 ? __Pairs<I>
+  IsEmpty<S> extends true ? __Pairs<I>
   : __Pairs<[...I, ...T]>
     | [
       ...__Pairs<[...Required<I>, ElementOf<S>]>,

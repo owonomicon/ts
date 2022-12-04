@@ -10,7 +10,7 @@ import { Readonly } from "./readonly";
 export type DeepReadonly<T> =
   T extends Builtin ? T
   : T extends Promise<infer U> ? Promise<DeepReadonly<U>>
-  : IsTuple<T> extends 1 ? { readonly [K in keyof T]: DeepReadonly<T[K]> }
+  : IsTuple<T> extends true ? { readonly [K in keyof T]: DeepReadonly<T[K]> }
   : T extends List<infer U> ? ReadonlyArray<DeepReadonly<U>>
   : T extends Map<infer K, infer V> ? Map<DeepReadonly<K>, DeepReadonly<V>>
   : T extends Set<infer U> ? Set<DeepReadonly<U>>
@@ -19,5 +19,5 @@ export type DeepReadonly<T> =
   : T extends WeakMap<infer K, infer V> ? WeakMap<DeepReadonly<K>, DeepReadonly<V>>
   : T extends WeakSet<infer U> ? WeakSet<DeepReadonly<U>>
   : T extends {} ? { readonly [K in keyof T]: DeepReadonly<T[K]> }
-  : IsUnknown<T> extends 1 ? unknown
+  : IsUnknown<T> extends true ? unknown
   : Readonly<T>

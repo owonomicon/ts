@@ -44,7 +44,7 @@ export type $IsComposable<Kinds extends List<HKT>> =
  * both of which ensure that the type passed in is composable and don't allow for optional elements
  */
 type _$Pipe<Kinds extends List<HKT>, X> =
-  IsEmpty<Kinds> extends 1 ? X
+  IsEmpty<Kinds> extends true ? X
   : Kinds extends [infer H, ...infer T]
     ? _$Pipe<
         Satisfies<T, List<HKT>>,

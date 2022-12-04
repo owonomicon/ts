@@ -3,15 +3,15 @@ import { Required } from "../object/required";
 import { Length } from "./length";
 import { List } from "./list";
 
-type Options = { makeRequired: Bool }
+type Options<MR extends boolean = false> = { make_required: MR }
 
 /**
  * extracts the head of list `T`.
  * if `T` is empty, resolves to `never`
  */
-export type Head<T extends List, O extends Options = { makeRequired: 0 }> =
+export type Head<T extends List, Opts extends Options = Options<false>> =
   Length<T> extends 0
     ? never
-    : O['makeRequired'] extends 0
+    : Opts extends Options<false>
       ? T[0]
       : Required<T>[0]

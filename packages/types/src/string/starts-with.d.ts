@@ -4,5 +4,5 @@
  */
 export type StartsWith<Prefix extends string, S extends string> =
   S extends `${Prefix}${string}`
-    ? 1
-    : 0
+    ? true
+    : false

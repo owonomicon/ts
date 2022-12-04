@@ -1,9 +1,9 @@
 type _IsUnion<T, U = T> =
   U extends any
     ? [T] extends [U]
-      ? 0
-      : 1
-    : 0
+      ? false
+      : true
+    : false
 
 /**
  * whether `T` is a union type

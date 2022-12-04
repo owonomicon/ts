@@ -33,7 +33,7 @@ type SelectFns<U extends F, X> =
  */
 type _Narrowed<L extends List<F>, Acc extends List<F> = []> =
   // 1: if L is empty, then return the accumulated result.
-  IsEmpty<L> extends 1 ? Acc
+  IsEmpty<L> extends true ? Acc
   // 2: if L contains a single element, then return the accumulated result with the remaining element appended.
   //    it's safe to do this because if L was originally a single element, then that's valid, and if it wasn't,
   //      then that element would've been validated with the earlier elements (see later)

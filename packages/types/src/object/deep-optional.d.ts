@@ -10,7 +10,7 @@ import { Optional } from "./optional";
 export type DeepOptional<T> =
   T extends Builtin ? T
   : T extends Promise<infer U> ? Promise<DeepOptional<U>>
-  : IsTuple<T> extends 1 ? { [K in keyof T]?: DeepOptional<T[K]> }
+  : IsTuple<T> extends true ? { [K in keyof T]?: DeepOptional<T[K]> }
   : T extends List<infer U> ? List<DeepOptional<U> | undefined>
   : T extends Map<infer K, infer V> ? Map<DeepOptional<K>, DeepOptional<V>>
   : T extends Set<infer U> ? Set<DeepOptional<U>>
@@ -19,5 +19,5 @@ export type DeepOptional<T> =
   : T extends WeakMap<infer K, infer V> ? WeakMap<DeepOptional<K>, DeepOptional<V>>
   : T extends WeakSet<infer U> ? WeakSet<DeepOptional<U>>
   : T extends {} ? { [K in keyof T]?: DeepOptional<T[K]> }
-  : IsUnknown<T> extends 1 ? unknown
+  : IsUnknown<T> extends true ? unknown
   : Optional<T>

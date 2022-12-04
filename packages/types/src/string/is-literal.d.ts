@@ -12,21 +12,21 @@ import { Satisfies } from "../_meta/satisfies"
  * 
  * @example
  * type e0 = IsLiteral<never>                        // never
- * type e1 = IsLiteral<''>                           // 1
- * type e2 = IsLiteral<'foo'>                        // 1
- * type e3 = IsLiteral<string>                       // 0
- * type e4 = IsLiteral<`${number}`>                  // 0
- * type e5 = IsLiteral<`${number}foo`>               // 0 
- * type e6 = IsLiteral<`foo${number}`>               // 0
- * type e7 = IsLiteral<`foo${number}bar`>            // 0
- * type e8 = IsLiteral<`${number | bigint}`>         // 0
- * type e9 = IsLiteral<`foo${number | bigint}`>      // 0  
- * type e10 = IsLiteral<`${number | bigint}bar`>     // 0
- * type e11 = IsLiteral<`foo${number | bigint}bar`>  // 0
+ * type e1 = IsLiteral<''>                           // true
+ * type e2 = IsLiteral<'foo'>                        // true
+ * type e3 = IsLiteral<string>                       // false
+ * type e4 = IsLiteral<`${number}`>                  // false
+ * type e5 = IsLiteral<`${number}foo`>               // false
+ * type e6 = IsLiteral<`foo${number}`>               // false
+ * type e7 = IsLiteral<`foo${number}bar`>            // false
+ * type e8 = IsLiteral<`${number | bigint}`>         // false
+ * type e9 = IsLiteral<`foo${number | bigint}`>      // false  
+ * type e10 = IsLiteral<`${number | bigint}bar`>     // false
+ * type e11 = IsLiteral<`foo${number | bigint}bar`>  // false
  * 
  * // below is a string of 512 "0" characters
  * type t12 = `00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000`
- * type e12 = IsLiteral<t12>                         // 1
+ * type e12 = IsLiteral<t12>                         // true
  * 
  * @todo revisit this, seems kinda scuffed / possibly not very performant
  */
@@ -39,8 +39,8 @@ export type IsLiteral<S extends string> =
             ListContains<Satisfies<L, List>, `${number}`, 'equals'>,
             ListContains<Satisfies<L, List>, `${bigint}`, 'equals'>
           >
-        > extends 1
-          ? 0
+        > extends true
+          ? false
           : IsLiteral<T>
-      : 0 // unreachable
+      : false // unreachable
     : Not<Equals<S, string>> // only the plain `string` type or empty string "" should be able to reach here

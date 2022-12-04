@@ -9,7 +9,7 @@ export type If<
   Condition,
   Then = Condition,
   Else = never,
-  True = 1
+  True = true
 > =
   Condition extends True
     ? Then

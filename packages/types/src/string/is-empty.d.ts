@@ -6,11 +6,11 @@ import { Equals } from "../_meta/equals"
  * does not consider union types including the empty string to "be" the empty string.
  * 
  * @example
- * type e0 = IsEmpty<never>       // 0
- * type e0 = IsEmpty<''>          // 1
- * type e1 = IsEmpty<' '>         // 0
- * type e2 = IsEmpty<'foo'>       // 0
- * type e3 = IsEmpty<'' | 'foo'>  // 0
+ * type e0 = IsEmpty<never>       // false
+ * type e0 = IsEmpty<''>          // true
+ * type e1 = IsEmpty<' '>         // false
+ * type e2 = IsEmpty<'foo'>       // false
+ * type e3 = IsEmpty<'' | 'foo'>  // false
  */
 export type IsEmpty<S extends string> =
   Equals<S, ''>

@@ -22,7 +22,7 @@ type __Reverse<L extends List, Acc extends List = []> =
 * defers variadic tuples with leading spreads to `_ReverseLeft`, which is also tail call optimized.
 */
 type _Reverse<L extends List, Acc extends List = []> =
-  IsEmpty<L> extends 1 ? Acc
+  IsEmpty<L> extends true ? Acc
   : L extends [infer H, ...infer T] ? _Reverse<T, [H, ...Acc]>
   : L extends [...any, any] ? [...__Reverse<L>, ...Acc]
   : L extends { 0?: any }
@@ -39,7 +39,7 @@ type __ReverseNonvariadic<L extends List, Acc extends List = []> =
     : [...Acc, ...L]
 
 type _ReverseNonvariadic<L extends List, Acc extends List = []> =
-  IsEmpty<L> extends 1 ? Acc
+  IsEmpty<L> extends true ? Acc
   : L extends [infer H, ...infer T]
     ? L extends [...infer H, ...T]
       ? _ReverseNonvariadic<T, [...H, ...Acc]>

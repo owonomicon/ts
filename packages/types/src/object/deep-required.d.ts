@@ -10,7 +10,7 @@ import { Required } from "./required";
 export type DeepRequired<T> =
   T extends Builtin ? T
   : T extends Promise<infer U> ? Promise<DeepRequired<U>>
-  : IsTuple<T> extends 1 ? { [K in keyof T]-?: DeepRequired<T[K]> }
+  : IsTuple<T> extends true ? { [K in keyof T]-?: DeepRequired<T[K]> }
   : T extends List<infer U> ? List<DeepRequired<U>>
   : T extends Map<infer K, infer V> ? Map<DeepRequired<K>, DeepRequired<V>>
   : T extends Set<infer U> ? Set<DeepRequired<U>>
@@ -19,5 +19,5 @@ export type DeepRequired<T> =
   : T extends WeakMap<infer K, infer V> ? WeakMap<DeepRequired<K>, DeepRequired<V>>
   : T extends WeakSet<infer U> ? WeakSet<DeepRequired<U>>
   : T extends {} ? { [K in keyof T]-?: DeepRequired<T[K]> }
-  : IsUnknown<T> extends 1 ? unknown
+  : IsUnknown<T> extends true ? unknown
   : Required<T>

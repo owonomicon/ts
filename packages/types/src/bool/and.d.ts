@@ -1,7 +1,6 @@
-import { Bool } from "./bool";
-
-export type And<A extends Bool, B extends Bool> =
-  {
-    0: { 0: 0, 1: 0 }
-    1: { 0: 0, 1: 1 }
-  }[A][B]
+export type And<A extends boolean, B extends boolean> =
+  A extends true
+    ? B extends true
+      ? true
+      : false
+    : false

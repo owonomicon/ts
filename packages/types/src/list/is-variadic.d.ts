@@ -6,5 +6,5 @@ import { List } from "./list";
  */
 export type IsVariadic<T extends List> =
   number extends Length<T>
-    ? 1
-    : 0
+    ? true
+    : false

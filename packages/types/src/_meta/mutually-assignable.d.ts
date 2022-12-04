@@ -7,5 +7,5 @@
  */
 export type MutuallyAssignable<A, B> =
   [A, B] extends [B, A]
-    ? 1
-    : 0
+    ? true
+    : false

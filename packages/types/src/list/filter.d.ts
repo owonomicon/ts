@@ -10,11 +10,11 @@ import { List } from "./list";
 type __Filter<L extends List, Q, R extends Relation, Acc extends unknown[] = []> =
   // still have trailing non-spread elements
   L extends [...infer Spread, infer Last]
-    ? Relates<Last, Q, R> extends 1
+    ? Relates<Last, Q, R> extends true
       ? __Filter<Spread, Q, R, [Last, ...Acc]>
       : __Filter<Spread, Q, R, Acc>
   // only spread element is left
-  : Relates<ElementOf<L>, Q, R> extends 1
+  : Relates<ElementOf<L>, Q, R> extends true
     ? [...L, ...Acc]
     : Acc
     
@@ -23,22 +23,22 @@ type __Filter<L extends List, Q, R extends Relation, Acc extends unknown[] = []>
  * properly handles variadic tuples and optional elements.
  */
 type _Filter<L extends List, Q, R extends Relation, Acc extends unknown[] = []> =
-  IsEmpty<L> extends 1 ? Acc
+  IsEmpty<L> extends true ? Acc
   : L extends [infer H, ...infer T]
-    ? Relates<H, Q, R> extends 1
+    ? Relates<H, Q, R> extends true
       ? _Filter<T, Q, R, [...Acc, H]>
       : _Filter<T, Q, R, Acc>
   : L extends [...any, any]
     ? [...Acc, ...__Filter<L, Q, R>]
   : L extends { 0?: any }
       ? L extends [_?: infer H, ...__: infer T]
-        ? Relates<H, Q, R> extends 1
+        ? Relates<H, Q, R> extends true
           ? _Filter<T, Q, R, [...Acc, H?]>
           : _Filter<T, Q, R, Acc>
-      : Relates<ElementOf<L>, Q, R> extends 1
+      : Relates<ElementOf<L>, Q, R> extends true
         ? [...Acc, ...L]
         : Acc
-  : Relates<ElementOf<L>, Q, R> extends 1
+  : Relates<ElementOf<L>, Q, R> extends true
     ? [...Acc, ...L]
     : Acc
 
