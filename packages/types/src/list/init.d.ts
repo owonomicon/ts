@@ -10,7 +10,7 @@ type _Init<L extends List, Acc extends unknown[] = []> =
   : L extends [...infer I, any] ? Concat<Acc, I>
   : L extends { 0?: any } ?
     L extends [_?: infer H, ...__: infer T]
-      ? _Init<T, Append<Acc, H, true>>
+      ? _Init<T, Append<Acc, H, { optional: true }>>
       : Concat<Acc, L>
   : Concat<Acc, L>
 
