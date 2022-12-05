@@ -4,18 +4,21 @@ import { $ } from "../$";
 import { Satisfies } from "../../_meta/satisfies";
 
 /**
- * checks whether all elements of list `L` satisfy predicate `F`.
+ * checks whether all elements of list `L` satisfy predicate `P`.
  * 
- * an empty list is vacuously satisfied.
+ * an empty list is vacuously satisfied (i.e. returns true)
+ * 
+ * @param P   - HKT predicate to operate on each individual element of `L`
+ * @param L   - the list to search
  */
-export type $All<Kind extends HKT<any, boolean>, L extends List> =
+export type $All<P extends HKT<any, boolean>, L extends List> =
   L extends [infer H, ...infer T]
-    ? $<Kind, H> extends true
-      ? $All<Kind, T>
+    ? $<P, H> extends true
+      ? $All<P, T>
       : false
     : true
 
-export interface All<Kind extends HKT<any, boolean>> extends HKT {
-  [HKT.i]: Satisfies<this[HKT._], HKT.I<Kind>[]>
-  [HKT.o]: $All<Kind, HKT.I<this>>
+export interface All<P extends HKT<any, boolean>> extends HKT {
+  [HKT.i]: Satisfies<this[HKT._], List<HKT.I<P>>>
+  [HKT.o]: $All<P, HKT.I<this>>
 }
