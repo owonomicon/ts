@@ -1,12 +1,13 @@
-import { HKT } from "./hkt"
+import { HKT, _, I } from "./hkt"
 
 export namespace Identity {
-  type Of<T> = Identity & { readonly [HKT._]: T }
+  interface Of<T> extends HKT {
+    [HKT.i]: T
+    [HKT.o]: I<this>
+  }
 }
 
-export type Of<T> = Identity.Of<T>
-
 export interface Identity extends HKT {
-  [HKT.i]: this[HKT._]
-  [HKT.o]: HKT.I<this>
+  [HKT.i]: _<this>
+  [HKT.o]: I<this>
 }

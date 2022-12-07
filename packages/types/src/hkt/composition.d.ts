@@ -6,7 +6,7 @@ import { Pairs } from "../list/pairs"
 import { Reverse } from "../list/reverse"
 import { Extends } from "../_meta/extends"
 import { Satisfies } from "../_meta/satisfies"
-import { HKT, O, I } from "./hkt"
+import { HKT, _, I, O } from "./hkt"
 import { $All } from "./list/all"
 import { $ } from "./$"
 
@@ -14,7 +14,7 @@ import { $ } from "./$"
  * checks whether the first element in a pair of hkts can be piped into the second
  */
 interface IsPairPipeable extends HKT {
-  [HKT.i]: Satisfies<this[HKT._], [HKT, HKT]>
+  [HKT.i]: Satisfies<_<this>, [HKT, HKT]>
   [HKT.o]: Extends<O<I<this>[0]>, I<I<this>[1]>>
 }
 
@@ -80,7 +80,7 @@ export interface Pipe<
       List<HKT>
     >
 > extends HKT {
-  [HKT.i]: this[HKT._]
+  [HKT.i]: _<this>
   [HKT.o]: $Pipe<Kinds, I<this>>
 }
 
@@ -103,6 +103,6 @@ export interface Compose<
       List<HKT>
     >
 > extends HKT {
-  [HKT.i]: this[HKT._]
+  [HKT.i]: _<this>
   [HKT.o]: $Compose<Kinds, I<this>>
 }

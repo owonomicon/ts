@@ -10,8 +10,8 @@
  * below is an example of a custom HKT type, with comments noting important details to keep in mind when making a custom HKT type.
  * ```ts
  * interface MyHKT<T> extends HKT {  // like any other type, an HKT can use generics
- *   [HKT.i]: Satisfies<this[HKT._], MyDesiredInputType> // rather than directly setting the input type, we need to use the `Satisfies` type on the deferred type `this[HKT._]` to preserve the deferred type
- *   [HKT.o]: MyDesiredOutputType<this[HKT.i], T> // use `this[HKT.i]` (or use the helper type `I` to do `I<this>` instead) to refer to the input type
+ *   [HKT.i]: Satisfies<_<this>, MyDesiredInputType> // rather than directly setting the input type, we need to use the `Satisfies` type on the deferred type `this[HKT._]` to preserve the deferred type
+ *   [HKT.o]: MyDesiredOutputType<I<this>, T> // use `this[HKT.i]` (or use the helper type `I`) to refer to the input type
  * }
  * ```
  * 
@@ -32,17 +32,16 @@ export namespace HKT {
 
   const o: unique symbol
   type o = typeof o
-
-  type I<Kind extends HKT> = Kind[HKT.i]
-  type O<Kind extends HKT> = Kind[HKT.o]
 }
+
+export type _<Kind extends HKT> = Kind[HKT._]
 
 /**
  * extracts the expected input of HKT `Kind`
  */
-export type I<Kind extends HKT> = HKT.I<Kind>
+export type I<Kind extends HKT> = Kind[HKT.i]
 
 /**
  * extracts the output of HKT `Kind`
  */
-export type O<Kind extends HKT> = HKT.O<Kind>
+export type O<Kind extends HKT> = Kind[HKT.o]

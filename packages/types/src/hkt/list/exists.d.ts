@@ -1,5 +1,5 @@
 import { List } from "../../list/list";
-import { HKT } from "../hkt";
+import { HKT, _, I } from "../hkt";
 import { $ } from "../$";
 import { Satisfies } from "../../_meta/satisfies";
 
@@ -19,6 +19,6 @@ export type $Exists<P extends HKT<any, boolean>, L extends List> =
     : false
 
 export interface Exists<P extends HKT<any, boolean>> extends HKT {
-  [HKT.i]: Satisfies<this[HKT._], List<HKT.I<P>>>
-  [HKT.o]: $Exists<P, HKT.I<this>>
+  [HKT.i]: Satisfies<_<this>, List<I<P>>>
+  [HKT.o]: $Exists<P, I<this>>
 }

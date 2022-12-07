@@ -1,6 +1,6 @@
-import { HKT } from "./hkt"
+import { HKT, _ } from "./hkt"
 
 export interface Constant<T> extends HKT {
-  [HKT.i]: this[HKT._]
+  [HKT.i]: _<this>
   [HKT.o]: T
 }
