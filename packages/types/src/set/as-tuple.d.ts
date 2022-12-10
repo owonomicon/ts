@@ -1,3 +1,4 @@
+import { IsNever } from "../any/is-never"
 import { Append } from "../list/append"
 import { Unreachable } from "../_meta/unreachable"
 import { AsIntersection } from "./as-intersection"
@@ -12,7 +13,7 @@ type _PickMember<U> =
     : Unreachable
 
 type _AsTuple<U, Acc extends any[] = [], M = _PickMember<U>> =
-  [U] extends [never] // IsNever
+  IsNever<U> extends true
     ? Acc
     : _AsTuple<Exclude<U, M>, Append<Acc, M>>
 
