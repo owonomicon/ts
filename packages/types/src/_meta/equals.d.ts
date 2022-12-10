@@ -1,7 +1,7 @@
 import { MutuallyAssignable } from "./mutually-assignable"
 import { ShallowResolve } from "./resolve"
 
-type Options<RI extends Boolean = Boolean> = {
+type Options<RI extends boolean = boolean> = {
   resolve_intersections: RI
 }
 

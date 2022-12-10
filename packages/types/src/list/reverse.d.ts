@@ -2,7 +2,7 @@ import { Concat } from "./concat";
 import { IsEmpty } from "./is-empty";
 import { List } from "./list";
 
-type Options<PLN extends Boolean = Boolean> = {
+type Options<PLN extends boolean = boolean> = {
   preserve_labels_nonvariadic: PLN
 }
 
