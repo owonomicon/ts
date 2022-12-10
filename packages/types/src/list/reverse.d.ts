@@ -48,7 +48,7 @@ type _ReverseNonvariadic<L extends List, Acc extends List = []> =
   : L extends { 0?: any }
     ? L extends readonly [_?: infer H, ...__: infer T]
       ? L extends readonly [...infer H, ...T]
-        ? _Reverse<T, [...Required<H>, ...Acc]>
+        ? _ReverseNonvariadic<T, [...Required<H>, ...Acc]>
         : Concat<L, Acc> // unreachable
       : never // unreachable
   : Concat<L, Acc>
