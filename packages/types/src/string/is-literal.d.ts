@@ -2,7 +2,7 @@ import { Not } from "../bool/not"
 import { Or } from "../bool/or"
 import { Contains as ListContains } from "../list/contains"
 import { List } from "../list/list"
-import { AsTuple } from "../set/as-tuple"
+import { AsTuple } from "../set-theory/as-tuple"
 import { Equals } from "../_meta/equals"
 import { Satisfies } from "../_meta/satisfies"
 

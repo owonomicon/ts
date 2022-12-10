@@ -11,7 +11,7 @@
 import { If } from "../bool/if"
 import { IsLiteral } from "../any/is-literal"
 import { Key } from "../object/key"
-import { IsUnion } from "../set/is-union"
+import { IsUnion } from "../set-theory/is-union"
 import { IsUniqueSymbol } from "../any/is-unique-symbol"
 
 

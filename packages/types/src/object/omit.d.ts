@@ -1,4 +1,4 @@
-import { Exclude } from "../set/exclude";
+import { Exclude } from "../set-theory/exclude";
 import { Pick } from "./pick";
 
 /**

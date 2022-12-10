@@ -1,4 +1,4 @@
-import type { SetIntersection } from "../set/intersection"
+import type { SetIntersection } from "../set-theory/intersection"
 
 /**
  * gets the intersection of the keys of `A` and `B`
