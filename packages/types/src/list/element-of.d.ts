@@ -1,3 +1,4 @@
+import { Unreachable } from "../_meta/unreachable";
 import { List } from "./list";
 
 /**
@@ -6,4 +7,4 @@ import { List } from "./list";
 export type ElementOf<T extends List> =
   T extends List<infer U>
     ? U
-    : never // should be unreachable
+    : Unreachable

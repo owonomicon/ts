@@ -1,3 +1,4 @@
+import { Unreachable } from "../_meta/unreachable";
 import { Function } from "./function";
 
 /**
@@ -6,4 +7,4 @@ import { Function } from "./function";
 export type Return<F extends Function> =
   F extends (...args: any) => infer R // use any vs `List` or `any[]` to successfully match against variadic tuple parameters
     ? R
-    : never
+    : Unreachable

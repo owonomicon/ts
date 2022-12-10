@@ -1,14 +1,15 @@
 import { Append } from "../list/append"
+import { Unreachable } from "../_meta/unreachable"
 import { AsIntersection } from "./as-intersection"
 
 type _PickMember<U> =
   AsIntersection<
     U extends unknown
       ? (_: U) => 0
-      : never
+      : Unreachable
   > extends (_: infer M) => 0
     ? M
-    : never
+    : Unreachable
 
 type _AsTuple<U, Acc extends any[] = [], M = _PickMember<U>> =
   [U] extends [never] // IsNever

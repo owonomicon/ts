@@ -1,3 +1,4 @@
+import { Unreachable } from "../_meta/unreachable";
 import { Concat } from "./concat";
 import { IsEmpty } from "./is-empty";
 import { List } from "./list";
@@ -28,14 +29,14 @@ type _Reverse<L extends List, Acc extends List = []> =
   : L extends { 0?: any }
     ? L extends readonly [_?: infer H, ...__: infer T]
       ? _Reverse<T, [H, ...Acc]>
-      : Concat<L, Acc> // unreachable
+      : Unreachable
   : Concat<L, Acc>
 
 type __ReverseNonvariadic<L extends List, Acc extends List = []> =
   L extends readonly [...infer Spread, any]          /// capture the Init
     ? L extends readonly [...Spread, ...infer Last]  //  and then use it to capture the Last with label
       ? __ReverseNonvariadic<Spread, [...Acc, ...Last]>
-      : [...Acc, ...L] // unreachable
+      : Unreachable
     : [...Acc, ...L]
 
 type _ReverseNonvariadic<L extends List, Acc extends List = []> =
@@ -43,14 +44,14 @@ type _ReverseNonvariadic<L extends List, Acc extends List = []> =
   : L extends readonly [infer H, ...infer T]
     ? L extends readonly [...infer H, ...T]
       ? _ReverseNonvariadic<T, [...H, ...Acc]>
-      : never // unreachable
+      : Unreachable
   : L extends readonly [...any, any] ? [...__ReverseNonvariadic<L>, ...Acc]
   : L extends { 0?: any }
     ? L extends readonly [_?: infer H, ...__: infer T]
       ? L extends readonly [...infer H, ...T]
         ? _ReverseNonvariadic<T, [...Required<H>, ...Acc]>
-        : Concat<L, Acc> // unreachable
-      : never // unreachable
+        : Unreachable
+      : Unreachable
   : Concat<L, Acc>
 
 /**

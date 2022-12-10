@@ -1,3 +1,4 @@
+import { Unreachable } from "../_meta/unreachable";
 import { Select } from "./select";
 
 /**
@@ -6,7 +7,7 @@ import { Select } from "./select";
 export type AsIntersection<U> =
   (U extends unknown
     ? (_: U) => 0
-    : never
+    : Unreachable
   ) extends (_: infer I) => 0
     ? Select<I, U> // I
-    : never
+    : Unreachable

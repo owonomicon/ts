@@ -1,4 +1,5 @@
 import { Satisfies } from "../_meta/satisfies";
+import { Unreachable } from "../_meta/unreachable";
 import { ElementOf } from "./element-of";
 import { IsEmpty } from "./is-empty";
 import { List } from "./list";
@@ -54,4 +55,4 @@ type _Pairs<I extends List, S extends List, T extends List> =
 type Pairs<L extends List> =
   Parts<L> extends readonly [infer I, infer S, infer T]
     ? _Pairs<Satisfies<I, List>, Satisfies<S, List>, Satisfies<T, List>>
-    : never
+    : Unreachable // `Parts` should always return a 3-length tuple
