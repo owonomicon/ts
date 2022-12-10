@@ -28,7 +28,7 @@ type _$Filter<P extends HKT<any, boolean>, L extends List, Acc extends List = []
   : L extends { 0?: any }
     ? L extends readonly [_?: infer H, ...__: infer T]
       ? $<P, H> extends true
-        ? _$Filter<P, T, Append<Acc, H>>
+        ? _$Filter<P, T, Append<Acc, H, { optional: true }>>
         : _$Filter<P, T, Acc>
       : Unreachable
   : Acc
