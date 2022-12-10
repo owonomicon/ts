@@ -6,9 +6,9 @@ import { List } from "./list"
 type _OmitFirstN<T extends List, N extends number, A extends Iteration = Iterate<0>> =
   Value<A> extends N ? T
   : Length<T> extends 0 ? T
-  : T extends [any, ...infer Tail] | readonly [any, ...infer Tail] ? _OmitFirstN<Tail, N, Increment<A>> // capture nonempty lists that aren't <variadic tuples with leading spread element>
-  : T extends [...any, any] | readonly [...any, any] ? T // capture variadic tuples with leading spread element
-  : T extends [any?, ...infer Tail] | readonly [any?, ...infer Tail] ? _OmitFirstN<Tail, N, Increment<A>> // capture nonempty lists that aren't <variadic tuples with leading spread element> and have optional argument. this comes after leading spread variadic tuple because this "matches" leading spread variadic tuples but converts them to `unknown[]`
+  : T extends readonly [any, ...infer Tail] ? _OmitFirstN<Tail, N, Increment<A>> // capture nonempty lists that aren't <variadic tuples with leading spread element>
+  : T extends readonly [...any, any] ? T // capture variadic tuples with leading spread element
+  : T extends readonly [any?, ...infer Tail] ? _OmitFirstN<Tail, N, Increment<A>> // capture nonempty lists that aren't <variadic tuples with leading spread element> and have optional argument. this comes after leading spread variadic tuple because this "matches" leading spread variadic tuples but converts them to `unknown[]`
   : never
 
 /**

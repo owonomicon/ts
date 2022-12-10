@@ -12,7 +12,7 @@ type Options<PLN extends boolean = boolean> = {
  *  we can safely go backwards from the end until only the spread is left and handle the spread as its own chunk.
  */
 type __Reverse<L extends List, Acc extends List = []> =
-  L extends [...infer Spread, infer Last]
+  L extends readonly [...infer Spread, infer Last]
     ? __Reverse<Spread, [...Acc, Last]>
     : [...Acc, ...L] // since we assume `L` is a variadic tuple with leading spread, if we're at this branch then only the spread element is left
 
@@ -23,31 +23,31 @@ type __Reverse<L extends List, Acc extends List = []> =
 */
 type _Reverse<L extends List, Acc extends List = []> =
   IsEmpty<L> extends true ? Acc
-  : L extends [infer H, ...infer T] ? _Reverse<T, [H, ...Acc]>
-  : L extends [...any, any] ? [...__Reverse<L>, ...Acc]
+  : L extends readonly [infer H, ...infer T] ? _Reverse<T, [H, ...Acc]>
+  : L extends readonly [...any, any] ? [...__Reverse<L>, ...Acc]
   : L extends { 0?: any }
-    ? L extends [_?: infer H, ...__: infer T]
+    ? L extends readonly [_?: infer H, ...__: infer T]
       ? _Reverse<T, [H, ...Acc]>
       : Concat<L, Acc> // unreachable
   : Concat<L, Acc>
 
 type __ReverseNonvariadic<L extends List, Acc extends List = []> =
-  L extends [...infer Spread, any]          /// capture the Init
-    ? L extends [...Spread, ...infer Last]  //  and then use it to capture the Last with label
+  L extends readonly [...infer Spread, any]          /// capture the Init
+    ? L extends readonly [...Spread, ...infer Last]  //  and then use it to capture the Last with label
       ? __ReverseNonvariadic<Spread, [...Acc, ...Last]>
       : [...Acc, ...L] // unreachable
     : [...Acc, ...L]
 
 type _ReverseNonvariadic<L extends List, Acc extends List = []> =
   IsEmpty<L> extends true ? Acc
-  : L extends [infer H, ...infer T]
-    ? L extends [...infer H, ...T]
+  : L extends readonly [infer H, ...infer T]
+    ? L extends readonly [...infer H, ...T]
       ? _ReverseNonvariadic<T, [...H, ...Acc]>
       : never // unreachable
-  : L extends [...any, any] ? [...__ReverseNonvariadic<L>, ...Acc]
+  : L extends readonly [...any, any] ? [...__ReverseNonvariadic<L>, ...Acc]
   : L extends { 0?: any }
-    ? L extends [_?: infer H, ...__: infer T]
-      ? L extends [...infer H, ...T]
+    ? L extends readonly [_?: infer H, ...__: infer T]
+      ? L extends readonly [...infer H, ...T]
         ? _Reverse<T, [...Required<H>, ...Acc]>
         : Concat<L, Acc> // unreachable
       : never // unreachable

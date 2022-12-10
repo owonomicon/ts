@@ -1,15 +1,15 @@
 import { List } from "./list"
 
 type __Parts<L extends List, Acc extends List = []> =
-  L extends [...infer Init, infer Last]
+  L extends readonly [...infer Init, infer Last]
     ? __Parts<Init, [Last, ...Acc]>
     : [L, Acc]
 
 type _Parts<L extends List, Acc extends List = []> =
-  L extends [infer H, ...infer T] ? _Parts<T, [...Acc, H]>
-  : L extends [...any, any] ? [Acc, ...__Parts<L>] 
+  L extends readonly [infer H, ...infer T] ? _Parts<T, [...Acc, H]>
+  : L extends readonly [...any, any] ? [Acc, ...__Parts<L>] 
   : L extends { 0?: any } ?
-    L extends [_?: infer H, ...__: infer T]
+    L extends readonly [_?: infer H, ...__: infer T]
       ? _Parts<T, [...Acc, H?]>
       : [Acc, L, []]
   : [Acc, L, []]

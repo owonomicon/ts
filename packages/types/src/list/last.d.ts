@@ -19,11 +19,11 @@ import { List } from "./list";
  */
 export type Last<L extends List> =
   Length<L> extends 0 ? never
-  : L extends [_?: infer X] ? X
-  : L extends [any, ...infer T] ? Last<T>
-  : L extends [...any, infer X] ? X
+  : L extends readonly [_?: infer X] ? X
+  : L extends readonly [any, ...infer T] ? Last<T>
+  : L extends readonly [...any, infer X] ? X
   : L extends { 0?: any} ?
-    L extends [any?, ...infer T]
+    L extends readonly [any?, ...infer T]
       ? Last<T>
       : L[number]
   : L[number]

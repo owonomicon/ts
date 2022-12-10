@@ -9,7 +9,7 @@ import { List } from "./list";
  */
 type __Contains<L extends List, Q, R extends Relation> =
   // still have trailing non-spread elements
-  L extends [...infer Spread, infer Last]
+  L extends readonly [...infer Spread, infer Last]
     ? Relates<Last, Q, R> extends true
       ? true
       : __Contains<Spread, Q, R>
@@ -22,13 +22,13 @@ type __Contains<L extends List, Q, R extends Relation> =
  */
 type _Contains<L extends List, Q, R extends Relation> =
   IsEmpty<L> extends true ? false
-  : L extends [infer H, ...infer T]
+  : L extends readonly [infer H, ...infer T]
     ? Relates<H, Q, R> extends true
       ? true
       : _Contains<T, Q, R>
-  : L extends [...any, any] ? __Contains<L, Q, R>
+  : L extends readonly [...any, any] ? __Contains<L, Q, R>
   : L extends { 0?: any }
-      ? L extends [_?: infer H, ...__: infer T]
+      ? L extends readonly [_?: infer H, ...__: infer T]
         ? Relates<H, Q, R> extends true
           ? true
           : _Contains<T, Q, R>

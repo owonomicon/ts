@@ -8,8 +8,8 @@ import { Parts } from "./_parts";
  * constructs the pairs of finite, nonvariadic tuple `L`.
  * tail call optimized.
  */
-type __Pairs<L extends List, Acc extends [unknown, unknown][] = []> =
-  L extends [infer H, infer HH, ...infer T]
+type __Pairs<L extends List, Acc extends readonly [unknown, unknown][] = []> =
+  L extends readonly [infer H, infer HH, ...infer T]
     ? __Pairs<[HH, ...T], [...Acc, [H, HH]]>
     : Acc
 
@@ -52,6 +52,6 @@ type _Pairs<I extends List, S extends List, T extends List> =
  * type e9 = Pairs<t9>    // not gonna write it out, but it works fine with no error
  */
 type Pairs<L extends List> =
-  Parts<L> extends [infer I, infer S, infer T]
+  Parts<L> extends readonly [infer I, infer S, infer T]
     ? _Pairs<Satisfies<I, List>, Satisfies<S, List>, Satisfies<T, List>>
     : never

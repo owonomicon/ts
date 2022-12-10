@@ -45,7 +45,7 @@ export type $IsComposable<Kinds extends List<HKT>> =
  */
 type _$Pipe<Kinds extends List<HKT>, X> =
   IsEmpty<Kinds> extends true ? X
-  : Kinds extends [infer H, ...infer T]
+  : Kinds extends readonly [infer H, ...infer T]
     ? _$Pipe<
         Satisfies<T, List<HKT>>,
         $<
@@ -53,7 +53,7 @@ type _$Pipe<Kinds extends List<HKT>, X> =
           Satisfies<X, I<Satisfies<H, HKT>>>
         >
       >
-  : Kinds extends [...infer Init, infer L]
+  : Kinds extends readonly [...infer Init, infer L]
     ? _$Pipe<
         Satisfies<L, List<HKT>>,
         $<

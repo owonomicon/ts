@@ -12,7 +12,7 @@ import { Satisfies } from "../../_meta/satisfies";
  * @param L   - the list to search
  */
 export type $Exists<P extends HKT<any, boolean>, L extends List> =
-  L extends [infer H, ...infer T]
+  L extends readonly [infer H, ...infer T]
     ? $<P, H> extends true
       ? true
       : $Exists<P, T>

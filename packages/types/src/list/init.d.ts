@@ -5,11 +5,11 @@ import { List } from "./list";
 
 type _Init<L extends List, Acc extends unknown[] = []> =
   Length<L> extends 0 ? Acc
-  : L extends [any?] ? Acc
-  : L extends [infer H, ...infer T] ? _Init<T, Append<Acc, H>>
-  : L extends [...infer I, any] ? Concat<Acc, I>
+  : L extends readonly [any?] ? Acc
+  : L extends readonly [infer H, ...infer T] ? _Init<T, Append<Acc, H>>
+  : L extends readonly [...infer I, any] ? Concat<Acc, I>
   : L extends { 0?: any } ?
-    L extends [_?: infer H, ...__: infer T]
+    L extends readonly [_?: infer H, ...__: infer T]
       ? _Init<T, Append<Acc, H, { optional: true }>>
       : Concat<Acc, L>
   : Concat<Acc, L>
