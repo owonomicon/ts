@@ -2,6 +2,18 @@ import { List } from "../../list/list";
 import { HKT, _, I } from "../hkt";
 import { $ } from "../$";
 import { Satisfies } from "../../_meta/satisfies";
+import { Unreachable } from "../../_meta/unreachable";
+import { ElementOf } from "../../list/element-of";
+import { IsEmpty } from "../../list/is-empty";
+
+type _$Exists<P extends HKT<any, boolean>, L extends List> =
+  L extends readonly [...infer Init, infer Last]
+    ? $<P, Last> extends true
+      ? true
+      : _$Exists<P, Init>
+  : $<P, ElementOf<L>> extends true
+    ? true
+    : false
 
 /**
  * checks whether there exists some element of list `L` that satisfies predicate `P`.
@@ -12,11 +24,19 @@ import { Satisfies } from "../../_meta/satisfies";
  * @param L   - the list to search
  */
 export type $Exists<P extends HKT<any, boolean>, L extends List> =
-  L extends readonly [infer H, ...infer T]
+  IsEmpty<L> extends true ? false
+  : L extends readonly [infer H, ...infer T]
     ? $<P, H> extends true
       ? true
       : $Exists<P, T>
-    : false
+  : L extends readonly [...any, any] ? _$Exists<P, L>
+  : L extends { 0?: any }
+    ? L extends readonly [_?: infer H, ...__: infer T]
+      ? $<P, H> extends true
+        ? true
+        : $Exists<P, T>
+      : Unreachable
+  : false
 
 export interface Exists<P extends HKT<any, boolean>> extends HKT {
   [HKT.i]: Satisfies<_<this>, List<I<P>>>
