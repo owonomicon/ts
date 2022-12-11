@@ -2,11 +2,28 @@ import { Append } from "./append"
 import { List } from "./list"
 import { Prepend } from "./prepend"
 
+/**
+ * gets the spread and tail parts of a list with a leading spread.
+ * 
+ * `Acc` accumulates the tail of `L` as `__Parts` recurses on itself.
+ * when the tail is fully accumulated, then `L` will consist of only the spread element,
+ * so `L` and `Acc` are returned in a tuple corresponding to the spread and tail.
+ */
 type __Parts<L extends List, Acc extends List = []> =
   L extends readonly [...infer Init, infer Last]
     ? __Parts<Init, Prepend<Acc, Last>>
     : [L, Acc]
 
+/**
+ * gets the three distinct parts of a list consisting of
+ *  the "Init" (elements before the spread element),
+ *  the "Spread" (the spread element),
+ *  and the "Tail" (elements following the spread element).
+ * 
+ * `Acc` accumulates the Init of `L` as `_Parts` recurses on itself.
+ * when the spread element is encountered, the Init is done, and finding the Spread and Tail is delegated to `__Parts`.
+ * if no spread element was encountered in the entire list, then the Spread and Tail are trivially empty lists. 
+ */
 type _Parts<L extends List, Acc extends List = []> =
   L extends readonly [infer H, ...infer T] ? _Parts<T, Append<Acc, H>>
   : L extends readonly [...any, any] ? [Acc, ...__Parts<L>] 
