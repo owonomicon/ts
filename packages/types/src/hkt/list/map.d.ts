@@ -3,7 +3,7 @@ import { HKT, _, I } from "../hkt";
 import { $ } from "../$";
 import { Satisfies } from "../../_meta/satisfies";
 import { Unreachable } from "../../_meta/unreachable";
-import { Append } from "../../list/append";
+import { Append, AppendOptional } from "../../list/append";
 import { Concat } from "../../list/concat";
 import { ElementOf } from "../../list/element-of";
 import { IsEmpty } from "../../list/is-empty";
@@ -20,7 +20,7 @@ type _$Map<F extends HKT<any, any>, L extends List, Acc extends List = []> =
   : L extends readonly [...any, any] ? Concat<Acc, __$Map<F, L>>
   : L extends { 0?: any }
     ? L extends readonly [_?: infer H, ...__: infer T]
-      ? _$Map<F, T, Append<Acc, $<F, H>, { optional: true }>>
+      ? _$Map<F, T, AppendOptional<Acc, $<F, H>>>
       : Unreachable
   : Acc
 

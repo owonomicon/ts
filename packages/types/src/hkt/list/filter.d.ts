@@ -3,7 +3,7 @@ import { HKT, _, I } from "../hkt";
 import { $ } from "../$";
 import { Satisfies } from "../../_meta/satisfies";
 import { Unreachable } from "../../_meta/unreachable";
-import { Append } from "../../list/append";
+import { Append, AppendOptional } from "../../list/append";
 import { Concat } from "../../list/concat";
 import { ElementOf } from "../../list/element-of";
 import { IsEmpty } from "../../list/is-empty";
@@ -28,7 +28,7 @@ type _$Filter<P extends HKT<any, boolean>, L extends List, Acc extends List = []
   : L extends { 0?: any }
     ? L extends readonly [_?: infer H, ...__: infer T]
       ? $<P, H> extends true
-        ? _$Filter<P, T, Append<Acc, H, { optional: true }>>
+        ? _$Filter<P, T, AppendOptional<Acc, H>>
         : _$Filter<P, T, Acc>
       : Unreachable
   : Acc

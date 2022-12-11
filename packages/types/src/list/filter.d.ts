@@ -1,5 +1,5 @@
 import { Relates, Relation } from "../_meta/relates";
-import { Append } from "./append";
+import { Append, AppendOptional } from "./append";
 import { Concat } from "./concat";
 import { ElementOf } from "./element-of";
 import { IsEmpty } from "./is-empty";
@@ -36,7 +36,7 @@ type _Filter<L extends List, Q, R extends Relation, Acc extends unknown[] = []> 
   : L extends { 0?: any }
       ? L extends readonly [_?: infer H, ...__: infer T]
         ? Relates<H, Q, R> extends true
-          ? _Filter<T, Q, R, Append<Acc, H, { optional: true }>>
+          ? _Filter<T, Q, R, AppendOptional<Acc, H>>
           : _Filter<T, Q, R, Acc>
       : Relates<ElementOf<L>, Q, R> extends true
         ? Concat<Acc, L>
