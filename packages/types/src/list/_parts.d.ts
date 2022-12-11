@@ -1,16 +1,18 @@
+import { Append } from "./append"
 import { List } from "./list"
+import { Prepend } from "./prepend"
 
 type __Parts<L extends List, Acc extends List = []> =
   L extends readonly [...infer Init, infer Last]
-    ? __Parts<Init, [Last, ...Acc]>
+    ? __Parts<Init, Prepend<Acc, Last>>
     : [L, Acc]
 
 type _Parts<L extends List, Acc extends List = []> =
-  L extends readonly [infer H, ...infer T] ? _Parts<T, [...Acc, H]>
+  L extends readonly [infer H, ...infer T] ? _Parts<T, Append<Acc, H>>
   : L extends readonly [...any, any] ? [Acc, ...__Parts<L>] 
   : L extends { 0?: any } ?
     L extends readonly [_?: infer H, ...__: infer T]
-      ? _Parts<T, [...Acc, H?]>
+      ? _Parts<T, Append<Acc, H, { optional: true }>>
       : [Acc, L, []]
   : [Acc, L, []]
 

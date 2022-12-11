@@ -1,7 +1,9 @@
 import { Unreachable } from "../_meta/unreachable";
+import { Append } from "./append";
 import { Concat } from "./concat";
 import { IsEmpty } from "./is-empty";
 import { List } from "./list";
+import { Prepend } from "./prepend";
 
 type Options<PLN extends boolean = boolean> = {
   preserve_labels_nonvariadic: PLN
@@ -14,8 +16,8 @@ type Options<PLN extends boolean = boolean> = {
  */
 type __Reverse<L extends List, Acc extends List = []> =
   L extends readonly [...infer Spread, infer Last]
-    ? __Reverse<Spread, [...Acc, Last]>
-    : [...Acc, ...L] // since we assume `L` is a variadic tuple with leading spread, if we're at this branch then only the spread element is left
+    ? __Reverse<Spread, Append<Acc, Last>>
+    : Concat<Acc, L> // since we assume `L` is a variadic tuple with leading spread, if we're at this branch then only the spread element is left
 
 /**
 * tail call optimized type to reverse a list.
@@ -24,32 +26,32 @@ type __Reverse<L extends List, Acc extends List = []> =
 */
 type _Reverse<L extends List, Acc extends List = []> =
   IsEmpty<L> extends true ? Acc
-  : L extends readonly [infer H, ...infer T] ? _Reverse<T, [H, ...Acc]>
-  : L extends readonly [...any, any] ? [...__Reverse<L>, ...Acc]
+  : L extends readonly [infer H, ...infer T] ? _Reverse<T, Prepend<Acc, H>>
+  : L extends readonly [...any, any] ? Concat<__Reverse<L>, Acc>
   : L extends { 0?: any }
     ? L extends readonly [_?: infer H, ...__: infer T]
-      ? _Reverse<T, [H, ...Acc]>
+      ? _Reverse<T, Prepend<Acc, H>>
       : Unreachable
   : Concat<L, Acc>
 
 type __ReverseNonvariadic<L extends List, Acc extends List = []> =
   L extends readonly [...infer Spread, any]          /// capture the Init
     ? L extends readonly [...Spread, ...infer Last]  //  and then use it to capture the Last with label
-      ? __ReverseNonvariadic<Spread, [...Acc, ...Last]>
+      ? __ReverseNonvariadic<Spread, Concat<Acc, Last>>
       : Unreachable
-    : [...Acc, ...L]
+    : Concat<Acc, L>
 
 type _ReverseNonvariadic<L extends List, Acc extends List = []> =
   IsEmpty<L> extends true ? Acc
   : L extends readonly [infer H, ...infer T]
     ? L extends readonly [...infer H, ...T]
-      ? _ReverseNonvariadic<T, [...H, ...Acc]>
+      ? _ReverseNonvariadic<T, Concat<H, Acc>>
       : Unreachable
-  : L extends readonly [...any, any] ? [...__ReverseNonvariadic<L>, ...Acc]
+  : L extends readonly [...any, any] ? Concat<__ReverseNonvariadic<L>, Acc>
   : L extends { 0?: any }
     ? L extends readonly [_?: infer H, ...__: infer T]
       ? L extends readonly [...infer H, ...T]
-        ? _ReverseNonvariadic<T, [...Required<H>, ...Acc]>
+        ? _ReverseNonvariadic<T, Concat<Required<H>, Acc>>
         : Unreachable
       : Unreachable
   : Concat<L, Acc>

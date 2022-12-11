@@ -1,7 +1,10 @@
 import { Relates, Relation } from "../_meta/relates";
+import { Append } from "./append";
+import { Concat } from "./concat";
 import { ElementOf } from "./element-of";
 import { IsEmpty } from "./is-empty";
 import { List } from "./list";
+import { Prepend } from "./prepend";
 
 /**
  * tail call optimized type to filter variadic tuple with leading spread `L`.
@@ -11,11 +14,11 @@ type __Filter<L extends List, Q, R extends Relation, Acc extends unknown[] = []>
   // still have trailing non-spread elements
   L extends readonly [...infer Spread, infer Last]
     ? Relates<Last, Q, R> extends true
-      ? __Filter<Spread, Q, R, [Last, ...Acc]>
+      ? __Filter<Spread, Q, R, Prepend<Acc, Last>>
       : __Filter<Spread, Q, R, Acc>
   // only spread element is left
   : Relates<ElementOf<L>, Q, R> extends true
-    ? [...L, ...Acc]
+    ? Concat<L, Acc>
     : Acc
     
 /**
@@ -26,20 +29,20 @@ type _Filter<L extends List, Q, R extends Relation, Acc extends unknown[] = []> 
   IsEmpty<L> extends true ? Acc
   : L extends readonly [infer H, ...infer T]
     ? Relates<H, Q, R> extends true
-      ? _Filter<T, Q, R, [...Acc, H]>
+      ? _Filter<T, Q, R, Append<Acc, H>>
       : _Filter<T, Q, R, Acc>
   : L extends readonly [...any, any]
-    ? [...Acc, ...__Filter<L, Q, R>]
+    ? Concat<Acc, __Filter<L, Q, R>>
   : L extends { 0?: any }
       ? L extends readonly [_?: infer H, ...__: infer T]
         ? Relates<H, Q, R> extends true
-          ? _Filter<T, Q, R, [...Acc, H?]>
+          ? _Filter<T, Q, R, Append<Acc, H, { optional: true }>>
           : _Filter<T, Q, R, Acc>
       : Relates<ElementOf<L>, Q, R> extends true
-        ? [...Acc, ...L]
+        ? Concat<Acc, L>
         : Acc
   : Relates<ElementOf<L>, Q, R> extends true
-    ? [...Acc, ...L]
+    ? Concat<Acc, L>
     : Acc
 
 /**

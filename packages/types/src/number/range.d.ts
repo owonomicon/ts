@@ -8,6 +8,7 @@ import { List } from "../list/list"
 import { Length } from "../list/length"
 import { Exclude } from "../set-theory/exclude"
 import { Unreachable } from "../_meta/unreachable"
+import { Append } from "../list/append"
 
 /**
  * generator.
@@ -16,7 +17,7 @@ import { Unreachable } from "../_meta/unreachable"
 type _RangeTuple<N extends number, A extends number[] = []> =
   Length<A> extends N
     ? A
-    : _RangeTuple<N, [...A, Length<A>]>
+    : _RangeTuple<N, Append<A, Length<A>>>
 
 /**
  * enumeration of integers from `0` to `N`, exclusive. i.e. the range [0, N)

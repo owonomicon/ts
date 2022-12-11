@@ -1,5 +1,7 @@
 import { Satisfies } from "../_meta/satisfies";
 import { Unreachable } from "../_meta/unreachable";
+import { Append } from "./append";
+import { Concat } from "./concat";
 import { ElementOf } from "./element-of";
 import { IsEmpty } from "./is-empty";
 import { List } from "./list";
@@ -11,7 +13,7 @@ import { Parts } from "./_parts";
  */
 type __Pairs<L extends List, Acc extends readonly [unknown, unknown][] = []> =
   L extends readonly [infer H, infer HH, ...infer T]
-    ? __Pairs<[HH, ...T], [...Acc, [H, HH]]>
+    ? __Pairs<[HH, ...T], Append<Acc, [H, HH]>>
     : Acc
 
 /**
@@ -25,7 +27,7 @@ type __Pairs<L extends List, Acc extends readonly [unknown, unknown][] = []> =
  */
 type _Pairs<I extends List, S extends List, T extends List> =
   IsEmpty<S> extends true ? __Pairs<I>
-  : __Pairs<[...I, ...T]>
+  : __Pairs<Concat<I, T>>
     | [
       ...__Pairs<[...Required<I>, ElementOf<S>]>,
       ...[ElementOf<S>, ElementOf<S>][],
