@@ -3,10 +3,10 @@ import { Concat } from "./concat"
 import { Length } from "./length"
 
 // generator
-type _AtLeastNElements<T, N extends number, A extends T[] = []> =
-  Length<A> extends N
-    ? Concat<A, T[]>
-    : _AtLeastNElements<T, N, Append<A, T>>
+type _AtLeastNElements<T, N extends number, Acc extends T[] = []> =
+  Length<Acc> extends N
+    ? Concat<Acc, T[]>
+    : _AtLeastNElements<T, N, Append<Acc, T>>
 
 /**
  * a `T[]` with at least `N` elements inside of it

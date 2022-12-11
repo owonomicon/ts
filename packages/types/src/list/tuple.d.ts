@@ -2,10 +2,10 @@ import { Append } from "./append"
 
 
 // generator
-type _Tuple<T, N extends number, A extends T[] = []> =
-  N extends A['length']
-    ? A
-    : _Tuple<T, N, Append<A, T>>
+type _Tuple<T, N extends number, Acc extends T[] = []> =
+  N extends Acc['length']
+    ? Acc
+    : _Tuple<T, N, Append<Acc, T>>
 
 /**
  * N-length tuple of elements of type T

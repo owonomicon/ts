@@ -14,10 +14,10 @@ import { Append } from "../list/append"
  * generator.
  * builds up an array containing elements of the numbers 0 up to but excluding N
  */
-type _RangeTuple<N extends number, A extends number[] = []> =
-  Length<A> extends N
-    ? A
-    : _RangeTuple<N, Append<A, Length<A>>>
+type _RangeTuple<N extends number, Acc extends number[] = []> =
+  Length<Acc> extends N
+    ? Acc
+    : _RangeTuple<N, Append<Acc, Length<Acc>>>
 
 /**
  * enumeration of integers from `0` to `N`, exclusive. i.e. the range [0, N)

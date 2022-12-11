@@ -11,9 +11,9 @@ import { OmitFirstN } from "./omit-first-n";
 /**
  * get the "length" of the resultant named object from a list
  */
-type _AsObject<A extends List, Named, N extends Iteration = Iterate<0>> =
-  Value<Increment<N>> extends keyof Named ? _AsObject<A, Named, Increment<N>>
-  : `${Value<Increment<N>>}` extends keyof Named ? _AsObject<A, Named, Increment<N>>
+type _AsObject<L extends List, Named, N extends Iteration = Iterate<0>> =
+  Value<Increment<N>> extends keyof Named ? _AsObject<L, Named, Increment<N>>
+  : `${Value<Increment<N>>}` extends keyof Named ? _AsObject<L, Named, Increment<N>>
   : Value<Increment<N>>
 
 /**
@@ -32,13 +32,13 @@ type _AsObject<A extends List, Named, N extends Iteration = Iterate<0>> =
  * 
  * type e4 = AsObject<[string, number, object?, ...boolean[]]> // { [x: number]: boolean, 0: string, 1: number, 2?: object | undefined } // optionality is preserved (and TypeScript converts `T?` to `(T | undefined)?`)
  */
-export type AsObject<A extends List> =
+export type AsObject<L extends List> =
   ShallowResolve<
     If<
-      IsVariadic<A>,  
-      Omit<A, keyof any[]> extends infer X
-        ? { [x: number]: ElementOf<OmitFirstN<A, _AsObject<A, X>>> } & X
+      IsVariadic<L>,  
+      Omit<L, keyof any[]> extends infer X
+        ? { [x: number]: ElementOf<OmitFirstN<L, _AsObject<L, X>>> } & X
         : Unreachable,
-      Omit<A, keyof any[]>
+      Omit<L, keyof any[]>
     >  
   >

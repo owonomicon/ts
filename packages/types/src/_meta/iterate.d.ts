@@ -14,10 +14,10 @@ type _Iteration<T extends any[] = any[]> = { readonly [__ITERATION__]: T }
 
 export type Iteration = _Iteration<any[]>
 
-type _Iterate<N extends number, A extends any[] = []> =
-  Length<A> extends N
-    ? A
-    : _Iterate<N, Append<A, any>>
+type _Iterate<N extends number, Acc extends any[] = []> =
+  Length<Acc> extends N
+    ? Acc
+    : _Iterate<N, Append<Acc, any>>
 
 export type Iterate<N extends number = number> = _Iteration<_Iterate<N>>
 

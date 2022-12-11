@@ -20,11 +20,11 @@ import { Required } from "./required"
  * tries to append the value corresponding to key `N` to array `A`
  * @todo detect if it's an optional key and append accordingly
  */
-type TryAppend<O, A extends List, N extends number> =
+type TryAppend<O, L extends List, N extends number> =
   // prioritize string over number key
-  `${N}` extends keyof O ? Append<A, O[`${N}`]>
-  : N extends keyof O ? Append<A, O[N]>
-  : A
+  `${N}` extends keyof O ? Append<L, O[`${N}`]>
+  : N extends keyof O ? Append<L, O[N]>
+  : L
 
 /**
  * given an object with no mapped number types, converts to a list
@@ -32,11 +32,11 @@ type TryAppend<O, A extends List, N extends number> =
  * stops on the first missing key found (i.e. cannot have "gaps" in the object's keys).
  * does not work with objects with a mapped number type.
  */
-type _AsList<O extends object, K , A extends List = [], N extends Iteration = Iterate<0>> =
+type _AsList<O extends object, K , Acc extends List = [], N extends Iteration = Iterate<0>> =
   /// use `{ 0: ..., 1: ... }[boolean -> {0,1}]` to avoid type alias circular reference error
   {
-    0: A
-    1: _AsList<O, Exclude<K, Value<N>>, TryAppend<O, A, Value<N>>, Increment<N>>
+    0: Acc
+    1: _AsList<O, Exclude<K, Value<N>>, TryAppend<O, Acc, Value<N>>, Increment<N>>
   }[And<
     // if K is `never`, this means all the keys are used, and there's nothing else to construct
     Not<IsNever<K>>,
