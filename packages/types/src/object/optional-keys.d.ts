@@ -11,4 +11,4 @@ import { RequiredKeys } from "./required-keys";
  * type e2 = OptionalKeys<{ a?: 0, b: 1 | undefined, c?: 2 }> // "a" | "c"
  */
 
-export type OptionalKeys<T> = Exclude<keyof T, RequiredKeys<T>>;
+export type OptionalKeys<T> = Exclude<keyof T, RequiredKeys<T>>
