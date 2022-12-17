@@ -36,12 +36,9 @@ type IndividualSymbol = '__nomicon_introspect__symbol'
  * 
  * basically does
  * ```ts
- * if (S in Symbols) {
- *  return State(Symbols[S], Symbols, N)
- * } else {
- *  const Serialized  = `${IndividualSymbol}${N}`
- *  return State(Serialized, { ...Symbols, [S]: Serialized }, N + 1)
- * }
+ * return S in Symbols
+ *  ? State(`${IndividualSymbol}${Symbols[S]}`, Symbols, N)
+ *  : State(`${IndividualSymbol}{N}`, { ...Symbols, [S]: N }, N + 1)
  * ```
  */
 type GetSymbol<Symbols extends SymbolsMap, K extends symbol, N extends number> =
