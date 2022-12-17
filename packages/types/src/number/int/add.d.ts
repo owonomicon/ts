@@ -1,8 +1,4 @@
-import { Satisfies } from "../../_meta/satisfies"
 import { Unreachable } from "../../_meta/unreachable"
-import { Length } from "../../list/length"
-import { NLengthTuple } from "../../list/n-length-tuple"
-import { IsEmpty } from "../../string/is-empty"
 import { Reverse } from "../../string/reverse"
 import { AsNumber } from "../../string/as-number"
 import { StripLeadingZeros } from "../string/strip-leading-zeros"
@@ -12,54 +8,48 @@ import { ValidateInt, ValidateNonnegInt } from "./_validate"
 import { __nomicon_unsafe__Inc } from "./inc"
 import { __nomicon_unsafe__SubNonnegInts } from "./sub"
 
-type AdditionTable = [
-  [ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9],
-  [ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10],
-  [ 2,  3,  4,  5,  6,  7,  8,  9, 10, 11],
-  [ 3,  4,  5,  6,  7,  8,  9, 10, 11, 12],
-  [ 4,  5,  6,  7,  8,  9, 10, 11, 12, 13],
-  [ 5,  6,  7,  8,  9, 10, 11, 12, 13, 14],
-  [ 6,  7,  8,  9, 10, 11, 12, 13, 14, 15],
-  [ 7,  8,  9, 10, 11, 12, 13, 14, 15, 16],
-  [ 8,  9, 10, 11, 12, 13, 14, 15, 16, 17],
-  [ 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+type AdditionDigitTable = [
+  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+  [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+  [2, 3, 4, 5, 6, 7, 8, 9, 0, 1],
+  [3, 4, 5, 6, 7, 8, 9, 0, 1, 2],
+  [4, 5, 6, 7, 8, 9, 0, 1, 2, 3],
+  [5, 6, 7, 8, 9, 0, 1, 2, 3, 4],
+  [6, 7, 8, 9, 0, 1, 2, 3, 4, 5],
+  [7, 8, 9, 0, 1, 2, 3, 4, 5, 6],
+  [8, 9, 0, 1, 2, 3, 4, 5, 6, 7],
+  [9, 0, 1, 2, 3, 4, 5, 6, 7, 8],
+  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], // carry row
 ]
-/**
- * TODO: which of these is a more efficient (performance / memory / type complexity) implementation?
- * need to keep type complexity in mind bc already getting quite near "too complex" limit
- */
-type AddDigits2<D1 extends number, D2 extends number, Borrow extends boolean> =
-  Borrow extends true
-    ? __nomicon_unsafe__Inc<AdditionTable[D1][D2]>
-    : AdditionTable[D1][D2]
 
-type AddDigits<D1 extends number, D2 extends number, Borrow extends boolean> =
-  Satisfies<
-    Length<[
-      ...NLengthTuple<D1>,
-      ...NLengthTuple<D2>,
-      ...(Borrow extends true ? [never] : [])
-    ]>,
-    number
-  >
+type AdditionCarryTable = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+  [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+  [0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+  [0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+  [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+  [0, 0, 0, 0, 1, 1, 1, 1, 1, 1],
+  [0, 0, 0, 1, 1, 1, 1, 1, 1, 1],
+  [0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+  [0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], // carry row
+]
 
-type _Add<S1 extends string, S2 extends string, Borrow extends boolean = false, Acc extends string = ''> =
+type _Add<S1 extends string, S2 extends string, Carry extends 0 | 1 = 0, Acc extends string = ''> =
   S1 extends `${infer D1 extends number}${infer T1}`
     ? S2 extends `${infer D2 extends number}${infer T2}`
-      ? `${AddDigits<D1, D2, Borrow>}` extends `${infer N extends number}${infer T}`
-        ? IsEmpty<T> extends true
-          // produced single digit number -> no carry, `N` has the digit 
-          ? _Add<T1, T2, false, `${Acc}${N}`>
-          // produced two digit number -> carry, and `T` has the digit
-          : _Add<T1, T2, true, `${Acc}${T}`>
-        // `AddDigits` will always return a nonnegative integer with at most two digits, which will match against the conditional
+      ? (Carry extends 1 ? __nomicon_unsafe__Inc<D1> : D1) extends (infer D1 extends number)
+        ? [AdditionCarryTable[D1][D2], AdditionDigitTable[D1][D2]] extends [infer Carry extends 0 | 1, infer D extends number]
+          ? _Add<T1, T2, Carry, `${Acc}${D}`>
+          : Unreachable
         : Unreachable
       // we only ever call `_Add` from `Add`, which ensures the two strings are equal length.
       // since `_Add` also only consumes from both strings at an equal rate,
       //  we know that this branch can never be reached
       : Unreachable
     // if we reach here then we've fully parsed both numbers
-    : Borrow extends true
+    : Carry extends 1
       ? `${Acc}1`
       : Acc
       
