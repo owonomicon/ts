@@ -1,7 +1,7 @@
 import { List } from "../list/list";
 import { Builtin } from "../primitive/builtin";
 import { IsTuple } from "../list/is-tuple";
-import { IsUnknown } from "../any/is-unknown";
+import { IsUnknown } from "../type/is-unknown";
 import { Mutable } from "./mutable";
 
 /**

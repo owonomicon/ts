@@ -2,7 +2,7 @@ import { List } from "../list/list"
 import { Builtin } from "../primitive/builtin"
 import { NonNull, NonNullish, NonUndefined, Nullable, Nullishable, Undefinable } from "../primitive/nullish"
 import { IsTuple } from "../list/is-tuple"
-import { IsUnknown } from "../any/is-unknown"
+import { IsUnknown } from "../type/is-unknown"
 
 /**
  * makes (nested) values of an object nullishable (i.e. possibly null or undefined)

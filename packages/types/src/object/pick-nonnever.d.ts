@@ -1,5 +1,5 @@
 import { If } from "../bool/if";
-import { IsNever } from "../any/is-never";
+import { IsNever } from "../type/is-never";
 import { Pick } from "./pick";
 
 /**

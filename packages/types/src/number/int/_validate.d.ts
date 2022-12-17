@@ -1,5 +1,5 @@
 import { Extends } from "../../_meta/extends"
-import { IsNever } from "../../any/is-never"
+import { IsNever } from "../../type/is-never"
 import { If } from "../../bool/if"
 import { Or } from "../../bool/or"
 import { Serializable } from "../../string/serializable"

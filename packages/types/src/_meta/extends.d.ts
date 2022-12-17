@@ -1,4 +1,4 @@
-import { IsNever } from "../any/is-never";
+import { IsNever } from "../type/is-never";
 import { If } from "../bool/if";
 
 /**
