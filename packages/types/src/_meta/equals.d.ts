@@ -73,7 +73,7 @@ type _Equals<A, B> =
  *   { (x: number, y: null): void; (x: 0, y: null): void }
  * >
  */
-export type Equals<A, B, O extends Options = Options<true>> =
-  O extends Options<true>
+export type Equals<A, B, Opts extends Options = Options<true>> =
+  Opts extends Options<true>
     ? _Equals<ShallowResolve<A>, ShallowResolve<B>>
     : _Equals<A, B>
