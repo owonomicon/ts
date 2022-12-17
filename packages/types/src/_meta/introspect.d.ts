@@ -416,10 +416,9 @@ type _Introspect<T, Ctx extends Context> =
  * 
  * @warning may have extraneous parentheses
  * @warning loses tuple label information
- * @warning loses symbol name information and instead replaces it with `__nomicon_introspect__symbol${N}`
+ * @warning loses symbol name information and instead replaces it with `__nomicon_introspect__symbol${N}`. symbol mappings should be stable within any given introspection though
  * @warning unions may not appear in the same order
- * @warning mapped object keys will always listed before individual object keys
- * @warning object keys may not appear in the same order
+ * @warning object keys may not appear in the same order. also mapped keys will always appear before individual keys
  * 
  * @example
  * ```ts
@@ -445,8 +444,6 @@ type _Introspect<T, Ctx extends Context> =
  * // "{ [x: symbol]: unknown, [x: string]: string, 'b': 'baz', [__nomicon_introspect__symbol0]: ['foo', ('baz' | 'bar'), { 'a': 'qux', 'b': __nomicon_introspect__symbol0 }], [__nomicon_introspect__symbol1]: __nomicon_introspect__symbol0, 3: 'bar', 0: 'foo' }"
  * type e15 = Introspect<{ [s: string]: string, 0: 'foo', 3: 'bar', b: 'baz', [s0]: 'qux', [sym: symbol]: unknown, [s1]: ['foo', 'bar' | 'baz', { a: 'qux', b: 0 }] }>
  * ```
- * 
- * @todo pass `Ctx` (Context) into every `Introspect` type. have each internal `Introspect` return `{ serialized, newCtx }` and pass `newCtx` into the next one to preserve symbol mappings
  */
 export type Introspect<T, D extends Depth = 7> =
   _Introspect<T, { [depth]: D, [symbols]: {}, [n]: 0 }> extends State<infer S, any, any>
