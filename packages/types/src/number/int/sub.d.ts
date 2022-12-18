@@ -1,4 +1,4 @@
-import { Unreachable } from "../../_meta/unreachable"
+import { Unreachable } from "../../type/unreachable"
 import { And } from "../../bool/and"
 import { Reverse } from "../../string/reverse"
 import { AsNumber } from "../../string/as-number"

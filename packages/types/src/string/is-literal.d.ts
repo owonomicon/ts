@@ -3,8 +3,8 @@ import { Or } from "../bool/or"
 import { Contains as ListContains } from "../list/contains"
 import { List } from "../list/list"
 import { AsTuple } from "../set-theory/as-tuple"
-import { Equals } from "../_meta/equals"
-import { Satisfies } from "../_meta/satisfies"
+import { Equals } from "../type/equals"
+import { Satisfies } from "../type/satisfies"
 
 /**
  * checks whether `S` is a string literal (i.e. must have finite length and is well-defined).

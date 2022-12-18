@@ -1,6 +1,6 @@
 import { And } from "../bool/and"
 import { Not } from "../bool/not"
-import { Extends } from "../_meta/extends"
+import { Extends } from "../type/extends"
 
 /**
  * whether `T` is a number literal type

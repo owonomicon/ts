@@ -1,6 +1,6 @@
 import { IsNever } from "../type/is-never"
 import { Append } from "../list/append"
-import { Unreachable } from "../_meta/unreachable"
+import { Unreachable } from "../type/unreachable"
 import { AsIntersection } from "./as-intersection"
 
 type _PickMember<U> =

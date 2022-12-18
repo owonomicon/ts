@@ -1,5 +1,5 @@
 import { List } from "../list/list";
-import { Satisfies } from "../_meta/satisfies";
+import { Satisfies } from "../type/satisfies";
 
 /**
  * Type representing a function

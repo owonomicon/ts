@@ -1,4 +1,4 @@
-import { Unreachable } from "../_meta/unreachable";
+import { Unreachable } from "../type/unreachable";
 import { Append } from "./append";
 import { Concat } from "./concat";
 import { IsEmpty } from "./is-empty";

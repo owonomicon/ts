@@ -1,6 +1,6 @@
 import { List } from "../list/list";
-import { Satisfies } from "../_meta/satisfies";
-import { Unreachable } from "../_meta/unreachable";
+import { Satisfies } from "../type/satisfies";
+import { Unreachable } from "../type/unreachable";
 import { Function } from "./function";
 
 /**

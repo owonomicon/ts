@@ -1,4 +1,4 @@
-import { Relates, Relation } from "../_meta/relates";
+import { Relates, Relation } from "../type/relates";
 import { Append, AppendOptional } from "./append";
 import { Concat } from "./concat";
 import { ElementOf } from "./element-of";

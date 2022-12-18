@@ -1,4 +1,4 @@
-import { Extends } from "../../_meta/extends"
+import { Extends } from "../../type/extends"
 import { IsNever } from "../../type/is-never"
 import { If } from "../../bool/if"
 import { Or } from "../../bool/or"

@@ -1,4 +1,4 @@
-import { Relation } from "../_meta/relates";
+import { Relation } from "../type/relates";
 import { SelectKeys, SelectKeysByValue } from "./select-keys";
 import { Pick } from "./pick";
 

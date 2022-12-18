@@ -1,4 +1,4 @@
-import { Unreachable } from "../_meta/unreachable";
+import { Unreachable } from "../type/unreachable";
 import { List } from "./list";
 
 /**

@@ -3,11 +3,11 @@
  * track the proposal for a built-in at https://github.com/microsoft/TypeScript/issues/43505
  */
 
-import { Satisfies } from "../_meta/satisfies"
+import { Satisfies } from "../type/satisfies"
 import { List } from "../list/list"
 import { Length } from "../list/length"
 import { Exclude } from "../set-theory/exclude"
-import { Unreachable } from "../_meta/unreachable"
+import { Unreachable } from "../type/unreachable"
 import { Append } from "../list/append"
 
 /**

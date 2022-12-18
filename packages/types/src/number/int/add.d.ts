@@ -1,4 +1,4 @@
-import { Unreachable } from "../../_meta/unreachable"
+import { Unreachable } from "../../type/unreachable"
 import { Reverse } from "../../string/reverse"
 import { AsNumber } from "../../string/as-number"
 import { StripLeadingZeros } from "../string/strip-leading-zeros"

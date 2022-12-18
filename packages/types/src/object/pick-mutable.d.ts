@@ -1,4 +1,4 @@
-import { Equals } from "../_meta/equals";
+import { Equals } from "../type/equals";
 import { If } from "../bool/if";
 
 /**

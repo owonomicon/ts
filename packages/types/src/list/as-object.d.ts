@@ -1,8 +1,8 @@
 import { If } from "../bool/if";
 import { __nomicon_unsafe__Inc } from "../number/int/inc";
 import { Omit } from "../object/omit";
-import { ShallowResolve } from "../_meta/resolve";
-import { Unreachable } from "../_meta/unreachable";
+import { ShallowResolve } from "../type/resolve";
+import { Unreachable } from "../type/unreachable";
 import { ElementOf } from "./element-of";
 import { IsVariadic } from "./is-variadic";
 import { List } from "./list";

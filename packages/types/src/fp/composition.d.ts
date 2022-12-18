@@ -8,7 +8,7 @@ import { Last } from "../list/last";
 import { List } from "../list/list";
 import { Reverse } from "../list/reverse";
 import { Parts } from "../list/_parts";
-import { Satisfies } from "../_meta/satisfies";
+import { Satisfies } from "../type/satisfies";
 
 // single argument function
 type F<A = any, R = any> = (x: A) => R

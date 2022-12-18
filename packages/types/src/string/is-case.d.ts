@@ -1,4 +1,4 @@
-import { Extends } from "../_meta/extends";
+import { Extends } from "../type/extends";
 import { Capitalize, Lowercase, Uncapitalize, Uppercase } from "./case";
 
 /**

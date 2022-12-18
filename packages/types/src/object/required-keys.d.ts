@@ -1,6 +1,6 @@
 import { If } from "../bool/if";
 import { Not } from "../bool/not";
-import { Extends } from "../_meta/extends";
+import { Extends } from "../type/extends";
 
 /**
  * gets the required keys of `T`.

@@ -1,4 +1,4 @@
-import { Relates, Relation } from "../_meta/relates";
+import { Relates, Relation } from "../type/relates";
 import { ElementOf } from "./element-of";
 import { IsEmpty } from "./is-empty";
 import { List } from "./list";

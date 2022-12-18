@@ -1,6 +1,6 @@
 import { If } from "../bool/if";
 import { Not } from "../bool/not";
-import { Equals } from "../_meta/equals";
+import { Equals } from "../type/equals";
 
 /**
  * gets the readonly keys of `T`

@@ -1,4 +1,4 @@
-import { Unreachable } from "../../_meta/unreachable"
+import { Unreachable } from "../../type/unreachable"
 import { PadLeadingZeros } from "../string/pad-leading-zeros"
 import { __nomicon_unsafe__NonnegInc } from "./inc"
 

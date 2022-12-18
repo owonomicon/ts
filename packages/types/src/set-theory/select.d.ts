@@ -1,5 +1,5 @@
 import { If } from "../bool/if"
-import { Relates, Relation } from "../_meta/relates"
+import { Relates, Relation } from "../type/relates"
 
 /**
  * select from union type `U` the types that relate to query `Q` by relation `R`

@@ -1,5 +1,5 @@
-import { Satisfies } from "../_meta/satisfies";
-import { Unreachable } from "../_meta/unreachable";
+import { Satisfies } from "../type/satisfies";
+import { Unreachable } from "../type/unreachable";
 import { Append } from "./append";
 import { Concat } from "./concat";
 import { ElementOf } from "./element-of";

@@ -1,7 +1,7 @@
 import { And } from "../bool/and";
 import { Not } from "../bool/not";
 import { IsUnion } from "../set-theory/is-union";
-import { Extends } from "../_meta/extends";
+import { Extends } from "../type/extends";
 
 /**
  * whether `T` is an instance of a unique symbol.
