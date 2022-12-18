@@ -13,11 +13,11 @@ type Options<RI extends boolean = boolean> = {
  * adapted from MattMcCutchen's answer in {@link https://github.com/Microsoft/TypeScript/issues/27024#issuecomment-421529650}.
  * 
  * this is modified to try to address a niche edge case (possibly didn't even exist at the time of the answer?) with variadic tuples:
- *  with the original code, where `[...string[], string] =/= string[]` (desired) but `string[] == [...string[], string]` (not desired; and suddenly order matters?).
+ *  with the original code, `[...string[], string]` and `string[]` are considered "equal".
  * general shortcomings with alternative (i.e. different from MattMcCutchen's) `Equals` implementations regard false positives (as far as i'm aware),
  *  not any false negatives. `MutuallyAssignable` is one such alternative implementation, that simply checks if both types can be assigned to each other.
- * this properly handles the aforementioned variadic tuple case, and since it doesn't have any known false negatives (afaik),
- *  it is thus used as the check for this variadic tuple case.
+ *  it happens to properly handle the aforementioned variadic tuple case, and since it doesn't have any known false negatives (afaik),
+ *    it is thus used as the check for this variadic tuple case.
  */
 type _Equals<A, B> =
   (<T>() => T extends A ? true : false) extends (<T>() => T extends B ? true : false)
@@ -56,19 +56,34 @@ type _Equals<A, B> =
  * type e10  = Equals<number & {}, number, { resolve_intersections: false }>                    // false
  * 
  * // variadic tuple
- * type e11  = Equals<[...string[], string], string[]>                                          // false
- * type e11b = Equals<string[], [...string[], string]>                                          // false
- * type e12 = Equals<[string, ...string[]], string[]>                                           // false
- * type e12b = Equals<string[], [string, ...string[]]>                                          // false
+ *     
+ * type t11a = string[] 
+ * type t11b = [string, ...string[]] 
+ * type t11c = [...string[], string] 
+ * type t11d = [string, ...string[], string]
+ *
+ * type e11a = Equals<t11a, t11b>                                                               // false
+ * type e11b = Equals<t11b, t11a>                                                               // false
+ * type e12a = Equals<t11a, t11c>                                                               // false
+ * type e12b = Equals<t11c, t11a>                                                               // false
+ * type e13a = Equals<t11a, t11d>                                                               // false
+ * type e13b = Equals<t11d, t11a>                                                               // false
+ * type e14a = Equals<t11b, t11c>                                                               // false
+ * type e14b = Equals<t11c, t11b>                                                               // false
+ * type e15a = Equals<t11b, t11d>                                                               // false
+ * type e15b = Equals<t11d, t11b>                                                               // false
+ * type e16a = Equals<t11c, t11d>                                                               // false
+ * type e16b = Equals<t11d, t11c>                                                               // false
  * 
  * // function intersection
- * type t13a = (x: 0, y: null) => void
- * type t13b = (x: number, y: string) => void
- * type t13c = t13a & t13b
- * type t13d = t13b & t13a
- * type e13 = Equals<t13c, t13d>                                                                // true
- * type e14 = Equals<t13c, t13c | t13d>                                                         // false // BUG: should produce `true`
- * type e15 = Equals<                                                                           // false
+ * type t17a = (x: 0, y: null) => void
+ * type t17b = (x: number, y: string) => void
+ * type t17c = t17a & t17b
+ * type t17d = t17b & t17a
+ * type e17 = Equals<t17c, t17d>                                                                // true
+ * type e18 = Equals<t17c, t17c | t17d>                                                         // false // BUG: should produce `true`
+ * 
+ * type e19 = Equals<                                                                           // false
  *   { (x: 0, y: null): void; (x: number, y: null): void },
  *   { (x: number, y: null): void; (x: 0, y: null): void }
  * >
