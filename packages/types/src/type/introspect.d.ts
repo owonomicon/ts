@@ -7,7 +7,7 @@ import { ElementOf } from "../list/element-of"
 import { IsEmpty } from "../list/is-empty"
 import { IsReadonlyList } from "../list/is-readonly-list"
 import { List } from "../list/list"
-import { __nomicon_unsafe__NonnegInc } from "../number/int/inc"
+import { IncNonneg } from "../number/int/inc"
 import { AsTuple } from "../set-theory/as-tuple"
 import { IsUnion } from "../set-theory/is-union"
 import { Quote } from "../string/quote"
@@ -44,7 +44,7 @@ type IndividualSymbol = '__nomicon_introspect__symbol'
 type GetSymbol<Symbols extends SymbolsMap, K extends symbol, N extends number> =
   K extends keyof Symbols
     ? State<`${IndividualSymbol}${Symbols[K]}`, Symbols, N>
-    : State<`${IndividualSymbol}${N}`, Symbols & { [x in K]: N }, __nomicon_unsafe__NonnegInc<N>>
+    : State<`${IndividualSymbol}${N}`, Symbols & { [x in K]: N }, IncNonneg<N>>
 
 
 declare const depth: unique symbol

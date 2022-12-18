@@ -1,5 +1,5 @@
 import { If } from "../bool/if";
-import { __nomicon_unsafe__Inc } from "../number/int/inc";
+import { IncNonneg } from "../number/int/inc";
 import { Omit } from "../object/omit";
 import { ShallowResolve } from "../type/resolve";
 import { Unreachable } from "../type/unreachable";
@@ -12,7 +12,7 @@ import { OmitFirstN } from "./omit-first-n";
  * get the "length" of the resultant named object from a list
  */
 type _AsObject<L extends List, Named, N extends number = 0> =
-  __nomicon_unsafe__Inc<N> extends (infer N extends number)
+  IncNonneg<N> extends (infer N extends number)
     ? N extends keyof Named ? _AsObject<L, Named, N>
       : `${N}` extends keyof Named ? _AsObject<L, Named, N>
       : N

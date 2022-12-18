@@ -2,8 +2,7 @@ import { Unreachable } from "../../type/unreachable"
 import { AsNumber } from "../../string/as-number"
 import { Reverse } from "../../string/reverse"
 import { StripLeadingZeros } from "../string/strip-leading-zeros"
-import { ValidateInt, ValidateNonnegInt } from "./_validate"
-import { __nomicon_unsafe__PosDec } from "./dec"
+import { DecPos } from "./dec"
 
 type AdditionDigitMap =
   [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
@@ -25,45 +24,18 @@ type _Inc<S extends string> =
 
 /**
  * increments nonnegative integer `N`
- * 
- * the typesafe version of this method (i.e. without the `__nomicon_unsafe__` prefix) should be preferred over this method in every case unless you intend to use it in another type and have ensured that the type parameter(s) hold
  */
-export type __nomicon_unsafe__NonnegInc<N extends number> =
+export type IncNonneg<N extends number> =
   AsNumber<StripLeadingZeros<Reverse<_Inc<Reverse<`${N}`>>>>>
 
 /**
- * increments nonnegative integer `N`
- * 
- * validates that `N` is in fact a nonnegative integer
- */
-export type NonnegInc<N extends ValidateNonnegInt<N>> =
-  ValidateNonnegInt<N> extends number
-    ? N extends (infer N extends number)
-      ? __nomicon_unsafe__NonnegInc<N>
-      : Unreachable
-    : never
-
-/**
  * increments integer `N`
- * 
- * the typesafe version of this method (i.e. without the `__nomicon_unsafe__` prefix) should be preferred over this method in every case unless you intend to use it in another type and have ensured that the type parameter(s) hold
  */
- export type __nomicon_unsafe__Inc<N extends number> =
+export type Inc<N extends number> =
   `${N}` extends (infer S extends string)
     ? S extends '-1' ? 0
       // `-0` serializes to `"0"` so it properly doesnt get handled here where it'd be passed to `PosDec`
-      : S extends `-${infer Abs extends number}` ? AsNumber<`-${__nomicon_unsafe__PosDec<Abs>}`>
-      : __nomicon_unsafe__NonnegInc<N>
+      : S extends `-${infer Abs extends number}` ? AsNumber<`-${DecPos<Abs>}`>
+      : IncNonneg<N>
     : Unreachable
 
-/**
- * increments integer `N`
- * 
- * validates that `N` is in fact an integer
- */
-export type Inc<N extends ValidateInt<N>> =
-  ValidateInt<N> extends number
-    ? N extends (infer N extends number)
-      ? __nomicon_unsafe__Inc<N>
-      : Unreachable
-    : never

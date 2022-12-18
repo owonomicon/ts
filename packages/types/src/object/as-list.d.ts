@@ -14,7 +14,7 @@ import { IsAny } from "../type/is-any"
 import { Cut } from "../set-theory/cut"
 import { Exclude } from "../set-theory/exclude"
 import { Required } from "./required"
-import { __nomicon_unsafe__Inc } from "../number/int/inc"
+import { IncNonneg } from "../number/int/inc"
 
 /**
  * tries to append the value corresponding to key `N` to array `A`
@@ -36,7 +36,7 @@ type _AsList<O extends object, K , Acc extends List = [], N extends number = 0> 
   /// use `{ 0: ..., 1: ... }[boolean -> {0,1}]` to avoid type alias circular reference error
   {
     0: Acc
-    1: _AsList<O, Exclude<K, N>, TryAppend<O, Acc, N>, __nomicon_unsafe__Inc<N>>
+    1: _AsList<O, Exclude<K, N>, TryAppend<O, Acc, N>, IncNonneg<N>>
   }[And<
     // if K is `never`, this means all the keys are used, and there's nothing else to construct
     Not<IsNever<K>>,

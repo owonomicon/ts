@@ -1,6 +1,6 @@
 import { Unreachable } from "../../type/unreachable"
 import { PadLeadingZeros } from "../string/pad-leading-zeros"
-import { __nomicon_unsafe__NonnegInc } from "./inc"
+import { IncNonneg } from "./inc"
 
 /**
  * finds the longer length of integer strings `S1`, `S2`
@@ -8,10 +8,10 @@ import { __nomicon_unsafe__NonnegInc } from "./inc"
  type MaxLen<S1 extends string, S2 extends string, N extends number = 0> =
  S1 extends `${number}${infer T1}`
    ? S2 extends `${number}${infer T2}`
-     ? MaxLen<T1, T2, __nomicon_unsafe__NonnegInc<N>>
-     : MaxLen<T1, '', __nomicon_unsafe__NonnegInc<N>>
+     ? MaxLen<T1, T2, IncNonneg<N>>
+     : MaxLen<T1, '', IncNonneg<N>>
    : S2 extends `${number}${infer T2}`
-     ? MaxLen<'', T2, __nomicon_unsafe__NonnegInc<N>>
+     ? MaxLen<'', T2, IncNonneg<N>>
      : N
 
 /**

@@ -5,9 +5,8 @@ import { AsNumber } from "../../string/as-number"
 import { StripLeadingZeros } from "../string/strip-leading-zeros"
 import { Negate } from "../negate"
 import { _PadZeros } from "./_pad-zeros"
-import { ValidateInt, ValidateNonnegInt } from "./_validate"
-import { __nomicon_unsafe__AddNonnegInts } from "./add"
-import { __nomicon_unsafe__PosDec } from "./dec"
+import { AddNonneg } from "./add"
+import { DecPos } from "./dec"
 
 /**
  * list mapping digits to the resultant digit for subtraction. used to compute `D1 - D2` when `D2 > D1`:
@@ -18,7 +17,7 @@ type TenMinus = [never, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 type _Max<D1 extends number, D2 extends number, O1 = D1, O2 = D2> =
   D1 extends 0 ? O2
   : D2 extends 0 ? O1
-  : _Max<__nomicon_unsafe__PosDec<D1>, __nomicon_unsafe__PosDec<D2>, O1, O2>
+  : _Max<DecPos<D1>, DecPos<D2>, O1, O2>
  
 /**
  * finds the greater of digits `D1` and `D2`
@@ -73,10 +72,8 @@ type _Sub<S1 extends string, S2 extends string, Borrow extends boolean = false, 
  
 /**
  * subtracts nonnegative integer `N2` from nonnegative integer `N1`
- * 
- * the typesafe version of this method (i.e. without the `__nomicon_unsafe__` prefix) should be preferred over this method in every case unless you intend to use it in another type and have ensured that the type parameter(s) hold
  */
-export type __nomicon_unsafe__SubNonnegInts<N1 extends number, N2 extends number> =
+export type SubNonneg<N1 extends number, N2 extends number> =
   _PadZeros<N1, N2> extends [`${infer S1}`, `${infer S2}`]
       // calculate the result
       ? _Sub<Reverse<S1>, Reverse<S2>> extends infer X
@@ -84,48 +81,22 @@ export type __nomicon_unsafe__SubNonnegInts<N1 extends number, N2 extends number
           // if its a string then it computed the result properly
           ? AsNumber<StripLeadingZeros<Reverse<X>>>
           // otherwise the result was negative, i.e. N2 > N1. so we'll just compute N2 - N1 and make that negative
-          : Negate<__nomicon_unsafe__Sub<N2, N1>>
+          : Negate<Sub<N2, N1>>
         : Unreachable
       : Unreachable
 
 /**
- * subtracts nonnegative integer `N2` from nonnegative integer `N1`
- * 
- * validates that `N1 and `N2` are in fact nonnegative integers
- */
-export type SubNonnegInts<N1 extends ValidateNonnegInt<N1>, N2 extends ValidateNonnegInt<N2>> =
-  [N1, N2] extends [infer N1 extends number, infer N2 extends number]
-    ? __nomicon_unsafe__SubNonnegInts<N1, N2>
-    : Unreachable
-
-/**
  * subtracts integer `N2` from integer `N1`
- * 
- * the typesafe version of this method (i.e. without the `__nomicon_unsafe__` prefix) should be preferred over this method in every case unless you intend to use it in another type and have ensured that the type parameter(s) hold
  */
-export type __nomicon_unsafe__Sub<N1 extends number, N2 extends number> =
+export type Sub<N1 extends number, N2 extends number> =
   `${N1}` extends `-${infer Abs1 extends number}`
     ? `${N2}` extends `-${infer Abs2 extends number}`
       // -A1 - -A2 = A2 - A1
-      ? __nomicon_unsafe__SubNonnegInts<Abs2, Abs1>
+      ? SubNonneg<Abs2, Abs1>
       // -A1 - N2 = -(A1 + N2)
-      : Negate<__nomicon_unsafe__AddNonnegInts<Abs1, N2>>
+      : Negate<AddNonneg<Abs1, N2>>
     : `${N2}` extends `-${infer Abs2 extends number}`
       // N1 - -A2 = N1 + A2
-      ? __nomicon_unsafe__AddNonnegInts<N1, Abs2>
+      ? AddNonneg<N1, Abs2>
       // N1 - N2
-      : __nomicon_unsafe__SubNonnegInts<N1, N2>
-
-/**
- * subtracts integer `N2` from integer `N1`
- * 
- * validates that `N1 and `N2` are in fact integers
- */
-export type Sub<N1 extends ValidateInt<N1, 'N1'>, N2 extends ValidateInt<N2, 'N2'>> =
-  ValidateInt<N1> extends number
-    ? ValidateInt<N2> extends number
-      ? [N1, N2] extends [infer N1 extends number, infer N2 extends number]
-        ? __nomicon_unsafe__Sub<N1, N2>
-        : Unreachable
-      : never
-    : never
+      : SubNonneg<N1, N2>
