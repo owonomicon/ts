@@ -1,14 +1,14 @@
 
-import { Increment, Iterate, Iteration, Value } from "../_meta/iterate"
+import { __nomicon_unsafe__Inc } from "../number/int/inc"
 import { Length } from "./length"
 import { List } from "./list"
 
-type _OmitFirstN<T extends List, N extends number, A extends Iteration = Iterate<0>> =
-  Value<A> extends N ? T
+type _OmitFirstN<T extends List, N extends number, NOmitted extends number = 0> =
+  NOmitted extends N ? T
   : Length<T> extends 0 ? T
-  : T extends readonly [any, ...infer Tail] ? _OmitFirstN<Tail, N, Increment<A>> // capture nonempty lists that aren't <variadic tuples with leading spread element>
+  : T extends readonly [any, ...infer Tail] ? _OmitFirstN<Tail, N, __nomicon_unsafe__Inc<NOmitted>> // capture nonempty lists that aren't <variadic tuples with leading spread element>
   : T extends readonly [...any, any] ? T // capture variadic tuples with leading spread element
-  : T extends readonly [any?, ...infer Tail] ? _OmitFirstN<Tail, N, Increment<A>> // capture nonempty lists that aren't <variadic tuples with leading spread element> and have optional argument. this comes after leading spread variadic tuple because this "matches" leading spread variadic tuples but converts them to `unknown[]`
+  : T extends readonly [any?, ...infer Tail] ? _OmitFirstN<Tail, N, __nomicon_unsafe__Inc<NOmitted>> // capture nonempty lists that aren't <variadic tuples with leading spread element> and have optional argument. this comes after leading spread variadic tuple because this "matches" leading spread variadic tuples but converts them to `unknown[]`
   : never
 
 /**

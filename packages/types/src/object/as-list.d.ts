@@ -1,6 +1,5 @@
 import { Append } from "../list/append"
 import { List } from "../list/list"
-import { Increment, Iterate, Iteration, Value } from "../_meta/iterate"
 import { Satisfies } from "../_meta/satisfies"
 import { IsNever } from "../type/is-never"
 import { Select } from "../set-theory/select"
@@ -15,6 +14,7 @@ import { IsAny } from "../type/is-any"
 import { Cut } from "../set-theory/cut"
 import { Exclude } from "../set-theory/exclude"
 import { Required } from "./required"
+import { __nomicon_unsafe__Inc } from "../number/int/inc"
 
 /**
  * tries to append the value corresponding to key `N` to array `A`
@@ -32,18 +32,18 @@ type TryAppend<O, L extends List, N extends number> =
  * stops on the first missing key found (i.e. cannot have "gaps" in the object's keys).
  * does not work with objects with a mapped number type.
  */
-type _AsList<O extends object, K , Acc extends List = [], N extends Iteration = Iterate<0>> =
+type _AsList<O extends object, K , Acc extends List = [], N extends number = 0> =
   /// use `{ 0: ..., 1: ... }[boolean -> {0,1}]` to avoid type alias circular reference error
   {
     0: Acc
-    1: _AsList<O, Exclude<K, Value<N>>, TryAppend<O, Acc, Value<N>>, Increment<N>>
+    1: _AsList<O, Exclude<K, N>, TryAppend<O, Acc, N>, __nomicon_unsafe__Inc<N>>
   }[And<
     // if K is `never`, this means all the keys are used, and there's nothing else to construct
     Not<IsNever<K>>,
     // continue recursing as long as we can still iterate along the "named" keys 
     Or<
-      Extends<`${Value<N>}`, K>,
-      Extends<Value<N>, K>
+      Extends<`${N}`, K>,
+      Extends<N, K>
     >
   > extends true ? 1 : 0]
 

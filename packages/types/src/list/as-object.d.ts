@@ -1,6 +1,6 @@
 import { If } from "../bool/if";
+import { __nomicon_unsafe__Inc } from "../number/int/inc";
 import { Omit } from "../object/omit";
-import { Increment, Iterate, Iteration, Value } from "../_meta/iterate";
 import { ShallowResolve } from "../_meta/resolve";
 import { Unreachable } from "../_meta/unreachable";
 import { ElementOf } from "./element-of";
@@ -11,10 +11,12 @@ import { OmitFirstN } from "./omit-first-n";
 /**
  * get the "length" of the resultant named object from a list
  */
-type _AsObject<L extends List, Named, N extends Iteration = Iterate<0>> =
-  Value<Increment<N>> extends keyof Named ? _AsObject<L, Named, Increment<N>>
-  : `${Value<Increment<N>>}` extends keyof Named ? _AsObject<L, Named, Increment<N>>
-  : Value<Increment<N>>
+type _AsObject<L extends List, Named, N extends number = 0> =
+  __nomicon_unsafe__Inc<N> extends (infer N extends number)
+    ? N extends keyof Named ? _AsObject<L, Named, N>
+      : `${N}` extends keyof Named ? _AsObject<L, Named, N>
+      : N
+    : Unreachable
 
 /**
  * coerces an array type into an object.

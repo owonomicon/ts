@@ -1,4 +1,4 @@
-import { Increment, Iterate, Iteration, Value } from "../_meta/iterate"
+import { __nomicon_unsafe__Inc } from "../number/int/inc"
 import { Omit } from "./omit"
 import { Optional } from "./optional"
 import { Pick } from "./pick"
@@ -6,10 +6,10 @@ import { Pick } from "./pick"
 /**
  * @private
  */
-type _AtLeastNRequired<T, N extends number, A extends Iteration = Iterate<0>> =
-  Value<A> extends N
+type _AtLeastNRequired<T, N extends number, NRequired extends number = 0> =
+  NRequired extends N
     ? Optional<T>
-    : { [K in keyof T]: Pick<T, K> & _AtLeastNRequired<Omit<T, K>, N, Increment<A>> }[keyof T]
+    : { [K in keyof T]: Pick<T, K> & _AtLeastNRequired<Omit<T, K>, N, __nomicon_unsafe__Inc<NRequired>> }[keyof T]
 
 /**
  * makes all properties in `T` optional, but requires at least `N` properties to be defined.
