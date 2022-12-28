@@ -7,10 +7,12 @@ import { Sub, SubNonneg } from "./sub";
  * 
  * validates that `N1 and `N2` are in fact nonnegative integers
  */
-export type SubNonneg_Safe<N1 extends ValidateNonnegInt<N1>, N2 extends ValidateNonnegInt<N2>> =
-  [N1, N2] extends [infer N1 extends number, infer N2 extends number]
-    ? SubNonneg<N1, N2>
-    : Unreachable
+export type SubNonneg_Safe<N1 extends ValidateNonnegInt<N1, 'N1'>, N2 extends ValidateNonnegInt<N2, 'N2'>> =
+  [ValidateInt<N1>, ValidateInt<N2>] extends [number, number]
+    ? [N1, N2] extends [infer N1 extends number, infer N2 extends number]
+      ? SubNonneg<N1, N2>
+      : Unreachable
+    : never
 
 /**
  * subtracts integer `N2` from integer `N1`
@@ -19,10 +21,8 @@ export type SubNonneg_Safe<N1 extends ValidateNonnegInt<N1>, N2 extends Validate
  */
 
 export type Sub_Safe<N1 extends ValidateInt<N1, 'N1'>, N2 extends ValidateInt<N2, 'N2'>> =
-  ValidateInt<N1> extends number
-    ? ValidateInt<N2> extends number
-      ? [N1, N2] extends [infer N1 extends number, infer N2 extends number]
-        ? Sub<N1, N2>
-        : Unreachable
-      : never
+  [ValidateInt<N1>, ValidateInt<N2>] extends [number, number]
+    ? [N1, N2] extends [infer N1 extends number, infer N2 extends number]
+      ? Sub<N1, N2>
+      : Unreachable
     : never

@@ -21,4 +21,9 @@ export type IncNonneg_Safe<N extends ValidateNonnegInt<N>> =
  * validates that `N` is in fact an integer
  */
 
-export type Inc_Safe<N extends ValidateInt<N>> = ValidateInt<N> extends number ? N extends (infer N extends number) ? Inc<N> : Unreachable : never;
+export type Inc_Safe<N extends ValidateInt<N>> =
+  ValidateInt<N> extends number
+    ? N extends (infer N extends number)
+      ? Inc<N>
+      : Unreachable
+    : never
