@@ -37,8 +37,7 @@ export type $Exists<P extends HKT<any, boolean>, L extends List> =
         : $Exists<P, T>
       : Unreachable
   : false
-  /**
-   * TODO: what behavior do we want for variadic lists?
+  /* TODO: what behavior do we want for variadic lists?
    * since list might be empty we could simply not consider it -> return `false`. (this is the current behavior)
    * or, we could assume its nonempty and return `true` if `P` matches its element type. (e.g. "there exists an element of string[] that extends string" -> should return true no?)
    * or, we could return `true | false` = `boolean` to reflect the ambiguity
