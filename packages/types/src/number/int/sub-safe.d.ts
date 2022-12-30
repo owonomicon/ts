@@ -1,6 +1,6 @@
-import { Unreachable } from "../../type/unreachable";
-import { ValidateInt, ValidateNonnegInt } from "./_validate";
-import { Sub, SubNonneg } from "./sub";
+import { Unreachable } from "../../type/unreachable"
+import { ValidateInt, ValidateNonnegInt } from "./_validate"
+import { Sub, SubNonneg } from "./sub"
 
 /**
  * subtracts nonnegative integer `N2` from nonnegative integer `N1`

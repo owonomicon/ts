@@ -1,4 +1,4 @@
-import { Abs } from "./abs";
+import { Abs } from "./abs"
 
 /**
  * checks whether number `N` is fractional (i.e. has a decimal point)

@@ -1,7 +1,7 @@
-import { Relates, Relation } from "../type/relates";
-import { ElementOf } from "./element-of";
-import { IsEmpty } from "./is-empty";
-import { List } from "./list";
+import { Relates, Relation } from "../type/relates"
+import { ElementOf } from "./element-of"
+import { IsEmpty } from "./is-empty"
+import { List } from "./list"
 
 /**
  * tail call optimized type to check if variadic tuple with leading spread `L` contains some element that relates to `Q` by relation `R`.

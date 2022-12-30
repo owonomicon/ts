@@ -1,8 +1,8 @@
-import { List } from "../list/list";
-import { Builtin } from "../primitive/builtin";
-import { IsTuple } from "../list/is-tuple";
-import { IsUnknown } from "../type/is-unknown";
-import { Mutable } from "./mutable";
+import { List } from "../list/list"
+import { Builtin } from "../primitive/builtin"
+import { IsTuple } from "../list/is-tuple"
+import { IsUnknown } from "../type/is-unknown"
+import { Mutable } from "./mutable"
 
 /**
  * makes (nested) keys of an object mutable (i.e. not readonly)

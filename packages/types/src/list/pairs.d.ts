@@ -1,12 +1,12 @@
-import { Satisfies } from "../type/satisfies";
-import { Unreachable } from "../type/unreachable";
-import { Append } from "./append";
-import { Concat } from "./concat";
-import { ElementOf } from "./element-of";
-import { IsEmpty } from "./is-empty";
-import { List } from "./list";
-import { Prepend } from "./prepend";
-import { Parts } from "./_parts";
+import { Satisfies } from "../type/satisfies"
+import { Unreachable } from "../type/unreachable"
+import { Append } from "./append"
+import { Concat } from "./concat"
+import { ElementOf } from "./element-of"
+import { IsEmpty } from "./is-empty"
+import { List } from "./list"
+import { Prepend } from "./prepend"
+import { Parts } from "./_parts"
 
 /**
  * constructs the pairs of finite, nonvariadic tuple `L`.

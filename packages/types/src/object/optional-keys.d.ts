@@ -1,5 +1,5 @@
-import { Exclude } from "../set-theory/exclude";
-import { RequiredKeys } from "./required-keys";
+import { Exclude } from "../set-theory/exclude"
+import { RequiredKeys } from "./required-keys"
 
 /**
  * gets the optional keys of `T`

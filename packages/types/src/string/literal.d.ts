@@ -1,5 +1,5 @@
-import { If } from "../bool/if";
-import { IsLiteral } from "./is-literal";
+import { If } from "../bool/if"
+import { IsLiteral } from "./is-literal"
 
 /**
  * asserts a given string is a string literal

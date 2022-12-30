@@ -1,13 +1,13 @@
-import { List } from "../../list/list";
-import { HKT, _, I } from "../hkt";
-import { $ } from "../$";
-import { Satisfies } from "../../type/satisfies";
-import { Unreachable } from "../../type/unreachable";
-import { Append, AppendOptional } from "../../list/append";
-import { Concat } from "../../list/concat";
-import { ElementOf } from "../../list/element-of";
-import { IsEmpty } from "../../list/is-empty";
-import { Prepend } from "../../list/prepend";
+import { List } from "../../list/list"
+import { HKT, _, I } from "../hkt"
+import { $ } from "../$"
+import { Satisfies } from "../../type/satisfies"
+import { Unreachable } from "../../type/unreachable"
+import { Append, AppendOptional } from "../../list/append"
+import { Concat } from "../../list/concat"
+import { ElementOf } from "../../list/element-of"
+import { IsEmpty } from "../../list/is-empty"
+import { Prepend } from "../../list/prepend"
 
 type __$Filter<P extends HKT<any, boolean>, L extends List, Acc extends List = []> =
   L extends readonly [...infer Init, infer Last]

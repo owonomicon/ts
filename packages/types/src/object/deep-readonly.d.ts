@@ -1,8 +1,8 @@
-import { List } from "../list/list";
-import { Builtin } from "../primitive/builtin";
-import { IsTuple } from "../list/is-tuple";
-import { IsUnknown } from "../type/is-unknown";
-import { Readonly } from "./readonly";
+import { List } from "../list/list"
+import { Builtin } from "../primitive/builtin"
+import { IsTuple } from "../list/is-tuple"
+import { IsUnknown } from "../type/is-unknown"
+import { Readonly } from "./readonly"
 
 /**
  * makes (nested) keys of an object readonly

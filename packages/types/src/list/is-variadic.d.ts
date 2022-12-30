@@ -1,5 +1,5 @@
-import { Length } from "./length";
-import { List } from "./list";
+import { Length } from "./length"
+import { List } from "./list"
 
 /**
  * whether `T` is a variadic list

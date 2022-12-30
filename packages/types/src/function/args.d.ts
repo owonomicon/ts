@@ -1,7 +1,7 @@
-import { List } from "../list/list";
-import { Satisfies } from "../type/satisfies";
-import { Unreachable } from "../type/unreachable";
-import { Function } from "./function";
+import { List } from "../list/list"
+import { Satisfies } from "../type/satisfies"
+import { Unreachable } from "../type/unreachable"
+import { Function } from "./function"
 
 /**
  * extracts the arguments of function `F`

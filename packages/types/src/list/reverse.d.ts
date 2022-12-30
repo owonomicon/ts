@@ -1,9 +1,9 @@
-import { Unreachable } from "../type/unreachable";
-import { Append } from "./append";
-import { Concat } from "./concat";
-import { IsEmpty } from "./is-empty";
-import { List } from "./list";
-import { Prepend } from "./prepend";
+import { Unreachable } from "../type/unreachable"
+import { Append } from "./append"
+import { Concat } from "./concat"
+import { IsEmpty } from "./is-empty"
+import { List } from "./list"
+import { Prepend } from "./prepend"
 
 type Options<PLN extends boolean = boolean> = {
   preserve_labels_nonvariadic: PLN

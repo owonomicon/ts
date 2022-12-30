@@ -1,5 +1,5 @@
-import { Extends } from "../type/extends";
-import { Capitalize, Lowercase, Uncapitalize, Uppercase } from "./case";
+import { Extends } from "../type/extends"
+import { Capitalize, Lowercase, Uncapitalize, Uppercase } from "./case"
 
 /**
  * checks whether string `S` is uppercase

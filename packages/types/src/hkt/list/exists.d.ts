@@ -1,10 +1,10 @@
-import { List } from "../../list/list";
-import { HKT, _, I } from "../hkt";
-import { $ } from "../$";
-import { Satisfies } from "../../type/satisfies";
-import { Unreachable } from "../../type/unreachable";
-import { ElementOf } from "../../list/element-of";
-import { IsEmpty } from "../../list/is-empty";
+import { List } from "../../list/list"
+import { HKT, _, I } from "../hkt"
+import { $ } from "../$"
+import { Satisfies } from "../../type/satisfies"
+import { Unreachable } from "../../type/unreachable"
+import { ElementOf } from "../../list/element-of"
+import { IsEmpty } from "../../list/is-empty"
 
 type _$Exists<P extends HKT<any, boolean>, L extends List> =
   L extends readonly [...infer Init, infer Last]

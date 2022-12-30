@@ -1,5 +1,5 @@
-import { Unreachable } from "../type/unreachable";
-import { Select } from "./select";
+import { Unreachable } from "../type/unreachable"
+import { Select } from "./select"
 
 /**
  * converts union `U` into an intersection of its members

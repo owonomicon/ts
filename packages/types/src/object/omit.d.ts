@@ -1,5 +1,5 @@
-import { Exclude } from "../set-theory/exclude";
-import { Pick } from "./pick";
+import { Exclude } from "../set-theory/exclude"
+import { Pick } from "./pick"
 
 /**
  * picks the properties of `T` whose keys do not extend `K`

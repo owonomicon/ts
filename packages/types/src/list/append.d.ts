@@ -1,4 +1,4 @@
-import { List } from "./list";
+import { List } from "./list"
 
 type Options<Optional extends boolean = boolean> = { optional: Optional }
 

@@ -1,4 +1,4 @@
-import { IsList } from "./is-list";
+import { IsList } from "./is-list"
 
 export type IsReadonlyList<T> =
   IsList<T> extends true

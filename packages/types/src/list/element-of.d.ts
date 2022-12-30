@@ -1,5 +1,5 @@
-import { Unreachable } from "../type/unreachable";
-import { List } from "./list";
+import { Unreachable } from "../type/unreachable"
+import { List } from "./list"
 
 /**
  * gets the element of a list

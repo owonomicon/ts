@@ -1,7 +1,7 @@
-import { IsNever } from "../type/is-never";
-import { If } from "../bool/if";
-import { List } from "./list";
-import { OmitFirst } from "./omit-first-n";
+import { IsNever } from "../type/is-never"
+import { If } from "../bool/if"
+import { List } from "./list"
+import { OmitFirst } from "./omit-first-n"
 
 type _Tail<T extends List, R = OmitFirst<T>> =
   If<

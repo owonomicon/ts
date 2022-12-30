@@ -1,12 +1,12 @@
-import { If } from "../bool/if";
-import { IncNonneg } from "../number/int/inc";
-import { Omit } from "../object/omit";
-import { ShallowResolve } from "../type/resolve";
-import { Unreachable } from "../type/unreachable";
-import { ElementOf } from "./element-of";
-import { IsVariadic } from "./is-variadic";
-import { List } from "./list";
-import { OmitFirstN } from "./omit-first-n";
+import { If } from "../bool/if"
+import { IncNonneg } from "../number/int/inc"
+import { Omit } from "../object/omit"
+import { ShallowResolve } from "../type/resolve"
+import { Unreachable } from "../type/unreachable"
+import { ElementOf } from "./element-of"
+import { IsVariadic } from "./is-variadic"
+import { List } from "./list"
+import { OmitFirstN } from "./omit-first-n"
 
 /**
  * get the "length" of the resultant named object from a list

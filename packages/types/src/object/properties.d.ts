@@ -1,4 +1,4 @@
-import { Omit } from "./omit";
+import { Omit } from "./omit"
 
 /**
  * extracts just the properties of type `T`

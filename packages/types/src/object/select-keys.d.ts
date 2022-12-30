@@ -1,5 +1,5 @@
-import { If } from "../bool/if";
-import { Relates, Relation } from "../type/relates";
+import { If } from "../bool/if"
+import { Relates, Relation } from "../type/relates"
 
 export type SelectKeys<T, Q, R extends Relation = 'extends'> =
   {
