@@ -43,10 +43,10 @@ export type $IsComposable<Kinds extends List<HKT>> =
  *  this type is only used by `$Compose` and `$Pipe`,
  * both of which ensure that the type passed in is composable and don't allow for optional elements
  */
-type _$Pipe<Kinds extends List<HKT>, X> =
+type __$Pipe<Kinds extends List<HKT>, X> =
   IsEmpty<Kinds> extends true ? X
   : Kinds extends readonly [infer H, ...infer T]
-    ? _$Pipe<
+    ? __$Pipe<
         Satisfies<T, List<HKT>>,
         $<
           Satisfies<H, HKT>,
@@ -54,7 +54,7 @@ type _$Pipe<Kinds extends List<HKT>, X> =
         >
       >
   : Kinds extends readonly [...infer Init, infer L]
-    ? _$Pipe<
+    ? __$Pipe<
         Satisfies<L, List<HKT>>,
         $<
           Satisfies<ElementOf<Init>, HKT>,
@@ -62,6 +62,13 @@ type _$Pipe<Kinds extends List<HKT>, X> =
         >
       >
   : X
+
+/**
+ * loosely typed `Pipe` that doesn't validate that the input type is pipeable.
+ * 
+ * exists mostly because `Compose` uses `Pipe` logic but TS can't properly detect that if `L` is composable then `Rev<L>` is pipeable
+ */
+type _$Pipe<Kinds extends List<HKT>, X> = __$Pipe<Kinds, X>
 
 export type $Pipe<
   Kinds extends
@@ -84,7 +91,6 @@ export interface Pipe<
   [HKT.o]: $Pipe<Kinds, I<this>>
 }
 
-
 export type $Compose<
   Kinds extends
     If<
@@ -94,7 +100,7 @@ export type $Compose<
   X
 > =
   // it's easier to extract the first element of a list than the last so we'll reverse the list and pass that to `_$Pipe`
-  $Pipe<Reverse<Kinds>, X>
+  _$Pipe<Reverse<Kinds>, X>
 
 export interface Compose<
   Kinds extends
