@@ -10,7 +10,7 @@ import { IsEmpty } from "../../list/is-empty";
 import { Prepend } from "../../list/prepend";
 
 type __$Filter<P extends HKT<any, boolean>, L extends List, Acc extends List = []> =
-  L extends [...infer Init, infer Last]
+  L extends readonly [...infer Init, infer Last]
     ? $<P, Last> extends true
       ? __$Filter<P, Init, Prepend<Acc, Last>>
       : __$Filter<P, Init, Acc>
