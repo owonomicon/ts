@@ -5,15 +5,15 @@ import { Concat } from "./concat";
 import { ElementOf } from "./element-of";
 import { IsEmpty } from "./is-empty";
 import { List } from "./list";
+import { Prepend } from "./prepend";
 import { Parts } from "./_parts";
 
 /**
  * constructs the pairs of finite, nonvariadic tuple `L`.
- * tail call optimized.
  */
-type __Pairs<L extends List, Acc extends readonly [unknown, unknown][] = []> =
+type __Pairs<L extends List, Acc extends List<[unknown, unknown]> = []> =
   L extends readonly [infer H, infer HH, ...infer T]
-    ? __Pairs<[HH, ...T], Append<Acc, [H, HH]>>
+    ? __Pairs<[HH, ...T], Append<Acc, [H, HH]>> // don't bother using `Prepend` here - use regular spread to match the `infer HH, ...infer T` syntax that created them
     : Acc
 
 /**
@@ -26,13 +26,14 @@ type __Pairs<L extends List, Acc extends readonly [unknown, unknown][] = []> =
  * - `S`, if not empty, is a plain array (i.e. consists of a single spread element and nothing else)
  */
 type _Pairs<I extends List, S extends List, T extends List> =
-  IsEmpty<S> extends true ? __Pairs<I>
-  : __Pairs<Concat<I, T>>
-    | [
-      ...__Pairs<[...Required<I>, ElementOf<S>]>,
-      ...[ElementOf<S>, ElementOf<S>][],
-      ...__Pairs<[ElementOf<S>, ...T]>
-    ]
+  IsEmpty<S> extends true
+    ? __Pairs<I>
+    : | __Pairs<Concat<I, T>>
+      | [
+          ...__Pairs<Append<Required<I>, ElementOf<S>>>,
+          ...[ElementOf<S>, ElementOf<S>][],
+          ...__Pairs<Prepend<T, ElementOf<S>>> // spread `S` is nonempty, and optional elements cannot appear after a spread, so we know `T` has no optional elements
+        ]
 
 /**
  * constructs a list of pairs of the adjacent elements of list `L`.
