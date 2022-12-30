@@ -5,11 +5,11 @@ import { List } from "../list/list"
 import { Pairs } from "../list/pairs"
 import { Reverse } from "../list/reverse"
 import { Extends } from "../type/extends"
-import { MutuallyAssignable } from "../type/mutually-assignable"
 import { Satisfies } from "../type/satisfies"
 import { HKT, _, I, O } from "./hkt"
 import { $All } from "./list/all"
 import { $ } from "./$"
+import { MutuallyAssignable } from "../type/mutually-assignable"
 
 /**
  * checks whether the first element in a pair of hkts can be piped into the second
@@ -77,6 +77,33 @@ type __$Pipe<Kinds extends List<HKT>, X> =
  */
 type _$Pipe<Kinds extends List<HKT>, X> = __$Pipe<Kinds, X>
 
+/**
+ * pipes `X` through HKTs `Kinds` and returns the resultant type
+ * 
+ * @example
+ * ```ts
+ * // some sample kinds for transforming an input
+ * type sb = HKT<string, boolean>
+ * type sn = HKT<string, number>
+ * type ss = HKT<string, string>
+ * type nb = HKT<number, boolean>
+ * type nn = HKT<number, number>
+ * type ns = HKT<number, string>
+ * 
+ * type e0 = $Pipe<[], never>                             // never
+ * type e1 = $Pipe<[], string>                            // string
+ * type e2 = $Pipe<ss[], string>                          // string
+ * type e3 = $Pipe<[sn], string>                          // number
+ * type e4 = $Pipe<[sn, nb], string>                      // boolean
+ * type e5 = $Pipe<[...ss[], sn], string>                 // number
+ * type e6 = $Pipe<[sn, ...nn[]], string>                 // number
+ * type e7 = $Pipe<[sn, ...nn[], nb], string>             // boolean
+ * type e8 = $Pipe<sn[], string>                          // Type 'sn[]' does not satisfy the constraint 'never'.ts(2344)
+ * type e9 = $Pipe<[sn, ...nn[], (ns | sn), sb], string>  // Type '[sn, ...nn[], sn | ns, sb]' does not satisfy the constraint 'never'.ts(2344)
+ * type e10 = $Pipe<[sn, ...nn[], (ns | sn), nb], string> // Type '[sn, ...nn[], sn | ns, nb]' does not satisfy the constraint 'never'.ts(2344
+ * type e11 = $Pipe<[sn, ...(ns | sn)[]], string>         // Type '[sn, ...(sn | ns)[]]' does not satisfy the constraint 'never'.ts(2344)
+ * ```
+ */
 export type $Pipe<
   Kinds extends
     If<
@@ -119,3 +146,4 @@ export interface Compose<
   [HKT.i]: _<this>
   [HKT.o]: $Compose<Kinds, I<this>>
 }
+
