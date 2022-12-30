@@ -1,4 +1,4 @@
-import type { SymmetricDifference } from "../set-theory/symmetric-difference"
+import { SymmetricDifference } from "../set-theory/symmetric-difference"
 import { KeyIntersection } from "./intersection"
 import { Omit } from "./omit"
 

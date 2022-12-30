@@ -1,4 +1,4 @@
-import type { SetUnion } from "../set-theory/union"
+import { SetUnion } from "../set-theory/union"
 
 export type KeyUnion<A, B> = SetUnion<keyof A, keyof B>
 
