@@ -5,6 +5,7 @@ import { List } from "../list/list"
 import { Pairs } from "../list/pairs"
 import { Reverse } from "../list/reverse"
 import { Extends } from "../type/extends"
+import { MutuallyAssignable } from "../type/mutually-assignable"
 import { Satisfies } from "../type/satisfies"
 import { HKT, _, I, O } from "./hkt"
 import { $All } from "./list/all"
@@ -22,18 +23,24 @@ interface IsPairPipeable extends HKT {
  * checks if a list of hkts is composable.
  */
 export type $IsPipeable<Kinds extends List<HKT>> =
-  $All<
-    IsPairPipeable,
-    Pairs<Kinds>
+  MutuallyAssignable<
+    true,
+    $All<
+      IsPairPipeable,
+      Pairs<Kinds>
+    >
   >
 
 /**
  * checks if a list of hkts is composable.
  */
 export type $IsComposable<Kinds extends List<HKT>> =
-  $All<
-    IsPairPipeable,
-    Pairs<Reverse<Kinds>>
+  MutuallyAssignable<
+    true,
+    $All<
+      IsPairPipeable,
+      Pairs<Reverse<Kinds>>
+    >
   >
 
 /**
