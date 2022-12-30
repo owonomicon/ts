@@ -36,7 +36,9 @@ export type $All<P extends HKT<any, boolean>, L extends List> =
         ? $All<P, T>
         : false
       : Unreachable
-  : true
+  : $<P, ElementOf<L>> extends true
+    ? true
+    : false
 
 export interface All<P extends HKT<any, boolean>> extends HKT {
   [HKT.i]: Satisfies<_<this>, List<I<P>>>
