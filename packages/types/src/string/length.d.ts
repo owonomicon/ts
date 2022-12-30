@@ -1,5 +1,5 @@
-import { Length as ListLength } from "../list/length"
 import { If } from "../bool/if"
+import { Length as ListLength } from "../list/length"
 import { IsLiteral } from "./is-literal"
 
 /**

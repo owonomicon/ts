@@ -1,5 +1,5 @@
-import { Select } from "./select"
 import { Relation } from "../type/relates"
+import { Select } from "./select"
 
 /**
  * exclude from union `U` the types that relate to query `Q` by relation `R`

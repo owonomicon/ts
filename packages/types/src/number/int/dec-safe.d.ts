@@ -1,6 +1,6 @@
 import { Unreachable } from "../../type/unreachable"
-import { DecPos, DecNonneg, Dec } from "./dec"
 import { ValidatePosInt, ValidateNonnegInt, ValidateInt } from "./_validate"
+import { DecPos, DecNonneg, Dec } from "./dec"
 
 /**
  * decrements positive integer `N`

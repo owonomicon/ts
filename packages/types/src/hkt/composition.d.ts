@@ -5,11 +5,11 @@ import { List } from "../list/list"
 import { Pairs } from "../list/pairs"
 import { Reverse } from "../list/reverse"
 import { Extends } from "../type/extends"
+import { MutuallyAssignable } from "../type/mutually-assignable"
 import { Satisfies } from "../type/satisfies"
+import { $ } from "./$"
 import { HKT, _, I, O } from "./hkt"
 import { $All } from "./list/all"
-import { $ } from "./$"
-import { MutuallyAssignable } from "../type/mutually-assignable"
 
 /**
  * checks whether the first element in a pair of hkts can be piped into the second

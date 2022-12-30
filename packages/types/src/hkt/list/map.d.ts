@@ -1,13 +1,13 @@
-import { List } from "../../list/list"
-import { HKT, _, I } from "../hkt"
-import { $ } from "../$"
-import { Satisfies } from "../../type/satisfies"
-import { Unreachable } from "../../type/unreachable"
 import { Append, AppendOptional } from "../../list/append"
 import { Concat } from "../../list/concat"
 import { ElementOf } from "../../list/element-of"
 import { IsEmpty } from "../../list/is-empty"
+import { List } from "../../list/list"
 import { Prepend } from "../../list/prepend"
+import { Satisfies } from "../../type/satisfies"
+import { Unreachable } from "../../type/unreachable"
+import { $ } from "../$"
+import { HKT, _, I } from "../hkt"
 
 type __$Map<F extends HKT<any, any>, L extends List, Acc extends List = []> =
   L extends [...infer Init, infer Last]

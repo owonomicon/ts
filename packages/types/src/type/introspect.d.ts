@@ -1,6 +1,3 @@
-import { IsAny } from "./is-any"
-import { IsNever } from "./is-never"
-import { IsUnknown } from "./is-unknown"
 import { Function } from "../function/function"
 import { Parts } from "../list/_parts"
 import { ElementOf } from "../list/element-of"
@@ -13,6 +10,9 @@ import { IsUnion } from "../set-theory/is-union"
 import { Quote } from "../string/quote"
 import { Serializable } from "../string/serializable"
 import { Equals } from "./equals"
+import { IsAny } from "./is-any"
+import { IsNever } from "./is-never"
+import { IsUnknown } from "./is-unknown"
 import { Unreachable } from "./unreachable"
 
 /**

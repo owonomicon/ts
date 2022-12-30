@@ -1,7 +1,7 @@
-import { Unreachable } from "../../type/unreachable"
 import { AsNumber } from "../../string/as-number"
 import { Reverse } from "../../string/reverse"
 import { StripLeadingZeros } from "../string/strip-leading-zeros"
+import { Unreachable } from "../../type/unreachable"
 import { DecPos } from "./dec"
 
 type AdditionDigitMap =

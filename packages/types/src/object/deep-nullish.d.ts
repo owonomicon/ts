@@ -1,7 +1,7 @@
+import { IsTuple } from "../list/is-tuple"
 import { List } from "../list/list"
 import { Builtin } from "../primitive/builtin"
 import { NonNull, NonNullish, NonUndefined, Nullable, Nullishable, Undefinable } from "../primitive/nullish"
-import { IsTuple } from "../list/is-tuple"
 import { IsUnknown } from "../type/is-unknown"
 
 /**

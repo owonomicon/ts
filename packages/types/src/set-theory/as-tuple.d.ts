@@ -1,5 +1,5 @@
-import { IsNever } from "../type/is-never"
 import { Append } from "../list/append"
+import { IsNever } from "../type/is-never"
 import { Unreachable } from "../type/unreachable"
 import { AsIntersection } from "./as-intersection"
 

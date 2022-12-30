@@ -1,5 +1,5 @@
-import { ReadonlyKeys } from "./readonly-keys"
 import { Pick } from "./pick"
+import { ReadonlyKeys } from "./readonly-keys"
 
 /**
  * Picks the readonly properties of `T`.

@@ -9,10 +9,10 @@
  */
 
 import { If } from "../bool/if"
-import { IsLiteral } from "../type/is-literal"
-import { Key } from "../object/key"
 import { IsUnion } from "../set-theory/is-union"
+import { IsLiteral } from "../type/is-literal"
 import { IsUniqueSymbol } from "../type/is-unique-symbol"
+import { Key } from "../object/key"
 
 
 /**

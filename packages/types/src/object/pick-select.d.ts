@@ -1,6 +1,6 @@
 import { Relation } from "../type/relates"
-import { SelectKeys, SelectKeysByValue } from "./select-keys"
 import { Pick } from "./pick"
+import { SelectKeys, SelectKeysByValue } from "./select-keys"
 
 /**
  * picks all properties of `T` whose keys relate to `Q` by relation `R`

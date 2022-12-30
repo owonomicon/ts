@@ -1,5 +1,5 @@
-import { IsNever } from "../type/is-never"
 import { If } from "../bool/if"
+import { IsNever } from "../type/is-never"
 
 /**
  * whether `A` extends `B`.
