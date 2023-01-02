@@ -1,23 +1,17 @@
-import { If } from "../bool/if"
-import { IsNever } from "../type/is-never"
-
 /**
  * whether `A` extends `B`.
- * returns false if  `A` or `B` are never.
+ * 
+ * @warning
+ * DO NOT USE THIS TO TEST FOR `never`.
+ * use `IsNever<T>` to check if type `T` is `never`
  * 
  * @example
- * type e0 = Extends<0, 1> // false
- * 
- * // nothing can be `never`. use `IsNever` to check if a type is `never`
- * type e1 = Extends<never, never> // false
- * type e2 = Extends<string, never> // false
- * type e3 = Extends<never, string> // false
+ * type e0 = Extends<never, unknown>  // never
+ * type e1 = Extends<0, 1>            // false 
+ * type e2 = Extends<0, number>       // true
+ * type e3 = Extends<string, never>   // false
  */
 export type Extends<A, B> =
-  If<
-    IsNever<A>,
-    false,
-    A extends B
-      ? true
-      : false
-  >
+  A extends B
+    ? true
+    : false
