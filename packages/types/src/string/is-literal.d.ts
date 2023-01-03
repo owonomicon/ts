@@ -1,13 +1,11 @@
 import { Not } from "../bool/not"
 import { Or } from "../bool/or"
-import { Contains as ListContains } from "../list/contains"
-import { List } from "../list/list"
-import { AsTuple } from "../set-theory/as-tuple"
-import { Equals } from "../type/equals"
-import { Satisfies } from "../type/satisfies"
+import { Extends } from "../type/extends"
 
 /**
- * checks whether `S` is a string literal (i.e. must have finite length and is well-defined).
+ * checks whether `T` is a string literal (i.e. well-defined string with finite length).
+ * 
+ * @warning check is O(n) wrt string length
  * 
  * @example
  * type e0 = IsLiteral<never>                        // never
@@ -29,17 +27,17 @@ import { Satisfies } from "../type/satisfies"
  * 
  * @todo revisit this, seems kinda scuffed / possibly not very performant
  */
-export type IsLiteral<S extends string> =
-  S extends `${infer H}${infer T}`
-    ? AsTuple<H> extends infer L
-      ? Or<
-          ListContains<Satisfies<L, List>, string, 'equals'>,
-          Or<
-            ListContains<Satisfies<L, List>, `${number}`, 'equals'>,
-            ListContains<Satisfies<L, List>, `${bigint}`, 'equals'>
-          >
-        > extends true
-          ? false
-          : IsLiteral<T>
-      : false // unreachable
-    : Not<Equals<S, string>> // only the plain `string` type or empty string "" should be able to reach here
+export type IsLiteral<T> =
+  T extends string
+    ? T extends `${infer H}${infer T}`
+        ? Or<
+            Extends<string, H>,
+            Or<
+              Extends<`${number}`, H>,
+              Extends<`${bigint}`, H>
+            >
+          > extends true
+              ? false
+              : IsLiteral<T>
+        : Not<Extends<string, T>> // only the plain `string` type or empty string "" should be able to reach here
+    : false
