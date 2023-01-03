@@ -9,10 +9,12 @@
  */
 
 import { If } from "../bool/if"
-import { IsUnion } from "../set-theory/is-union"
+import { Length } from "../list/length"
+import { Key } from "../object/key"
+import { AsTuple } from "../set-theory/as-tuple"
 import { IsLiteral } from "../type/is-literal"
 import { IsUniqueSymbol } from "../type/is-unique-symbol"
-import { Key } from "../object/key"
+import { Satisfies } from "./satisfies"
 
 
 /**
@@ -24,6 +26,18 @@ declare const __NOMINAL_TYPE__: unique symbol
  * use the unique symbol as a key to "flag" nominal types; an id value can then be used to discriminate between different nominal types 
  */
 type BlackBox<Id> = { readonly [__NOMINAL_TYPE__]: Id }
+
+/**
+ * Creates a nominal type matched by id `Id`.
+ * 
+ * You should probably use `Nominal` over this type in almost every case.
+ * This type does not ensure that `Id` is a literal or unique symbol, nor does it ensure that it is not a union.
+ * 
+ * @warn DOES NOT WORK WITH `null` OR `undefined`.
+ */
+export type _Nominal<T, Id extends Key> =
+  T & BlackBox<Id>
+
 
 /**
  * Creates a nominal type matched by id `Id`.
@@ -41,37 +55,54 @@ type BlackBox<Id> = { readonly [__NOMINAL_TYPE__]: Id }
  * type e1 = Nominal<number, typeof s1>
  * type t1 = number extends e1 ? true : false // false
  * 
- * type e2 = Nominal<string, string> // never // string ids must be string literals
- * type e3 = Nominal<string, number> // never // number ids must be number literals
- * type e4 = Nominal<string, symbol> // never // symbol ids must be unique symbols
- * type e5 = Nominal<string, 0 | 1>  // never // ids cannot be union types
+ * type e2 = Nominal<string, string> // Type 'string' does not satisfy the constraint 'TS_TYPE_ERROR<"Id must be a string literal, number literal, or unique symbol">'.ts(2344)
+ * type e3 = Nominal<string, number> // Type 'number' does not satisfy the constraint 'TS_TYPE_ERROR<"Id must be a string literal, number literal, or unique symbol">'.ts(2344)
+ * type e4 = Nominal<string, symbol> // Type 'symbol' does not satisfy the constraint 'TS_TYPE_ERROR<"Id must be a string literal, number literal, or unique symbol">'.ts(2344)
+ * type e5 = Nominal<string, 0 | 1>  // Type 'number' does not satisfy the constraint 'TS_TYPE_ERROR<"Id cannot be a union type">'.ts(2344)
  * 
- * type w6 = Nominal<null, 'null'> // never // `Nominal` does not work well with `null`
- * type w7 = Nominal<undefined, 'undefined'> // never // `Nominal` does not work well with `undefined`
- * type w8 = Nominal<string | undefined, ''> // string & BlackBox<''> // `undefined` is lost
+ * type w6 = Nominal<null, ''>               // never                  // `Nominal` does not work well with `null`
+ * type w7 = Nominal<undefined, ''>          // never                  // `Nominal` does not work well with `undefined`
+ * type w8 = Nominal<string | undefined, ''> // string & BlackBox<''>  // `undefined` is lost
  */
-export type Nominal<T, Id extends Key> =
-  If<
-    IsUnion<Id>,
-    never,
-    If<
-      IsLiteral<Id>,
-      T & BlackBox<Id>,
-      If<
-        IsUniqueSymbol<Id>,
-        T & BlackBox<Id>
-      >
-    >
-  >
+export type Nominal<T, Id extends ValidateId<Id>> =
+ValidateId<Id> extends Key
+  ? _Nominal<T, Satisfies<Id, Key>>
+  : never
 
 /**
  * extracts the original type from an opaque type, i.e. reverts it from a nominal back to a structural type
  */
-export type Structural<NominalType extends BlackBox<unknown>> =
-  NominalType extends BlackBox<infer U>
-    ? U extends Key
-      ? NominalType extends Nominal<infer T, U>
-        ? T
-        : never
+export type Structural<T extends BlackBox<unknown>> =
+  T extends BlackBox<infer Id extends Key>
+    ? T extends _Nominal<infer U, Id>
+      ? U
       : never
     : never
+
+declare const TS_TYPE_ERROR: unique symbol
+type TS_TYPE_ERROR<M extends string> = { [TS_TYPE_ERROR]: M }
+
+/**
+ * checks if type `T` is a union, with deferred computation.
+ * 
+ * this lets it be used in custom type constraints.
+ */
+type IsUnionNoncircular<T> =
+  Length<AsTuple<T>> extends 1
+    ? false
+    : true
+
+type ValidateId<Id> =
+  If<
+    IsUnionNoncircular<Id>,
+    TS_TYPE_ERROR<'Id cannot be a union type'>,
+    If<
+      IsLiteral<Id>,
+      Key,
+      If<
+        IsUniqueSymbol<Id>,
+        Key,
+        TS_TYPE_ERROR<'Id must be a string literal, number literal, or unique symbol'>
+      >
+    >
+  >
