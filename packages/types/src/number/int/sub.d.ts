@@ -81,7 +81,7 @@ export type SubNonneg<N1 extends number, N2 extends number> =
           // if its a string then it computed the result properly
           ? AsNumber<StripLeadingZeros<Reverse<X>>>
           // otherwise the result was negative, i.e. N2 > N1. so we'll just compute N2 - N1 and make that negative
-          : Negate<Sub<N2, N1>>
+          : Negate<SubNonneg<N2, N1>>
         : Unreachable
       : Unreachable
 
