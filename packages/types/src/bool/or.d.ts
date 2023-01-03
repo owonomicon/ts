@@ -1,5 +1,5 @@
 /**
- * checks if either `A` or `B` do not extend `false`
+ * checks if either `A` or `B` extend `true`
  */
 export type Or<A extends boolean, B extends boolean> =
   /* there appears to be some strange behavior where this construct returns the wrong value
