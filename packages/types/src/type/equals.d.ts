@@ -1,9 +1,74 @@
 import { MutuallyAssignable } from "./mutually-assignable"
 import { ShallowResolve } from "./resolve"
 
-type Options<RI extends boolean = boolean> = {
-  resolve_intersections: RI
-}
+/**
+ * checks whether types `A` and `B` are considered "identical" internally by TS.
+ * note that this is in regards to the types themselves, _not_ necessarily what they get reduced to.
+ * 
+ * one not uncommon use case affected by this shortcoming is in it not properly handling intersections
+ *  (e.g. `{ a: 0 } & { b: 1 }` is not considered identical to `{ a: 0, b: 1 }`)
+ * 
+ * it may also fail on certain forms of variadic tuples (e.g. `[...T[], T]` is erroneously considered identical to `T[]`)
+ * 
+ * taken from MattMcCutchen's answer in {@link https://github.com/Microsoft/TypeScript/issues/27024#issuecomment-421529650}
+ * 
+ * @example
+ * ```ts
+ * // many of these examples taken from the thread https://github.com/Microsoft/TypeScript/issues/27024
+ * 
+ * type e0   = __Equals<never, never>                         // true
+ * type e1   = __Equals<never, Exclude<string, string>>       // true
+ * type e2   = __Equals<unknown, any>                         // false
+ * type e3   = __Equals<number, string>                       // false
+ * type e4   = __Equals<1, 1>                                 // true
+ * type e5   = __Equals<any, 1>                               // false
+ * type e6   = __Equals<1 | 2, 1>                             // false
+ * type e7   = __Equals<any, never>                           // false
+ * type e8   = __Equals<[any], [number]>                      // false
+ * 
+ * // object intersection
+ * type e9   = __Equals<{ x: 1 } & { y: 2 }, { x: 1, y: 2 }>  // false
+ * 
+ * // primitive intersection
+ * type e10   = __Equals<number & {}, number>                 // false
+ * 
+ * // variadic tuple
+ *     
+ * type t11a = string[] 
+ * type t11b = [string, ...string[]] 
+ * type t11c = [...string[], string] 
+ * type t11d = [string, ...string[], string]
+ * type e11a = __Equals<t11a, t11b>                           // false
+ * type e11b = __Equals<t11b, t11a>                           // false
+ * type e12a = __Equals<t11a, t11c>                           // true  // BUG: expect `false`
+ * type e12b = __Equals<t11c, t11a>                           // true  // BUG: expect `false`
+ * type e13a = __Equals<t11a, t11d>                           // false
+ * type e13b = __Equals<t11d, t11a>                           // false
+ * type e14a = __Equals<t11b, t11c>                           // false
+ * type e14b = __Equals<t11c, t11b>                           // false
+ * type e15a = __Equals<t11b, t11d>                           // true  // BUG: expect `false`
+ * type e15b = __Equals<t11d, t11b>                           // true  // BUG: expect `false`
+ * type e16a = __Equals<t11c, t11d>                           // false
+ * type e16b = __Equals<t11d, t11c>                           // false
+ * 
+ * // function intersection
+ * type t17a = (x: 0, y: null) => void
+ * type t17b = (x: number, y: string) => void
+ * type t17c = t17a & t17b
+ * type t17d = t17b & t17a
+ * type e17 = __Equals<t17c, t17d>                            // true
+ * type e18 = __Equals<t17c, t17c | t17d>                     // false // BUG: expect `true`
+ * 
+ * type e19 = __Equals<                                       // false
+ *   { (x: 0, y: null): void; (x: number, y: null): void },
+ *   { (x: number, y: null): void; (x: 0, y: null): void }
+ * >
+ * ```
+ */
+type __Equals<A, B> =
+  (<T>() => T extends A ? true : false) extends (<T>() => T extends B ? true : false)
+    ? true
+    : false
 
 /**
  * checks whether types `A` and `B` are identical.
@@ -20,11 +85,16 @@ type Options<RI extends boolean = boolean> = {
  *    it is thus used as the check for this variadic tuple case.
  */
 type _Equals<A, B> =
-  (<T>() => T extends A ? true : false) extends (<T>() => T extends B ? true : false)
-    // instead of just returning "true" here, also do mutual assignability check to validate variadic tuple
+  __Equals<A, B> extends true
+    // handle variadic tuple edge case(s) that `__Equals` exhibits incorrect behavior with.
+    // this should be safe since there aren't any false negatives with mutual assignability check, only false positives (afaik)
     ? MutuallyAssignable<A, B>
     : false
 
+type Options<RI extends boolean = boolean> = {
+  resolve_intersections: RI
+}
+    
 /**
  * whether types `A` and `B` are identical.
  * 
@@ -38,6 +108,7 @@ type _Equals<A, B> =
  * - certain intersections don't get properly resolved, even when `resolve_intersections` is `true` (e.g. intersection of functions; see e14). as a result there may be false negatives with regards to function intersections.
  * 
  * @example
+ * ```ts
  * // many of these examples taken from the thread https://github.com/Microsoft/TypeScript/issues/27024
  * 
  * type e0   = Equals<number, string>                                                           // false
@@ -87,6 +158,7 @@ type _Equals<A, B> =
  *   { (x: 0, y: null): void; (x: number, y: null): void },
  *   { (x: number, y: null): void; (x: 0, y: null): void }
  * >
+ * ```
  */
 export type Equals<A, B, Opts extends Options = Options<true>> =
   Opts extends Options<true>
