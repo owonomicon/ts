@@ -6,6 +6,15 @@
  * for example, `[string, any]` is not `[any, string]` but both _are_ assignable to each other
  */
 export type MutuallyAssignable<A, B> =
-  [A, B] extends [B, A]
-    ? true
+  /* as of TS4.9, conditional types are only deferred for single-element tuples, not multi-element ones.
+   * this should be fixed in https://github.com/microsoft/TypeScript/pull/52091/, slated for the TS5.0 milestone.
+   * also relevant: https://github.com/microsoft/TypeScript/issues/51145#issuecomment-1276804047
+   */
+  // [A, B] extends [B, A]
+  //   ? true
+  //   : false
+  [A] extends [B]
+    ? [B] extends [A]
+      ? true
+      : false
     : false
