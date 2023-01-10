@@ -16,3 +16,8 @@ export type IsNumeric<S extends string> =
   [S] extends [`${number}`]
     ? true
     : false
+
+export type IsNumericString<T> =
+  T extends string
+    ? IsNumeric<T>
+    : false

@@ -7,3 +7,8 @@ export type IsFractional<N extends number> =
   `${Abs<N>}` extends `${number}.${number}`
     ? true
     : false
+
+export type IsFractionalNumber<T> =
+  T extends number
+    ? IsFractional<T>
+    : false

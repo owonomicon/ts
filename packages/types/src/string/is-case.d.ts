@@ -19,6 +19,11 @@ import { Capitalize, Lowercase, Uncapitalize, Uppercase } from "./case"
 export type IsUppercase<S extends string> =
   Extends<S, Uppercase<S>>
 
+export type IsUppercaseString<T> =
+  T extends string
+    ? IsUppercase<T>
+    : false
+
 /**
  * checks whether string `S` is lowercase
  * 
@@ -36,6 +41,11 @@ export type IsUppercase<S extends string> =
  */
 export type IsLowercase<S extends string> =
   Extends<S, Lowercase<S>>
+
+export type IsLowercaseString<T> =
+  T extends string
+    ? IsLowercase<T>
+    : false
 
 /**
  * checks whether string `S` is capitalized
@@ -55,6 +65,11 @@ export type IsLowercase<S extends string> =
 export type IsCapitalized<S extends string> =
   Extends<S, Capitalize<S>>
 
+export type IsCapitalizedString<T> =
+  T extends string
+    ? IsCapitalized<T>
+    : false
+
 /**
  * checks whether string `S` is uncapitalized
  * 
@@ -72,3 +87,8 @@ export type IsCapitalized<S extends string> =
  */
 export type IsUncapitalized<S extends string> =
   Extends<S, Uncapitalize<S>>
+
+export type IsUncapitalizedString<T> =
+  T extends string
+    ? IsUncapitalized<T>
+    : false

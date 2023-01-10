@@ -7,3 +7,8 @@ export type IsNegative<N extends number> =
   `${N}` extends `-${string}`
     ? true
     : false
+
+export type IsNegativeNumber<T> =
+  T extends number
+    ? IsNegative<T>
+    : false

@@ -26,3 +26,8 @@ export type IsInteger<N extends number> =
       : S extends `${number}.${number}` ? false
       : true
     : false
+
+export type IsIntegerNumber<T> =
+  T extends number
+    ? IsInteger<T>
+    : false

@@ -3,7 +3,7 @@ import { Or } from "../bool/or"
 import { Extends } from "../type/extends"
 
 /**
- * checks whether `T` is a string literal (i.e. well-defined string with finite length).
+ * checks whether `S` is a string literal (i.e. well-defined string with finite length).
  * 
  * @warning check is O(n) wrt string length
  * 
@@ -27,9 +27,9 @@ import { Extends } from "../type/extends"
  * 
  * @todo revisit this, seems kinda scuffed / possibly not very performant
  */
-export type IsLiteral<T> =
-  T extends string
-    ? T extends `${infer H}${infer T}`
+export type IsLiteral<S extends string> =
+  S extends string
+    ? S extends `${infer H}${infer T}`
         ? Or<
             Extends<string, H>,
             Or<
@@ -39,5 +39,10 @@ export type IsLiteral<T> =
           > extends true
               ? false
               : IsLiteral<T>
-        : Not<Extends<string, T>> // only the plain `string` type or empty string "" should be able to reach here
+        : Not<Extends<string, S>> // only the plain `string` type or empty string "" should be able to reach here
+    : false
+
+export type IsLiteralString<T> =
+  T extends string
+    ? IsLiteral<T>
     : false

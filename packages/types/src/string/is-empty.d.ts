@@ -13,3 +13,8 @@ import { Equals } from "../type/equals"
  */
 export type IsEmpty<S extends string> =
   Equals<S, ''>
+
+export type IsEmptyString<T> =
+  T extends string
+    ? IsEmpty<T>
+    : false

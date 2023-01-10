@@ -5,11 +5,7 @@ export type IsChar<S extends string> =
       : false
     : false
 
-export type IsTChar<T> =
+export type IsCharString<T> =
   T extends string
-    ? T extends `${string}${infer Tail}`
-      ? Tail extends ''
-        ? true
-        : false
-      : false
+    ? IsChar<T>
     : false

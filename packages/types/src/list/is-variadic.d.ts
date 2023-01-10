@@ -8,3 +8,8 @@ export type IsVariadic<T extends List> =
   number extends Length<T>
     ? true
     : false
+
+export type IsVariadicList<T> =
+  T extends List
+    ? IsVariadic<T>
+    : false
