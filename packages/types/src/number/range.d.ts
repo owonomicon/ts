@@ -23,8 +23,8 @@ type _RangeTuple<N extends number, Acc extends number[] = []> =
  * enumeration of integers from `0` to `N`, exclusive. i.e. the range [0, N)
  */
 export type Enumerate<N extends number> =
-   _RangeTuple<N> extends infer A
-      ? Satisfies<A, List>[number] // we know that _RangeTuple will always return a tuple (i.e. will always be list-like) so we just coerce here
+   _RangeTuple<N> extends (infer L extends List)
+      ? L[number]
       : Unreachable
 
 /**
