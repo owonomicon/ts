@@ -1,4 +1,4 @@
-import { If } from "../bool/if"
+import { If } from "../boolean/if"
 import { IsLiteral } from "./is-literal"
 
 /**

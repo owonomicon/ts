@@ -1,4 +1,4 @@
-import { If } from "../bool/if"
+import { If } from "../boolean/if"
 import { Relates, Relation } from "../type/relates"
 
 /**

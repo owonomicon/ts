@@ -1,4 +1,4 @@
-import { If } from "../bool/if"
+import { If } from "../boolean/if"
 import { IncNonneg } from "../number/int/inc"
 import { Omit } from "../object/omit"
 import { ShallowResolve } from "../type/resolve"

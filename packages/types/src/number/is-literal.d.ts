@@ -1,5 +1,5 @@
 /**
- * whether `T` is a number literal type
+ * whether `N` is a number literal type
  */
 export type IsLiteral<N extends number> =
   number extends N

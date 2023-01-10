@@ -1,4 +1,4 @@
-import { If } from "../bool/if"
+import { If } from "../boolean/if"
 import { ElementOf } from "../list/element-of"
 import { IsEmpty } from "../list/is-empty"
 import { List } from "../list/list"

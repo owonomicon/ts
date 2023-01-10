@@ -8,8 +8,8 @@
  * maybe look into higher kinded types in ts?
  */
 
-import { If } from "../bool/if"
-import { Or } from "../bool/or"
+import { If } from "../boolean/if"
+import { Or } from "../boolean/or"
 import { Length } from "../list/length"
 import { IsLiteralNumber } from "../number/is-literal"
 import { Key } from "../object/key"

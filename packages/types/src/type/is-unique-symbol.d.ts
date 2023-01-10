@@ -1,5 +1,5 @@
-import { And } from "../bool/and"
-import { Not } from "../bool/not"
+import { And } from "../boolean/and"
+import { Not } from "../boolean/not"
 import { IsUnion } from "../set-theory/is-union"
 import { Extends } from "../type/extends"
 

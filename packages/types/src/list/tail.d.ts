@@ -1,5 +1,5 @@
 import { IsNever } from "../type/is-never"
-import { If } from "../bool/if"
+import { If } from "../boolean/if"
 import { List } from "./list"
 import { OmitFirst } from "./omit-first-n"
 

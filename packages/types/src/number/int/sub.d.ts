@@ -1,4 +1,4 @@
-import { And } from "../../bool/and"
+import { And } from "../../boolean/and"
 import { AsNumber } from "../../string/as-number"
 import { Reverse } from "../../string/reverse"
 import { StripLeadingZeros } from "../string/strip-leading-zeros"

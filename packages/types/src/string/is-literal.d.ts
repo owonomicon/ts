@@ -1,5 +1,5 @@
-import { Not } from "../bool/not"
-import { Or } from "../bool/or"
+import { Not } from "../boolean/not"
+import { Or } from "../boolean/or"
 import { Extends } from "../type/extends"
 
 /**

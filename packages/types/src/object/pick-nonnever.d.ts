@@ -1,4 +1,4 @@
-import { If } from "../bool/if"
+import { If } from "../boolean/if"
 import { IsNever } from "../type/is-never"
 import { Pick } from "./pick"
 

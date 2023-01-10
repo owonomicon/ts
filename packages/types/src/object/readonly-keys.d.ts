@@ -1,5 +1,5 @@
-import { If } from "../bool/if"
-import { Not } from "../bool/not"
+import { If } from "../boolean/if"
+import { Not } from "../boolean/not"
 import { Equals } from "../type/equals"
 
 /**
