@@ -9,10 +9,12 @@
  */
 
 import { If } from "../bool/if"
+import { Or } from "../bool/or"
 import { Length } from "../list/length"
+import { IsLiteralNumber } from "../number/is-literal"
 import { Key } from "../object/key"
 import { AsTuple } from "../set-theory/as-tuple"
-import { IsLiteral } from "../type/is-literal"
+import { IsLiteralString } from "../string/is-literal"
 import { IsUniqueSymbol } from "../type/is-unique-symbol"
 import { Satisfies } from "./satisfies"
 
@@ -97,12 +99,11 @@ type ValidateId<Id> =
     IsUnionNoncircular<Id>,
     TS_TYPE_ERROR<'Id cannot be a union type'>,
     If<
-      IsLiteral<Id>,
+      Or<
+        Or<IsLiteralNumber<Id>, IsLiteralString<Id>>,
+        IsUniqueSymbol<Id>
+      >,
       Key,
-      If<
-        IsUniqueSymbol<Id>,
-        Key,
-        TS_TYPE_ERROR<'Id must be a string literal, number literal, or unique symbol'>
-      >
+      TS_TYPE_ERROR<'Id must be a string literal, number literal, or unique symbol'>
     >
   >
