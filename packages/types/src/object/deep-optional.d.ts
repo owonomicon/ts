@@ -1,4 +1,4 @@
-import { IsTuple } from "../list/is-tuple"
+import { IsTupleList } from "../list/is-tuple"
 import { List } from "../list/list"
 import { Builtin } from "../primitive/builtin"
 import { IsUnknown } from "../type/is-unknown"
@@ -10,7 +10,7 @@ import { Optional } from "./optional"
 export type DeepOptional<T> =
   T extends Builtin ? T
   : T extends Promise<infer U> ? Promise<DeepOptional<U>>
-  : IsTuple<T> extends true ? { [K in keyof T]?: DeepOptional<T[K]> }
+  : IsTupleList<T> extends true ? { [K in keyof T]?: DeepOptional<T[K]> }
   : T extends List<infer U> ? List<DeepOptional<U> | undefined>
   : T extends Map<infer K, infer V> ? Map<DeepOptional<K>, DeepOptional<V>>
   : T extends Set<infer U> ? Set<DeepOptional<U>>

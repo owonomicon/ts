@@ -1,4 +1,4 @@
-import { IsTuple } from "../list/is-tuple"
+import { IsTupleList } from "../list/is-tuple"
 import { List } from "../list/list"
 import { Builtin } from "../primitive/builtin"
 import { NonNull, NonNullish, NonUndefined, Nullable, Nullishable, Undefinable } from "../primitive/nullish"
@@ -10,7 +10,7 @@ import { IsUnknown } from "../type/is-unknown"
 export type DeepNullishable<T> =
   T extends Builtin ? Nullishable<T>
   : T extends Promise<infer U> ? Promise<DeepNullishable<U>>
-  : IsTuple<T> extends true ? { [K in keyof T]?: Nullishable<DeepNullishable<T[K]>> }
+  : IsTupleList<T> extends true ? { [K in keyof T]?: Nullishable<DeepNullishable<T[K]>> }
   : T extends List<infer U> ? List<DeepNullishable<U>>
   : T extends Map<infer K, infer V> ? Map<DeepNullishable<K>, DeepNullishable<V>>
   : T extends Set<infer U> ? Set<DeepNullishable<U>>
@@ -28,7 +28,7 @@ export type DeepNullishable<T> =
 export type DeepNullable<T> =
   T extends Builtin ? Nullable<T>
   : T extends Promise<infer U> ? Promise<DeepNullable<U>>
-  : IsTuple<T> extends true ? { [K in keyof T]?: Nullable<DeepNullable<T[K]>> }
+  : IsTupleList<T> extends true ? { [K in keyof T]?: Nullable<DeepNullable<T[K]>> }
   : T extends List<infer U> ? List<DeepNullable<U>>
   : T extends Map<infer K, infer V> ? Map<DeepNullable<K>, DeepNullable<V>>
   : T extends Set<infer U> ? Set<DeepNullable<U>>
@@ -46,7 +46,7 @@ export type DeepNullable<T> =
 export type DeepUndefinable<T> =
   T extends Builtin ? Undefinable<T>
   : T extends Promise<infer U> ? Promise<DeepUndefinable<U>>
-  : IsTuple<T> extends true ? { [K in keyof T]?: Undefinable<DeepUndefinable<T[K]>> }
+  : IsTupleList<T> extends true ? { [K in keyof T]?: Undefinable<DeepUndefinable<T[K]>> }
   : T extends List<infer U> ? List<DeepUndefinable<U>>
   : T extends Map<infer K, infer V> ? Map<DeepUndefinable<K>, DeepUndefinable<V>>
   : T extends Set<infer U> ? Set<DeepUndefinable<U>>
@@ -64,7 +64,7 @@ export type DeepUndefinable<T> =
 export type DeepNonNullish<T> =
   T extends Builtin ? NonNullish<T>
   : T extends Promise<infer U> ? Promise<DeepNonNullish<U>>
-  : IsTuple<T> extends true ? { [K in keyof T]?: NonNullish<DeepNonNullish<T[K]>> }
+  : IsTupleList<T> extends true ? { [K in keyof T]?: NonNullish<DeepNonNullish<T[K]>> }
   : T extends List<infer U> ? List<DeepNonNullish<U>>
   : T extends Map<infer K, infer V> ? Map<DeepNonNullish<K>, DeepNonNullish<V>>
   : T extends Set<infer U> ? Set<DeepNonNullish<U>>
@@ -82,7 +82,7 @@ export type DeepNonNullish<T> =
 export type DeepNonNull<T> =
   T extends Builtin ? NonNull<T>
   : T extends Promise<infer U> ? Promise<DeepNonNull<U>>
-  : IsTuple<T> extends true ? { [K in keyof T]?: NonNull<DeepNonNull<T[K]>> }
+  : IsTupleList<T> extends true ? { [K in keyof T]?: NonNull<DeepNonNull<T[K]>> }
   : T extends List<infer U> ? List<DeepNonNull<U>>
   : T extends Map<infer K, infer V> ? Map<DeepNonNull<K>, DeepNonNull<V>>
   : T extends Set<infer U> ? Set<DeepNonNull<U>>
@@ -100,7 +100,7 @@ export type DeepNonNull<T> =
 export type DeepNonUndefined<T> =
   T extends Builtin ? NonUndefined<T>
   : T extends Promise<infer U> ? Promise<DeepNonUndefined<U>>
-  : IsTuple<T> extends true ? { [K in keyof T]?: NonUndefined<DeepNonUndefined<T[K]>> }
+  : IsTupleList<T> extends true ? { [K in keyof T]?: NonUndefined<DeepNonUndefined<T[K]>> }
   : T extends List<infer U> ? List<DeepNonUndefined<U>>
   : T extends Map<infer K, infer V> ? Map<DeepNonUndefined<K>, DeepNonUndefined<V>>
   : T extends Set<infer U> ? Set<DeepNonUndefined<U>>

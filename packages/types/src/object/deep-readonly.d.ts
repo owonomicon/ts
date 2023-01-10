@@ -1,4 +1,4 @@
-import { IsTuple } from "../list/is-tuple"
+import { IsTupleList } from "../list/is-tuple"
 import { List } from "../list/list"
 import { Builtin } from "../primitive/builtin"
 import { IsUnknown } from "../type/is-unknown"
@@ -10,7 +10,7 @@ import { Readonly } from "./readonly"
 export type DeepReadonly<T> =
   T extends Builtin ? T
   : T extends Promise<infer U> ? Promise<DeepReadonly<U>>
-  : IsTuple<T> extends true ? { readonly [K in keyof T]: DeepReadonly<T[K]> }
+  : IsTupleList<T> extends true ? { readonly [K in keyof T]: DeepReadonly<T[K]> }
   : T extends List<infer U> ? ReadonlyArray<DeepReadonly<U>>
   : T extends Map<infer K, infer V> ? Map<DeepReadonly<K>, DeepReadonly<V>>
   : T extends Set<infer U> ? Set<DeepReadonly<U>>

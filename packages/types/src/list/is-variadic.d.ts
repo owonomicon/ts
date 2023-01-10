@@ -2,10 +2,10 @@ import { Length } from "./length"
 import { List } from "./list"
 
 /**
- * whether `T` is a variadic list
+ * whether `L` is a variadic list
  */
-export type IsVariadic<T extends List> =
-  number extends Length<T>
+export type IsVariadic<L extends List> =
+  number extends Length<L>
     ? true
     : false
 
