@@ -5,6 +5,8 @@ import { Function } from "./function"
  * gets the return type of function `F`
  */
 export type Return<F extends Function> =
-  F extends (...args: any) => infer R // use any vs `List` or `any[]` to successfully match against variadic tuple parameters
+  // use `never` over `any` to match against `never` type parameters
+  // use `never` over `never[] to match variadic tuple parameters
+  F extends (...args: never) => infer R
     ? R
     : Unreachable
