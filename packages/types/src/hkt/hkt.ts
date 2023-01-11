@@ -17,13 +17,13 @@
  * 
  * To evaluate an HKT, use the `$` type, passing in the HKT to evaluate and then the type evaluate on.
  */
-export interface HKT<I = unknown, O = unknown> {
+export declare interface HKT<I = unknown, O = unknown> {
   readonly [HKT._]: unknown
   [HKT.i]: I
   [HKT.o]: O
 }
 
-export namespace HKT {
+export declare namespace HKT {
   const _: unique symbol
   type _ = typeof _
   
