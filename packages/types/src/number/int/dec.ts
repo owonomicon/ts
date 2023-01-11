@@ -44,7 +44,7 @@ export type _DecNonneg<N extends number> =
  */
 export type _Dec<N extends number> =
   `${N}` extends `-${infer Abs extends number}` // `-0` serializes to `"0"` so -0 will still be handled by `NonnegDec`
-    ? `-${Inc<Abs>}`
+    ? AsNumber<`-${Inc<Abs>}`>
     : _DecNonneg<N>
 
 /**
