@@ -1,5 +1,24 @@
 /**
- * checks if both `A` and `B` extend true
+ * gets the boolean AND of booleans `A` and `B`.
+ * 
+ * @remarks
+ * does not distribute over `A` or `B`.
+ * 
+ * @undefined_behavior `A` is `never` or `boolean`
+ * @undefined_behavior `B` is `never` or `boolean`
+ * 
+ * @since 0.1.0
+ * 
+ * @example
+ * ```ts
+ * type e0 = And<never, true>   // true
+ * type e1 = And<true, never>   // true
+ * type e1 = And<true, true>    // true
+ * type e2 = And<true, false>   // false
+ * type e3 = And<false, false>  // false
+ * type e4 = And<false, false>  // false
+ * type e5 = And<boolean, true> // false
+ * ```
  */
 export type And<A extends boolean, B extends boolean> =
   /* as of TS4.9, conditional types are only deferred for single-element tuples, not multi-element ones.

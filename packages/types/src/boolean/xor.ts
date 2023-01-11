@@ -1,5 +1,21 @@
 /**
- * checks if one of `A` and `B` is true and the other false
+ * gets the boolean XOR of booleans `A` and `B`
+ * 
+ * @remarks
+ * does not distribute over `A` or `B`.
+ * 
+ * @undefined_behavior `A` is `never` or `boolean`
+ * @undefined_behavior `B` is `never` or `boolean`
+ * 
+ * @since 0.1.0
+ * 
+ * @example
+ * ```ts
+ * type e0 = Xor<true, true>    // false
+ * type e1 = Xor<true, false>   // true
+ * type e2 = Xor<false, true>   // true
+ * type e3 = Xor<false, false>  // false
+ * ```
  */
 export type Xor<A extends boolean, B extends boolean> =
   /* as of TS4.9, conditional types are only deferred for single-element tuples, not multi-element ones.
