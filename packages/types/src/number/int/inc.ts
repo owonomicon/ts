@@ -39,7 +39,7 @@ export type IncNonneg<N extends number> =
 export type Inc<N extends number> =
   `${N}` extends (infer S extends string)
     ? S extends '-1' ? 0
-      // `-0` serializes to `"0"` so it properly doesnt get handled here where it'd be passed to `PosDec`
+      // `-0` serializes to `"0"` so we don't need to worry about handling it as a special case
       : S extends `-${infer Abs extends number}` ? AsNumber<`-${_DecPos<Abs>}`>
       : IncNonneg<N>
     : Unreachable
