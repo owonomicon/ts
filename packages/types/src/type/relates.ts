@@ -9,7 +9,7 @@ type SymmetricRelation =
 type NonsymmetricRelation =
   | 'extends'
 
-type Relation =
+export type Relation =
   | SymmetricRelation
   | NonsymmetricRelation
   | `${NonsymmetricRelation}->`

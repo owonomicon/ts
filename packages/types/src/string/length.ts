@@ -31,7 +31,7 @@ type _Length<S extends string, Acc extends never[] = []> =
  * type s1 = Length<'🔥'> // 2
  * 
  */
-type Length<S extends string> =
+export type Length<S extends string> =
   If<
     IsLiteral<S>,
     _Length<S>,
