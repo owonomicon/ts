@@ -19,7 +19,7 @@ export type Extends<A, B> =
 /**
  * checks whether `A` extends `B` without distributing over `A`
  */
- export type ExtendsNondistributive<A, B> =
- [A] extends [B]
-   ? true
-   : false
+export type ExtendsNondistributive<A, B> =
+  [A] extends [B]
+    ? true
+    : false
