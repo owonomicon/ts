@@ -6,7 +6,7 @@ import { Unreachable } from "../type/unreachable"
 import { ElementOf } from "./element-of"
 import { IsVariadic } from "./is-variadic"
 import { List } from "./list"
-import { OmitFirstN } from "./omit-first-n"
+import { Slice } from "./slice"
 
 /**
  * get the "length" of the resultant named object from a list
@@ -39,7 +39,7 @@ export type AsObject<L extends List> =
     If<
       IsVariadic<L>,  
       Omit<L, keyof any[]> extends infer X
-        ? { [x: number]: ElementOf<OmitFirstN<L, _AsObject<L, X>>> } & X
+        ? { [x: number]: ElementOf<Slice<L, _AsObject<L, X>>> } & X
         : Unreachable,
       Omit<L, keyof any[]>
     >  
