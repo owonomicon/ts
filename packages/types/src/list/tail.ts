@@ -1,17 +1,13 @@
-import { IsNever } from "../type/is-never"
-import { If } from "../boolean/if"
 import { List } from "./list"
-import { OmitFirst } from "./omit-first-n"
-
-type _Tail<T extends List, R = OmitFirst<T>> =
-  If<
-    IsNever<R>,
-    [],
-    R
-  >
+import { IsEmpty } from "./is-empty"
 
 /**
- * extracts the tail of list `T`.
- * If `T` is empty, resolves to the empty list `[]`
+ * extracts the tail of list `L`.
+ * If `L` is empty, resolves to the empty list `[]`
  */
-export type Tail<T extends List> = _Tail<T>
+export type Tail<L extends List> =
+  IsEmpty<L> extends true ? []
+  : L extends readonly [any, ...infer T] ? T
+  : L extends readonly [...any, any] ? L
+  : L extends readonly [any?, ...infer T] ? T
+  : [] // should be unreachable
