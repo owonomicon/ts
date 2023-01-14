@@ -5,7 +5,7 @@ import { Or } from "../boolean/or"
 import { Append } from "../list/append"
 import { Concat } from "../list/concat"
 import { List } from "../list/list"
-import { IncNonneg } from "../number/int/inc"
+import { _IncNonneg } from "../number/int/inc"
 import { Cut } from "../set-theory/cut"
 import { Exclude } from "../set-theory/exclude"
 import { Select } from "../set-theory/select"
@@ -55,7 +55,7 @@ type _AsList<O extends object, K , Acc extends List = [], N extends number = 0> 
       Extends<N, K>
     >
   > extends true
-    ? _AsList<O, Exclude<K, N>, TryAppend<O, Acc, N>, IncNonneg<N>>
+    ? _AsList<O, Exclude<K, N>, TryAppend<O, Acc, N>, _IncNonneg<N>>
     : Acc
 
 /**

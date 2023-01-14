@@ -28,7 +28,7 @@ type __Inc<S extends string> =
  * 
  * @warning you probably want to use `IncNonneg` instead. this type does not enforce type constraints past `number`.
  */
-export type IncNonneg<N extends number> =
+export type _IncNonneg<N extends number> =
   AsNumber<StripLeadingZeros<Reverse<__Inc<Reverse<`${N}`>>>>>
 
 /**
@@ -36,12 +36,12 @@ export type IncNonneg<N extends number> =
  * 
  * @warning you probably want to use `Inc` instead. this type does not enforce type constraints past `number`.
  */
-export type Inc<N extends number> =
+export type _Inc<N extends number> =
   `${N}` extends (infer S extends string)
     ? S extends '-1' ? 0
       // `-0` serializes to `"0"` so we don't need to worry about handling it as a special case
       : S extends `-${infer Abs extends number}` ? AsNumber<`-${_DecPos<Abs>}`>
-      : IncNonneg<N>
+      : _IncNonneg<N>
     : Unreachable
 
 /**
@@ -49,10 +49,10 @@ export type Inc<N extends number> =
  * 
  * validates that `N` is in fact a nonnegative integer
  */
-export type IncNonneg_Safe<N extends ValidateNonnegInt<N>> =
+export type IncNonneg<N extends ValidateNonnegInt<N>> =
   ValidateNonnegInt<N> extends number
     ? N extends (infer N extends number)
-      ? IncNonneg<N>
+      ? _IncNonneg<N>
       : Unreachable
     : never
 
@@ -61,9 +61,9 @@ export type IncNonneg_Safe<N extends ValidateNonnegInt<N>> =
  *
  * validates that `N` is in fact an integer
  */
-export type Inc_Safe<N extends ValidateInt<N>> =
+export type Inc<N extends ValidateInt<N>> =
   ValidateInt<N> extends number
     ? N extends (infer N extends number)
-      ? Inc<N>
+      ? _Inc<N>
       : Unreachable
     : never

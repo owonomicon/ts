@@ -1,4 +1,4 @@
-import { IncNonneg } from "../number/int/inc"
+import { _IncNonneg } from "../number/int/inc"
 import { Omit } from "./omit"
 import { Optional } from "./optional"
 import { Pick } from "./pick"
@@ -9,7 +9,7 @@ import { Pick } from "./pick"
 type _PickN<T, N extends number, NRequired extends number = 0> =
   NRequired extends N
     ? {}
-    : { [K in keyof T]: Pick<T, K> & _PickN<Omit<T, K>, N, IncNonneg<NRequired>> }[keyof T]
+    : { [K in keyof T]: Pick<T, K> & _PickN<Omit<T, K>, N, _IncNonneg<NRequired>> }[keyof T]
 
 /**
  * picks exactly `N` properties of `T`.
@@ -28,7 +28,7 @@ export type PickOne<T> = PickN<T, 1>
 type _PickNOrMore<T, N extends number, NRequired extends number = 0> =
   NRequired extends N
     ? Optional<T>
-    : { [K in keyof T]: Pick<T, K> & _PickNOrMore<Omit<T, K>, N, IncNonneg<NRequired>> }[keyof T]
+    : { [K in keyof T]: Pick<T, K> & _PickNOrMore<Omit<T, K>, N, _IncNonneg<NRequired>> }[keyof T]
 
 /**
  * picks at least `N` properties of `T`.

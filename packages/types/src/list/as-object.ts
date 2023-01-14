@@ -1,5 +1,5 @@
 import { If } from "../boolean/if"
-import { IncNonneg } from "../number/int/inc"
+import { _IncNonneg } from "../number/int/inc"
 import { Omit } from "../object/omit"
 import { ShallowResolve } from "../type/resolve"
 import { Unreachable } from "../type/unreachable"
@@ -12,7 +12,7 @@ import { Slice } from "./slice"
  * get the "length" of the resultant named object from a list
  */
 type _AsObject<L extends List, Named, N extends number = 0> =
-  IncNonneg<N> extends (infer N extends number)
+  _IncNonneg<N> extends (infer N extends number)
     ? N extends keyof Named ? _AsObject<L, Named, N>
       : `${N}` extends keyof Named ? _AsObject<L, Named, N>
       : N

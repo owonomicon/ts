@@ -1,14 +1,14 @@
 
-import { IncNonneg } from "../number/int/inc"
+import { _IncNonneg } from "../number/int/inc"
 import { Length } from "./length"
 import { List } from "./list"
 
 type _Slice<T extends List, N extends number, I extends number = 0> =
   I extends N ? T
   : Length<T> extends 0 ? T
-  : T extends readonly [any, ...infer Tail] ? _Slice<Tail, N, IncNonneg<I>>
+  : T extends readonly [any, ...infer Tail] ? _Slice<Tail, N, _IncNonneg<I>>
   : T extends readonly [...any, any] ? T
-  : T extends readonly [any?, ...infer Tail] ? _Slice<Tail, N, IncNonneg<I>>
+  : T extends readonly [any?, ...infer Tail] ? _Slice<Tail, N, _IncNonneg<I>>
   : never
 
 /**

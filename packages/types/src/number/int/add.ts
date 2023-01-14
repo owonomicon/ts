@@ -5,7 +5,7 @@ import { Unreachable } from "../../type/unreachable"
 import { Negate } from "../negate"
 import { _PadZeros } from "./_pad-zeros"
 import { ValidateInt, ValidateNonnegInt } from "./_validate"
-import { Inc } from "./inc"
+import { _Inc } from "./inc"
 import { _SubNonneg } from "./sub"
 
 type AdditionDigitTable = [
@@ -42,7 +42,7 @@ type AdditionCarryTable = [
 type __Add<S1 extends string, S2 extends string, Carry extends 0 | 1 = 0, Acc extends string = ''> =
   S1 extends `${infer D1 extends number}${infer T1}`
     ? S2 extends `${infer D2 extends number}${infer T2}`
-      ? (Carry extends 1 ? Inc<D1> : D1) extends (infer D1 extends number)
+      ? (Carry extends 1 ? _Inc<D1> : D1) extends (infer D1 extends number)
         ? [AdditionCarryTable[D1][D2], AdditionDigitTable[D1][D2]] extends [infer Carry extends 0 | 1, infer D extends number]
           ? __Add<T1, T2, Carry, `${Acc}${D}`>
           : Unreachable

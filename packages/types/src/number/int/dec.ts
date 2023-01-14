@@ -3,7 +3,7 @@ import { Reverse } from "../../string/reverse"
 import { StripLeadingZeros } from "../string/strip-leading-zeros"
 import { Unreachable } from "../../type/unreachable"
 import { ValidatePosInt, ValidateNonnegInt, ValidateInt } from "./_validate"
-import { Inc } from "./inc"
+import { _Inc } from "./inc"
 
 type SubtractionDigitMap =
   [9, 0, 1, 2, 3, 4, 5, 6, 7, 8]
@@ -44,7 +44,7 @@ export type _DecNonneg<N extends number> =
  */
 export type _Dec<N extends number> =
   `${N}` extends `-${infer Abs extends number}` // `-0` serializes to `"0"` so -0 will still be handled by `NonnegDec`
-    ? AsNumber<`-${Inc<Abs>}`>
+    ? AsNumber<`-${_Inc<Abs>}`>
     : _DecNonneg<N>
 
 /**
