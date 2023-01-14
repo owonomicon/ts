@@ -34,10 +34,19 @@ type TryAppend<O, L extends List, N extends number> =
  */
 type _AsList<O extends object, K , Acc extends List = [], N extends number = 0> =
   /// use `{ 0: ..., 1: ... }[boolean -> {0,1}]` to avoid type alias circular reference error
-  {
-    0: Acc
-    1: _AsList<O, Exclude<K, N>, TryAppend<O, Acc, N>, IncNonneg<N>>
-  }[And<
+  // {
+  //   0: Acc
+  //   1: _AsList<O, Exclude<K, N>, TryAppend<O, Acc, N>, IncNonneg<N>>
+  // }[And<
+  //   // if K is `never`, this means all the keys are used, and there's nothing else to construct
+  //   Not<IsNever<K>>,
+  //   // continue recursing as long as we can still iterate along the "named" keys 
+  //   Or<
+  //     Extends<`${N}`, K>,
+  //     Extends<N, K>
+  //   >
+  // > extends true ? 1 : 0]
+  And<
     // if K is `never`, this means all the keys are used, and there's nothing else to construct
     Not<IsNever<K>>,
     // continue recursing as long as we can still iterate along the "named" keys 
@@ -45,7 +54,9 @@ type _AsList<O extends object, K , Acc extends List = [], N extends number = 0> 
       Extends<`${N}`, K>,
       Extends<N, K>
     >
-  > extends true ? 1 : 0]
+  > extends true
+    ? _AsList<O, Exclude<K, N>, TryAppend<O, Acc, N>, IncNonneg<N>>
+    : Acc
 
 /**
  * checks if type `T` maps across the `number` or `\`${number}\`` type
