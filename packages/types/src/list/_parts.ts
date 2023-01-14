@@ -1,4 +1,6 @@
 import { Append, AppendOptional } from "./append"
+import { IsTuple } from "./is-tuple"
+import { IsVariadic } from "./is-variadic"
 import { List } from "./list"
 import { Prepend } from "./prepend"
 
@@ -39,18 +41,29 @@ type _Parts<L extends List, Acc extends List = []> =
  * - `Spread` is the spread element
  * - `Tail` is a list of the elements following the spread element
  * 
- * @example
+ * @time_complexity
+ * - O(1) on plain lists
+ * - O(1) on nonvariadic tuples
+ * - O(n) on variadic tuples
  * 
- * type e0 = Parts<never>                           // never
- * type e1 = Parts<[]>                              // [[], [], []]
- * type e2 = Parts<[string]>                        // [[string], [], []]
- * type e3 = Parts<[string, number]>                // [[string, number], [], []]
- * type e4 = Parts<string[]>                        // [[], string[], []]
- * type e5 = Parts<[...string[], number]>           // [[], string[], number]
- * type e6 = Parts<[string, ...number[]]>           // [[string], number[]]
- * type e7 = Parts<[string, ...number[], boolean]>  // [[string], number[], [boolean]]
- * type e8 = Parts<[string?]>                       // [[string?], [], []]
- * type e9 = Parts<[string?, ...number[]]>          // [[string?], number[], []]
+ * @undefined_behavior `L` is `never`
+ * 
+ * @example
+ * ```ts
+ * type e0 = Parts<[]>                              // [[], [], []]
+ * type e1 = Parts<[string]>                        // [[string], [], []]
+ * type e2 = Parts<[string, number]>                // [[string, number], [], []]
+ * type e3 = Parts<string[]>                        // [[], string[], []]
+ * type e4 = Parts<[...string[], number]>           // [[], string[], number]
+ * type e5 = Parts<[string, ...number[]]>           // [[string], number[]]
+ * type e6 = Parts<[string, ...number[], boolean]>  // [[string], number[], [boolean]]
+ * type e7 = Parts<[string?]>                       // [[string?], [], []]
+ * type e8 = Parts<[string?, ...number[]]>          // [[string?], number[], []]
+ * ```
  */
 export type Parts<L extends List> =
-  _Parts<L>
+  IsTuple<L> extends true
+    ? IsVariadic<L> extends true
+      ? _Parts<L>
+      : [L, [], []]
+    : [[], L, []]
