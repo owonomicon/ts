@@ -1,0 +1,43 @@
+name: test @nomicon/types
+
+on:
+  push:
+    paths:
+      - 'packages/types/**'
+  pull_request:
+    paths:
+      - 'packages/types/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['16', '18']
+        ts:
+          - '4.8'
+          - '4.9'
+          - 'next'
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+      
+      - name: setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ^6.10.0
+      
+      - name: use node ${{ matrix.node }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+
+      - name: install ts ${{ matrix.ts }}
+        working-directory: ./packages/types
+        run: pnpm add typescript@${{ matrix.ts }}
+
+      - name: test types
+        run: pnpm test --dir packages/types
