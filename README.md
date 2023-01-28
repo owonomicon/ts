@@ -8,9 +8,9 @@ _this project is still in its very early phases. this README is likely not very 
 
 _this section is incomplete_
 
-### `@nomicon/types`
-
-### `@nomicon/utils`
+| package | overview |
+| :-- | :-- |
+| [`@nomicon/types`](./packages/types) | type utilities for TypeScript |
 
 ## Contributing
 
@@ -18,7 +18,9 @@ _this section is incomplete_
 
 If you're looking to contribute, see [`CONTRIBUTING.md`](./CONTRIBUTING.md)
 
+<!--
 To learn more about and understand the project architecture, see [`ARCHITECTURE.md`](./ARCHITECTURE.md)
+-->
 
 ## License
 
