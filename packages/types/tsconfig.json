@@ -5,13 +5,21 @@
       "esnext",
     ],
     // "noLib": true,                                    /* Disable including any library files, including the default lib.d.ts. */
-    "module": "commonjs",                                /* Specify what module code is generated. */
-    // "rootDir": "./",                                  /* Specify the root folder within your source files. */
-    // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
-    // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
-    // "moduleSuffixes": [],                             /* List of file name suffixes to search when resolving a module. */
-    "noEmit": true,                                   /* Disable emitting files from a compilation. */
-    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
-    "strict": true,                                      /* Enable all strict type-checking options. */
-  }
+    "module": "commonjs",
+    "rootDir": "./src/",
+    "outDir": "./dist/",
+    "paths": {
+      "@nomicon/types": ["./src"],
+    },
+    "noEmitOnError": true,
+    "stripInternal": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+  },
 }
