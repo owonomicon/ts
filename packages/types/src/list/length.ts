@@ -1,6 +1,6 @@
 import { List } from "./list"
 
 /**
- * the length of list `T`
+ * gets the length of list `L`
  */
-export type Length<T extends List> = T['length']
+export type Length<L extends List> = L['length']
