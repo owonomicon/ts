@@ -14,7 +14,9 @@
     "clean": "rm -rf ./dist",
     "test": "tsc --project tsconfig.test.json",
     "test:build": "tsc --project tsconfig.test-build.json",
-    "release": "npm version -m \"release(types): %s\"",
+    "release": "pnpm release:version && pnpm release:commit",
+    "release:version": "pnpm version",
+    "release:commit": "node ./scripts/commit-release.node.js",
     "publish": "pnpm publish"
   },
   "devDependencies": {
