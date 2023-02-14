@@ -18,8 +18,7 @@
     "test:build": "tsc --project tsconfig.test-build.json",
     "release": "pnpm release:version && pnpm release:commit",
     "release:version": "pnpm version",
-    "release:commit": "node ./scripts/commit-release.node.js",
-    "publish": "pnpm publish"
+    "release:commit": "node ./scripts/commit-release.node.js"
   },
   "devDependencies": {
     "typescript": "^4.8.4"
