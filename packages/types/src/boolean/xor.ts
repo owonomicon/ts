@@ -7,7 +7,7 @@
  * @undefined_behavior `A` is `never` or `boolean`
  * @undefined_behavior `B` is `never` or `boolean`
  * 
- * @since 0.1.0
+ * @since 0.0.1
  * 
  * @example
  * ```ts

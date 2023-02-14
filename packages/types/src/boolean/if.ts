@@ -10,7 +10,7 @@
  * @template Then resultant type if `Condition` evaluates to `true`
  * @template Else resultant type if `Condition` does not evaluate to `true`. defaults to `never`
  * 
- * @since 0.1.0
+ * @since 0.0.1
  * 
  * @example
  * ```ts

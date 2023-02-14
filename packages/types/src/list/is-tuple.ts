@@ -7,7 +7,7 @@ import { List } from "./list"
  * 
  * @time_complexity O(1)
  * 
- * @since 0.1.0
+ * @since 0.0.1
  * 
  * @example
  * ```ts

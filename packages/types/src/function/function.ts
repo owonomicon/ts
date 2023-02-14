@@ -4,7 +4,7 @@ import { Satisfies } from "../type/satisfies"
 /**
  * function with arguments `A` and return type `R`
  * 
- * @since 0.1.0
+ * @since 0.0.1
  * 
  * @example
  * ```ts

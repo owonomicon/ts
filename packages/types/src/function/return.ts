@@ -6,7 +6,7 @@ import { Function } from "./function"
  * 
  * @undefined_behavior `F` is `never`
  * 
- * @since 0.1.0
+ * @since 0.0.1
  * 
  * @example
  * ```ts
