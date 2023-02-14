@@ -2,10 +2,10 @@
   "name": "@nomicon/types",
   "version": "0.0.2",
   "description": "collection of useful TypeScript types",
-  "homepage": "https://github.com/nomicon/ts/packages/types",
+  "homepage": "https://github.com/owonomicon/ts/tree/main/packages/types",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nomicon/ts"
+    "url": "https://github.com/owonomicon/ts"
   },
   "license": "MIT OR Apache-2.0",
   "files": [
