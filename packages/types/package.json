@@ -13,7 +13,9 @@
     "build": "tsc --project tsconfig.build.json",
     "clean": "rm -rf ./dist",
     "test": "tsc --project tsconfig.test.json",
-    "test:build": "tsc --project tsconfig.test-build.json"
+    "test:build": "tsc --project tsconfig.test-build.json",
+    "release": "npm version -m \"release(types): %s\"",
+    "publish": "pnpm publish"
   },
   "devDependencies": {
     "typescript": "^4.8.4"
