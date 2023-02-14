@@ -8,7 +8,9 @@
     "url": "https://github.com/nomicon/ts"
   },
   "license": "MIT OR Apache-2.0",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "clean": "rm -rf ./dist",
