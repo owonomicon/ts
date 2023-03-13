@@ -38,7 +38,7 @@ type IndividualSymbol = '__nomicon_introspect__symbol'
  * ```ts
  * return S in Symbols
  *  ? State(`${IndividualSymbol}${Symbols[S]}`, Symbols, N)
- *  : State(`${IndividualSymbol}{N}`, { ...Symbols, [S]: N }, N + 1)
+ *  : State(`${IndividualSymbol}${N}`, { ...Symbols, [S]: N }, N + 1)
  * ```
  */
 type GetSymbol<Symbols extends SymbolsMap, K extends symbol, N extends number> =
