@@ -1,10 +1,13 @@
-import { Relates, Relation } from "../type/relates"
-import { Append, AppendOptional } from "./append"
-import { Concat } from "./concat"
-import { ElementOf } from "./element-of"
-import { IsEmpty } from "./is-empty"
-import { List } from "./list"
-import { Prepend } from "./prepend"
+import { Relates, Relation } from "../type"
+import {
+  Append,
+  AppendOptional,
+  Concat,
+  ElementOf,
+  IsEmpty,
+  List,
+  Prepend,
+} from "."
 
 /**
  * tail call optimized type to filter variadic tuple with leading spread `L`.

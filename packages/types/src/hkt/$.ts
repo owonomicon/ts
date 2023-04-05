@@ -1,4 +1,4 @@
-import { HKT, I, O } from "./hkt"
+import { HKT, I, O } from "."
 
 /**
  * evaluates HKT `Kind` with input `X`

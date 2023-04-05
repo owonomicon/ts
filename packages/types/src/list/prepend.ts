@@ -1,4 +1,4 @@
-import { List } from "./list"
+import { List } from "."
 
 /**
  * resultant list from prepending `X` to the front of list `A`

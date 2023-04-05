@@ -1,4 +1,4 @@
-import { IsNever } from "../type/is-never"
+import { IsNever } from "../type"
 
 /**
  * type that errors if `T` is not `true`. the return type is irrelevant and should not be used.

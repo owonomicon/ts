@@ -1,5 +1,5 @@
-import { Unreachable } from "../type/unreachable"
-import { Function } from "./function"
+import { Unreachable } from "../type"
+import { Function } from "."
 
 /**
  * gets the return type of function `F`

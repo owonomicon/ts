@@ -1,4 +1,4 @@
-import { List } from "./list"
+import { List } from "."
 
 /**
  * whether `L` is a tuple type (including readonly)

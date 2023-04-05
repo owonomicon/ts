@@ -1,5 +1,5 @@
-import { Exclude } from "../set-theory/exclude"
-import { ReadonlyKeys } from "./readonly-keys"
+import { Exclude } from "../set-theory"
+import { ReadonlyKeys } from "."
 
 /**
  * gets the mutable keys of `T`

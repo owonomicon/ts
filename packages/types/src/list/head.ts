@@ -1,6 +1,5 @@
-import { Required } from "../object/required"
-import { Length } from "./length"
-import { List } from "./list"
+import { Required } from "../object"
+import { Length, List } from "."
 
 type Options<MR extends boolean = false> = { make_required: MR }
 

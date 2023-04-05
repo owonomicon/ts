@@ -1,5 +1,4 @@
-import { OptionalKeys } from "./optional-keys"
-import { Pick } from "./pick"
+import { OptionalKeys, Pick } from "."
 
 /**
  * Picks the optional properties of `T`

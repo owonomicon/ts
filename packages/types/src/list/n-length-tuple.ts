@@ -1,6 +1,5 @@
-import { IsLiteral } from "../number/is-literal"
-import { Append } from "./append"
-import { Length } from "./length"
+import { IsLiteral } from "../number"
+import { Append, Length } from "."
 
 type _NLengthTuple<N extends number, Acc extends never[] = []> =
   Length<Acc> extends N

@@ -1,8 +1,11 @@
-import { Append, AppendOptional } from "./append"
-import { IsTuple } from "./is-tuple"
-import { IsVariadic } from "./is-variadic"
-import { List } from "./list"
-import { Prepend } from "./prepend"
+import {
+  Append,
+  AppendOptional,
+  IsTuple,
+  IsVariadic,
+  List,
+  Prepend,
+} from "."
 
 /**
  * gets the spread and tail parts of a list with a leading spread.

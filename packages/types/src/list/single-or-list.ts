@@ -1,4 +1,4 @@
-import { List } from "./list"
+import { List } from "."
 
 /**
  * type for either some type `T`, or an array of type `T`.

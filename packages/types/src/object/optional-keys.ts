@@ -1,5 +1,5 @@
-import { Unreachable } from "../type/unreachable"
-import { Required } from "./required"
+import { Unreachable } from "../type"
+import { Required } from "."
 
 /**
  * gets the optional keys of `T`

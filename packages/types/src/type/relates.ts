@@ -1,6 +1,4 @@
-import { Equals } from "./equals"
-import { Extends } from "./extends"
-import { MutuallyAssignable } from "./mutually-assignable"
+import { Equals, Extends, MutuallyAssignable } from "."
 
 type SymmetricRelation =
   | 'equals'

@@ -1,4 +1,4 @@
-import { Key } from "./key"
+import { Key } from "."
 
 /**
  * object with properties `K` of type `V`.

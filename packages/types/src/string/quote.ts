@@ -1,4 +1,4 @@
-import { Escape } from "./escape"
+import { Escape } from "."
 
 type QuoteCharacter =
   | "'"

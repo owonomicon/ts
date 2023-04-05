@@ -1,6 +1,5 @@
-import { Satisfies } from "../type/satisfies";
-import { KnownKeys } from "./known-keys";
-import { Pick } from "./pick";
+import { Satisfies } from "../type"
+import { KnownKeys, Pick } from "."
 
 /**
  * picks the known (i.e. non- index signature) keys of `T`

@@ -1,8 +1,6 @@
-import { If } from "../boolean/if"
-import { Not } from "../boolean/not"
-import { Or } from "../boolean/or"
-import { IsLiteral } from "../string/is-literal"
-import { Extends } from "../type/extends"
+import { If, Not, Or } from "../boolean"
+import { IsLiteral } from "../string"
+import { Extends } from "../type"
 
 /**
  * gets the "known" (i.e. non- index signature) keys of `T`

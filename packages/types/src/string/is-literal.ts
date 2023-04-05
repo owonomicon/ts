@@ -1,6 +1,5 @@
-import { Not } from "../boolean/not"
-import { Or } from "../boolean/or"
-import { Extends } from "../type/extends"
+import { Not, Or } from "../boolean"
+import { Extends } from "../type"
 
 /**
  * checks whether `S` is a string literal (i.e. well-defined string with finite length).

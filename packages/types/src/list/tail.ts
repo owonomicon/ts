@@ -1,5 +1,4 @@
-import { List } from "./list"
-import { IsEmpty } from "./is-empty"
+import { List, IsEmpty } from "."
 
 /**
  * extracts the tail of list `L`.

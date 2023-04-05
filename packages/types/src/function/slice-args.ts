@@ -1,7 +1,5 @@
-import { Slice } from "../list/slice"
-import { Args } from "./args"
-import { Function } from "./function"
-import { Return } from "./return"
+import { Slice } from "../list"
+import { Args, Function, Return } from "../function"
 
 /**
  * omits the first `N` arguments of function `F`

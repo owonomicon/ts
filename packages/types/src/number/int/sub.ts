@@ -1,13 +1,11 @@
-import { And } from "../../boolean/and"
-import { AsNumber } from "../../string/as-number"
-import { Reverse } from "../../string/reverse"
-import { StripLeadingZeros } from "../string/strip-leading-zeros"
-import { Unreachable } from "../../type/unreachable"
-import { Negate } from "../negate"
+import { And } from "../../boolean"
+import { AsNumber, Reverse } from "../../string"
+import { Unreachable } from "../../type"
+import { StripLeadingZeros } from "../string"
+import { Negate } from ".."
 import { _PadZeros } from "./_pad-zeros"
 import { ValidateNonnegInt, ValidateInt } from "./_validate"
-import { _AddNonneg } from "./add"
-import { _DecPos } from "./dec"
+import { _AddNonneg, _DecPos } from "."
 
 /**
  * list mapping digits to the resultant digit for subtraction. used to compute `D1 - D2` when `D2 > D1`:

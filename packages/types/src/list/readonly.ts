@@ -1,4 +1,4 @@
-import { List } from "./list"
+import { List } from "."
 
 /**
  * makes a list readonly

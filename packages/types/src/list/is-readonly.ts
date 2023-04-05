@@ -1,4 +1,4 @@
-import { List } from "./list"
+import { List } from "."
 
 export type IsReadonly<L extends List> =
   L extends any[]

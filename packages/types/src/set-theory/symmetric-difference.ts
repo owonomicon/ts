@@ -1,4 +1,4 @@
-import { Exclude } from "./exclude"
+import { Exclude } from "."
 
 /**
  * gets the symmetric difference of union types A and B (i.e. the "XOR" of the two types)

@@ -8,15 +8,13 @@
  * maybe look into higher kinded types in ts?
  */
 
-import { If } from "../boolean/if"
-import { Or } from "../boolean/or"
-import { Length } from "../list/length"
-import { IsLiteralNumber } from "../number/is-literal"
-import { Key } from "../object/key"
-import { AsTuple } from "../set-theory/as-tuple"
-import { IsLiteralString } from "../string/is-literal"
-import { IsUniqueSymbol } from "../type/is-unique-symbol"
-import { Satisfies } from "./satisfies"
+import { If, Or } from "../boolean"
+import { Length } from "../list"
+import { IsLiteralNumber } from "../number"
+import { Key } from "../object"
+import { AsTuple } from "../set-theory"
+import { IsLiteralString } from "../string"
+import { IsUniqueSymbol, Satisfies } from "."
 
 
 /**

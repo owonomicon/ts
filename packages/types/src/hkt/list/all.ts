@@ -1,10 +1,6 @@
-import { ElementOf } from "../../list/element-of"
-import { IsEmpty } from "../../list/is-empty"
-import { List } from "../../list/list"
-import { Satisfies } from "../../type/satisfies"
-import { Unreachable } from "../../type/unreachable"
-import { $ } from "../$"
-import { HKT, _, I } from "../hkt"
+import { ElementOf, IsEmpty, List } from "../../list"
+import { Satisfies, Unreachable } from "../../type"
+import { $, HKT, _, I } from ".."
 
 type _$All<P extends HKT<any, boolean>, L extends List> =
   L extends readonly [...infer Init, infer Last]

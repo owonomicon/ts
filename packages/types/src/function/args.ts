@@ -1,6 +1,6 @@
-import { List } from "../list/list"
-import { Unreachable } from "../type/unreachable"
-import { Function } from "./function"
+import { List } from "../list"
+import { Unreachable } from "../type"
+import { Function } from "."
 
 /**
  * extracts the arguments of function `F`

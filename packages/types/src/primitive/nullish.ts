@@ -1,4 +1,4 @@
-import { Exclude } from "../set-theory/exclude"
+import { Exclude } from "../set-theory"
 
 /**
  * union type of nullish values.

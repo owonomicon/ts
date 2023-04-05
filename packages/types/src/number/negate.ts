@@ -1,4 +1,4 @@
-import { AsNumber } from "../string/as-number"
+import { AsNumber } from "../string"
 
 /**
  * negates a number `N`

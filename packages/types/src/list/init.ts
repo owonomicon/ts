@@ -1,7 +1,10 @@
-import { Append, AppendOptional } from "./append"
-import { Concat } from "./concat"
-import { Length } from "./length"
-import { List } from "./list"
+import {
+  Append,
+  AppendOptional,
+  Concat,
+  Length,
+  List,
+} from "."
 
 type _Init<L extends List, Acc extends unknown[] = []> =
   Length<L> extends 0 ? Acc

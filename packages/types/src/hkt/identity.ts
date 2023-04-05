@@ -1,4 +1,4 @@
-import { HKT, _, I } from "./hkt"
+import { HKT, _, I } from "."
 
 export declare namespace Identity {
   interface Of<T> extends HKT {

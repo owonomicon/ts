@@ -3,12 +3,9 @@
  * track the proposal for a built-in at https://github.com/microsoft/TypeScript/issues/43505
  */
 
-import { Append } from "../list/append"
-import { Length } from "../list/length"
-import { List } from "../list/list"
-import { Exclude } from "../set-theory/exclude"
-import { Satisfies } from "../type/satisfies"
-import { Unreachable } from "../type/unreachable"
+import { Append, Length, List } from "../list"
+import { Exclude } from "../set-theory"
+import { Unreachable } from "../type"
 
 /**
  * generator.

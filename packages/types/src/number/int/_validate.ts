@@ -1,11 +1,12 @@
-import { If } from "../../boolean/if"
-import { Not } from "../../boolean/not"
-import { Serializable } from "../../string/serializable"
-import { Extends, ExtendsNondistributive } from "../../type/extends"
-import { IsNever } from "../../type/is-never"
-import { Unreachable } from "../../type/unreachable"
-import { IsFractional } from "../is-fractional"
-import { IsNegative } from "../is-negative"
+import { If, Not } from "../../boolean"
+import { Serializable } from "../../string"
+import {
+    Extends,
+    ExtendsNondistributive,
+    IsNever,
+    Unreachable,
+} from "../../type"
+import { IsFractional, IsNegative } from ".."
 
 declare const TS_TYPE_ERROR: unique symbol
 type TS_TYPE_ERROR<M extends string> = { [TS_TYPE_ERROR]: M }

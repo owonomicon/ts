@@ -1,4 +1,4 @@
-import { Unreachable } from "../type/unreachable"
+import { Unreachable } from "../type"
 
 /**
  * converts union `U` into an intersection of its members

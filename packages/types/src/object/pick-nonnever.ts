@@ -1,6 +1,6 @@
-import { If } from "../boolean/if"
-import { IsNever } from "../type/is-never"
-import { Pick } from "./pick"
+import { If } from "../boolean"
+import { IsNever } from "../type"
+import { Pick } from "."
 
 /**
  * picks the properties of `T` that don't have a type of `never` for their value

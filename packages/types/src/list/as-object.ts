@@ -1,12 +1,8 @@
-import { If } from "../boolean/if"
-import { _IncNonneg } from "../number/int/inc"
-import { Omit } from "../object/omit"
-import { ShallowResolve } from "../type/resolve"
-import { Unreachable } from "../type/unreachable"
-import { ElementOf } from "./element-of"
-import { IsVariadic } from "./is-variadic"
-import { List } from "./list"
-import { Slice } from "./slice"
+import { If } from "../boolean"
+import { _IncNonneg } from "../number/int"
+import { Omit } from "../object"
+import { ShallowResolve, Unreachable } from "../type"
+import { ElementOf, IsVariadic, List, Slice } from "."
 
 /**
  * get the "length" of the resultant named object from a list

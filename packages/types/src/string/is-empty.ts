@@ -1,4 +1,4 @@
-import { Equals } from "../type/equals"
+import { Equals } from "../type"
 
 /**
  * whether `S` is the empty string `""`.

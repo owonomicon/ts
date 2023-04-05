@@ -1,9 +1,8 @@
-import { AsNumber } from "../../string/as-number"
-import { Reverse } from "../../string/reverse"
-import { StripLeadingZeros } from "../string/strip-leading-zeros"
-import { Unreachable } from "../../type/unreachable"
+import { AsNumber, Reverse } from "../../string"
+import { Unreachable } from "../../type"
+import { StripLeadingZeros } from "../string"
 import { ValidatePosInt, ValidateNonnegInt, ValidateInt } from "./_validate"
-import { _Inc } from "./inc"
+import { _Inc } from "."
 
 type SubtractionDigitMap =
   [9, 0, 1, 2, 3, 4, 5, 6, 7, 8]

@@ -1,5 +1,4 @@
-import { Pick } from "./pick"
-import { RequiredKeys } from "./required-keys"
+import { Pick, RequiredKeys } from "."
 
 /**
  * picks the required properties of `T`

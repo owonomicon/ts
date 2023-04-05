@@ -1,8 +1,7 @@
-import { IsTupleList } from "../list/is-tuple"
-import { List } from "../list/list"
-import { Builtin } from "../primitive/builtin"
-import { IsUnknown } from "../type/is-unknown"
-import { Required } from "./required"
+import { IsTupleList, List } from "../list"
+import { Builtin } from "../primitive"
+import { IsUnknown } from "../type"
+import { Required } from "."
 
 /**
  * makes (nested) keys of an object required

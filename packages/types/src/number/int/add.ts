@@ -1,12 +1,10 @@
-import { AsNumber } from "../../string/as-number"
-import { Reverse } from "../../string/reverse"
-import { StripLeadingZeros } from "../string/strip-leading-zeros"
-import { Unreachable } from "../../type/unreachable"
-import { Negate } from "../negate"
+import { AsNumber, Reverse } from "../../string"
+import { Unreachable } from "../../type"
+import { StripLeadingZeros } from "../string"
+import { Negate } from ".."
 import { _PadZeros } from "./_pad-zeros"
 import { ValidateInt, ValidateNonnegInt } from "./_validate"
-import { _Inc } from "./inc"
-import { _SubNonneg } from "./sub"
+import { _Inc, _SubNonneg } from "."
 
 type AdditionDigitTable = [
   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],

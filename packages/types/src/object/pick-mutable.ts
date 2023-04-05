@@ -1,5 +1,5 @@
-import { Equals } from "../type/equals"
-import { If } from "../boolean/if"
+import { Equals } from "../type"
+import { If } from "../boolean"
 
 /**
  * Picks the mutable (i.e. non-readonly) properties of `T`.

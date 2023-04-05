@@ -1,6 +1,6 @@
-import { Unreachable } from "../../type/unreachable"
-import { PadLeadingZeros } from "../string/pad-leading-zeros"
-import { _IncNonneg } from "./inc"
+import { Unreachable } from "../../type"
+import { PadLeadingZeros } from "../string"
+import { _IncNonneg } from "."
 
 /**
  * finds the longer length of integer strings `S1`, `S2`

@@ -1,7 +1,6 @@
-import { Append } from "../list/append"
-import { IsNever } from "../type/is-never"
-import { Unreachable } from "../type/unreachable"
-import { AsIntersection } from "./as-intersection"
+import { Append } from "../list"
+import { IsNever, Unreachable } from "../type"
+import { AsIntersection } from "."
 
 type _PickMember<U> =
   // 2. convert these functions into an intersection, which gets interpreted as an overloaded function...

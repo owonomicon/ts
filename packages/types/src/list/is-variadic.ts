@@ -1,5 +1,4 @@
-import { Length } from "./length"
-import { List } from "./list"
+import { Length, List } from "."
 
 /**
  * whether `L` is a variadic list

@@ -1,4 +1,4 @@
-import { Primitive } from "./primitive"
+import { Primitive } from "."
 
 /**
  * type union of builtin types (primitive / function / date / regex / error)

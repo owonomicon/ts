@@ -1,15 +1,8 @@
-import { If } from "../boolean/if"
-import { ElementOf } from "../list/element-of"
-import { IsEmpty } from "../list/is-empty"
-import { List } from "../list/list"
-import { Pairs } from "../list/pairs"
-import { Reverse } from "../list/reverse"
-import { Extends } from "../type/extends"
-import { MutuallyAssignable } from "../type/mutually-assignable"
-import { Satisfies } from "../type/satisfies"
-import { $ } from "./$"
-import { HKT, _, I, O } from "./hkt"
-import { $All } from "./list/all"
+import { If } from "../boolean"
+import { ElementOf, IsEmpty, List, Pairs, Reverse } from "../list"
+import { Extends, MutuallyAssignable, Satisfies } from "../type"
+import { $, HKT, _, I, O } from "."
+import { $All } from "./list"
 
 /**
  * checks whether the first element in a pair of hkts can be piped into the second

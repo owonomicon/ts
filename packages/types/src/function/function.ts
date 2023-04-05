@@ -1,5 +1,5 @@
-import { List } from "../list/list"
-import { Satisfies } from "../type/satisfies"
+import { List } from "../list"
+import { Satisfies } from "../type"
 
 /**
  * function with arguments `A` and return type `R`

@@ -1,7 +1,5 @@
-import { _IncNonneg } from "../number/int/inc"
-import { Omit } from "./omit"
-import { Optional } from "./optional"
-import { Pick } from "./pick"
+import { _IncNonneg } from "../number/int"
+import { Omit, Optional, Pick } from "."
 
 /**
  * @private

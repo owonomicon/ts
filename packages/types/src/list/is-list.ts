@@ -1,4 +1,4 @@
-import { List } from "./list";
+import { List } from "."
 
 /**
  * whether `T` is an array type (including readonly and tuples)

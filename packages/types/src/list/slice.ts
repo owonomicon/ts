@@ -1,7 +1,6 @@
 
-import { _IncNonneg } from "../number/int/inc"
-import { Length } from "./length"
-import { List } from "./list"
+import { _IncNonneg } from "../number/int"
+import { Length, List } from "."
 
 type _Slice<T extends List, N extends number, I extends number = 0> =
   I extends N ? T

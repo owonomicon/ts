@@ -1,6 +1,5 @@
-import { If } from "../boolean/if"
-import { Not } from "../boolean/not"
-import { Equals } from "../type/equals"
+import { If, Not } from "../boolean"
+import { Equals } from "../type"
 
 /**
  * gets the readonly keys of `T`

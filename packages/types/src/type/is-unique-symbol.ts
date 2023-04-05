@@ -1,7 +1,6 @@
-import { And } from "../boolean/and"
-import { Not } from "../boolean/not"
-import { IsUnion } from "../set-theory/is-union"
-import { Extends } from "../type/extends"
+import { And, Not } from "../boolean"
+import { IsUnion } from "../set-theory"
+import { Extends } from "."
 
 /**
  * whether `T` is an instance of a unique symbol.

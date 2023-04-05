@@ -1,21 +1,21 @@
-import { Function } from "../function/function"
+import { Function } from "../function"
 import { Parts } from "../list/_parts"
-import { ElementOf } from "../list/element-of"
-import { IsEmpty } from "../list/is-empty"
-import { IsReadonly as IsReadonlyList } from "../list/is-readonly"
-import { List } from "../list/list"
-import { _IncNonneg } from "../number/int/inc"
-import { AsTuple } from "../set-theory/as-tuple"
-import { IsUnion } from "../set-theory/is-union"
-import { Quote } from "../string/quote"
-import { Serializable } from "../string/serializable"
-import { Equals } from "./equals"
-import { IsAny } from "./is-any"
-import { IsNever } from "./is-never"
-import { IsUnknown } from "./is-unknown"
-import { Unreachable } from "./unreachable"
-import { IsLiteral, IsLiteralString } from "../string/is-literal"
-import { Builtin } from "../primitive/builtin"
+import {
+  ElementOf,
+  IsEmpty,
+  IsReadonly as IsReadonlyList,
+  List,
+} from "../list"
+import { _IncNonneg } from "../number/int"
+import { AsTuple, IsUnion } from "../set-theory"
+import { Quote, Serializable, IsLiteral, IsLiteralString } from "../string"
+import {
+  Equals,
+  IsAny,
+  IsNever,
+  IsUnknown,
+  Unreachable,
+} from "."
 
 /**
  * limits recursion depth

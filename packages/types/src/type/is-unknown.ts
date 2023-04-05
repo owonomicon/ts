@@ -1,4 +1,4 @@
-import { IsAny } from "./is-any"
+import { IsAny } from "."
 
 /**
  * whether `T` is the `unknown` type

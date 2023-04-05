@@ -1,5 +1,5 @@
-import { Unreachable } from "../type/unreachable"
-import { List } from "./list"
+import { Unreachable } from "../type"
+import { List } from "."
 
 /**
  * gets the type of the elements of list `L`

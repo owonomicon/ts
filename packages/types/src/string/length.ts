@@ -1,6 +1,6 @@
-import { If } from "../boolean/if"
-import { Length as ListLength } from "../list/length"
-import { IsLiteral } from "./is-literal"
+import { If } from "../boolean"
+import { Length as ListLength } from "../list"
+import { IsLiteral } from "."
 
 /**
  * gets the length of a string literal

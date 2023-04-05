@@ -1,4 +1,4 @@
-import { List } from "./list"
+import { List } from "."
 
 /**
  * gets the length of list `L`

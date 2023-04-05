@@ -1,8 +1,14 @@
-import { IsTupleList } from "../list/is-tuple"
-import { List } from "../list/list"
-import { Builtin } from "../primitive/builtin"
-import { NonNull, NonNullish, NonUndefined, Nullable, Nullishable, Undefinable } from "../primitive/nullish"
-import { IsUnknown } from "../type/is-unknown"
+import { IsTupleList, List } from "../list"
+import {
+  Builtin,
+  NonNull,
+  NonNullish,
+  NonUndefined,
+  Nullable,
+  Nullishable,
+  Undefinable,
+} from "../primitive"
+import { IsUnknown } from "../type"
 
 /**
  * makes (nested) values of an object nullishable (i.e. possibly null or undefined)

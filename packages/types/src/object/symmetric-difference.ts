@@ -1,6 +1,5 @@
-import { SymmetricDifference } from "../set-theory/symmetric-difference"
-import { KeyIntersection } from "./intersection"
-import { Omit } from "./omit"
+import { SymmetricDifference } from "../set-theory"
+import { KeyIntersection, Omit } from "."
 
 export type KeySymmetricDifference<A, B> = SymmetricDifference<keyof A, keyof B>
 

@@ -1,6 +1,5 @@
-import { If } from "../boolean/if"
-import { Not } from "../boolean/not"
-import { Extends } from "../type/extends"
+import { If, Not } from "../boolean"
+import { Extends } from "../type"
 
 /**
  * gets the required keys of `T`.

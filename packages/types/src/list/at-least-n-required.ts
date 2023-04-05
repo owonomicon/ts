@@ -1,6 +1,4 @@
-import { Append } from "./append"
-import { Concat } from "./concat"
-import { Length } from "./length"
+import { Append, Concat, Length } from "."
 
 // generator
 type _AtLeastNElements<T, N extends number, Acc extends T[] = []> =

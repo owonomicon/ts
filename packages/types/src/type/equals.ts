@@ -1,5 +1,4 @@
-import { MutuallyAssignable } from "./mutually-assignable"
-import { ShallowResolve } from "./resolve"
+import { MutuallyAssignable, ShallowResolve } from "."
 
 /**
  * checks whether types `A` and `B` are considered "identical" internally by TS.
