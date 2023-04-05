@@ -1,0 +1,5 @@
+export * from "./add"
+export * from "./dec"
+export * from "./inc"
+export * from "./is-integer"
+export * from "./sub"
