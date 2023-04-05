@@ -4,10 +4,11 @@ import { Unreachable } from "../type/unreachable"
 import { AsIntersection } from "./as-intersection"
 
 type _PickMember<U> =
+  // 2. convert these functions into an intersection, which gets interpreted as an overloaded function...
   AsIntersection<
-    U extends unknown
-      ? (_: U) => 0
-      : Unreachable
+    // 1. distribute `U` into separate functions...
+    U extends unknown ? (_: U) => 0 : Unreachable
+  // 3. and capture the "last" overload
   > extends (_: infer M) => 0
     ? M
     : Unreachable
