@@ -14,5 +14,5 @@ declare const TS_TYPE_ERROR: unique symbol
  * 
  * @internal
  */
-type TS_TYPE_ERROR<Message extends string> =
+export type TS_TYPE_ERROR<Message extends string> =
   { [TS_TYPE_ERROR]: Message }
