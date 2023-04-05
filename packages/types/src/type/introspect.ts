@@ -14,6 +14,8 @@ import { IsAny } from "./is-any"
 import { IsNever } from "./is-never"
 import { IsUnknown } from "./is-unknown"
 import { Unreachable } from "./unreachable"
+import { IsLiteral, IsLiteralString } from "../string/is-literal"
+import { Builtin } from "../primitive/builtin"
 
 /**
  * limits recursion depth
@@ -276,10 +278,10 @@ type _IntrospectIndividualObjectKeys<O, L extends List<keyof O>, Ctx extends Con
 type IndividualKeys<O> =
   keyof {
     [K in keyof O as
-      string extends K ? never
-      : number extends K ? never
+      IsLiteralString<K> extends true ? K
       : symbol extends K ? never
-      : K
+      : K extends symbol ? K
+      : never
     ]: never
   }
 
@@ -332,6 +334,23 @@ type IntrospectObject<O, Ctx extends Context> =
       : Unreachable
     : Unreachable
 
+type SerializeStringTemplate<S extends string, Acc extends string = ''> =
+  S extends '' ? Quote<Acc, "`">
+  : S extends `${infer H}${infer T}`
+    ? IsLiteral<H> extends true
+      ? SerializeStringTemplate<T, `${Acc}${H}`>
+      : SerializeStringTemplate<T, `${Acc}\${${Introspect<H>}}`>
+  // handles trailing `string` templates, e.g. `foo${string}`
+  : Quote<`${Acc}\${${Introspect<S>}}`, "`">
+
+type SerializeString<S extends string> =
+  // exact string type
+  string extends S ? 'string'
+  // string literal (i.e. no templates)
+  : IsLiteral<S> extends true ? Quote<S, "'">
+  // string template literal
+  : SerializeStringTemplate<S>
+
 type _Introspect<T, Ctx extends Context> =
   Ctx extends Context<infer D, infer Symbols, infer N>
       // recursion limit
@@ -353,7 +372,7 @@ type _Introspect<T, Ctx extends Context> =
       : Equals<T, null> extends true ? State<'null', Symbols, N>
       : Equals<T, undefined> extends true ? State<'undefined', Symbols, N>
       // handle strings
-      : T extends string ? State<Quote<T, "'">, Symbols, N>
+      : T extends string ? State<SerializeString<T>, Symbols, N>
       // handle non-string serializables
       : T extends Serializable ? State<`${T}`, Symbols, N>
       
@@ -418,7 +437,8 @@ type _Introspect<T, Ctx extends Context> =
  * @warning loses tuple label information
  * @warning loses symbol name information and instead replaces it with `__nomicon_introspect__symbol${N}`. symbol mappings should be stable within any given introspection though
  * @warning unions may not appear in the same order
- * @warning object keys may not appear in the same order. also mapped keys will always appear before individual keys
+ * @warning object keys may not appear in the same order. mapped keys will always appear before individual keys
+ * @warning does not work on intersection types
  * 
  * @example
  * ```ts
@@ -441,8 +461,9 @@ type _Introspect<T, Ctx extends Context> =
  * type e13 = Introspect<['foo', ...'bar'[], 'baz']>                                    // "['foo', ...'bar'[], 'baz']"
  * type e14 = Introspect<(a: 1, b?: 2, ...c: 3[]) => 4>                                 // "Function<[1, 2?, ...3[]], 4>"
  * 
- * // "{ [x: symbol]: unknown, [x: string]: string, 'b': 'baz', [__nomicon_introspect__symbol0]: ['foo', ('baz' | 'bar'), { 'a': 'qux', 'b': __nomicon_introspect__symbol0 }], [__nomicon_introspect__symbol1]: __nomicon_introspect__symbol0, 3: 'bar', 0: 'foo' }"
- * type e15 = Introspect<{ [s: string]: string, 0: 'foo', 3: 'bar', b: 'baz', [s0]: 'qux', [sym: symbol]: unknown, [s1]: ['foo', 'bar' | 'baz', { a: 'qux', b: 0 }] }>
+ * type t15 = { [s: number]: string, 0: 'foo', [x: `foo${string}`]: 'bar', b: 'baz', [s0]: 'qux', [sym: symbol]: unknown, [s1]: ['foo', 'bar' | 'baz', { a: 'qux', b: typeof s0 | typeof s1 }] }
+ * // "{ [x: symbol]: unknown, [x: number]: string, [x: `foo${string}`]: 'bar', 'b': 'baz', [__nomicon_introspect__symbol0]: ['foo', ('baz' | 'bar'), { 'a': 'qux', 'b': (__nomicon_introspect__symbol0 | __nomicon_introspect__symbol1) }], [__nomicon_introspect__symbol1]: 'qux' }"
+ * type e15 = Introspect<t15>
  * ```
  */
 export type Introspect<T, D extends Depth = 7> =
