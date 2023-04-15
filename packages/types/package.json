@@ -1,6 +1,6 @@
 {
   "name": "@nomicon/types",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "collection of useful TypeScript types",
   "homepage": "https://github.com/owonomicon/ts/tree/main/packages/types",
   "repository": {
