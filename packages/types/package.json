@@ -9,16 +9,26 @@
   },
   "license": "MIT OR Apache-2.0",
   "files": [
-    "dist"
+    "boolean",
+    "function",
+    "hkt",
+    "index.d.ts",
+    "list",
+    "number",
+    "object",
+    "primitive",
+    "set-theory",
+    "string",
+    "test",
+    "type"
   ],
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
     "clean": "rm -rf ./dist",
     "test": "tsc --project tsconfig.test.json",
     "test:build": "tsc --project tsconfig.test-build.json",
-    "release": "pnpm release:version && pnpm release:commit",
-    "release:version": "pnpm version",
-    "release:commit": "node ./scripts/commit-release.node.js"
+    "release:version": "node ./scripts/version.node.mjs",
+    "release:publish": "node ./scripts/publish.node.mjs"
   },
   "devDependencies": {
     "typescript": "^4.8.4"
