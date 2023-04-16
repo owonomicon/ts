@@ -3,9 +3,11 @@ name: test @nomicon/types
 on:
   push:
     paths:
+      - '.github/workflows/types--*.yaml'
       - 'packages/types/**'
   pull_request:
     paths:
+      - '.github/workflows/types--*.yaml'
       - 'packages/types/**'
   workflow_dispatch:
 
