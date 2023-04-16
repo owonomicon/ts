@@ -1,6 +1,6 @@
 {
   "name": "@nomicon/types",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "collection of useful TypeScript types",
   "license": "MIT OR Apache-2.0",
   "homepage": "https://github.com/owonomicon/ts/tree/main/packages/types",
