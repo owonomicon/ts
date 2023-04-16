@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "es2016",
+    "lib": [
+      "esnext",
+    ],
+    // "noLib": true,                                    /* Disable including any library files, including the default lib.d.ts. */
+    "rootDir": "./src/",
+    "outDir": "./dist/",
+    "noEmitOnError": true,
+    "stripInternal": true,
+  },
+  "include": ["./src/**/*.ts"],
+}

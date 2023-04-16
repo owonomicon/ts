@@ -1,36 +1,24 @@
 {
   "name": "@nomicon/types",
-  "version": "0.0.4",
-  "description": "collection of useful TypeScript types",
-  "homepage": "https://github.com/owonomicon/ts/tree/main/packages/types",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/owonomicon/ts"
-  },
+  "private": true,
   "license": "MIT OR Apache-2.0",
-  "files": [
-    "boolean",
-    "function",
-    "hkt",
-    "index.d.ts",
-    "list",
-    "number",
-    "object",
-    "primitive",
-    "set-theory",
-    "string",
-    "test",
-    "type"
-  ],
+  "exports": {
+    ".": "./dist/index.d.ts",
+    "./*": [
+      "./dist/*.d.ts",
+      "./dist/*/index.d.ts"
+    ]
+  },
   "scripts": {
-    "build": "tsc --project tsconfig.build.json",
+    "build": "tsc --build tsconfig.json --force",
     "clean": "rm -rf ./dist",
-    "test": "tsc --project tsconfig.test.json",
-    "test:build": "tsc --project tsconfig.test-build.json",
+    "test": "tsc --build tsconfig.test.json",
+    "test:build": "tsc --build tsconfig.test-build.json",
+    "release:build": "pnpm clean && pnpm test && pnpm build && pnpm test:build",
     "release:version": "node ./scripts/version.node.mjs",
     "release:publish": "node ./scripts/publish.node.mjs"
   },
   "devDependencies": {
-    "typescript": "^4.8.4"
+    "typescript": "^5.0.0"
   }
 }

@@ -2,11 +2,13 @@
 
 library of useful TypeScript types
 
-WARNING: while this project is still in the 0.x stage, it may not respect SemVer. It's highly recommended to pin the version if this is a concern.
+> WARNING: while this project is still in the 0.x stage, it may not respect SemVer. It's highly recommended to pin the version if this is a concern.
 
 ## overview
 
-`@nomicon/types` is a zero-runtime library of TypeScript utility types. it can broadly be thought of as providing three classes of types: "pure utility" types for enhancing the TypeScript type system (e.g. `IsNever`, `IsAny`, `IsUnion`, `Satisfies`), "traditional helper" types abstracting over otherwise complex operations on types (e.g. `Reverse`, `DeepReadonly`), and "higher-kinded" types, which operate on the type level. while "pure utility" types are applicable in practically any context, the "traditional" and "higher-kinded" types are somewhat distinct and follow separate sets of naming conventions (see [#naming conventions](#naming-conventions)) that best fit for their own ecosystems, at the expense of inconsistency across the library as a whole.
+`@nomicon/types` is a zero-runtime library of TypeScript utility types. it can broadly be thought of as providing three classes of types: "pure utility" types for enhancing the TypeScript type system (e.g. `IsNever`, `IsAny`, `IsUnion`, `Satisfies`), "traditional helper" types abstracting over otherwise complex operations on types (e.g. `List.Reverse`, `DeepReadonly`), and "higher-kinded" types, which operate on the type level.
+
+while "pure utility" types are applicable in practically any context, the "traditional" and "higher-kinded" types are somewhat distinct and follow separate sets of naming conventions (see [#naming conventions](#naming-conventions)) that best fit for their own ecosystems, at the expense of inconsistency across the library as a whole.
 
 ## features
 

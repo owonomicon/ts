@@ -1,0 +1,26 @@
+{
+  "name": "@nomicon/types",
+  "version": "0.0.4",
+  "description": "collection of useful TypeScript types",
+  "license": "MIT OR Apache-2.0",
+  "homepage": "https://github.com/owonomicon/ts/tree/main/packages/types",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/owonomicon/ts",
+    "directory": "packages/types"
+  },
+  "bugs": {
+    "url": "https://github.com/owonomicon/ts/issues"
+  },
+  "keywords": [
+    "type",
+    "types",
+    "typescript",
+    "hkt",
+    "kind",
+    "kinds",
+    "higher",
+    "kinded",
+    "nominal"
+  ]
+}
