@@ -19,6 +19,7 @@ jobs:
         ts:
           - '4.8'
           - '4.9'
+          - '5.0'
           - 'next'
     steps:
       - name: checkout repository
