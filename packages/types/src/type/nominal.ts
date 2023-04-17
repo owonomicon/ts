@@ -12,7 +12,7 @@ import { If, Or } from "../boolean"
 import { Length } from "../list"
 import { IsLiteralNumber } from "../number"
 import { Key } from "../object"
-import { AsTuple } from "../set-theory"
+import { UnionToTuple } from "../set"
 import { IsLiteralString } from "../string"
 import { IsUniqueSymbol, Satisfies } from "."
 
@@ -88,7 +88,7 @@ type TS_TYPE_ERROR<M extends string> = { [TS_TYPE_ERROR]: M }
  * this lets it be used in custom type constraints.
  */
 type IsUnionNoncircular<T> =
-  Length<AsTuple<T>> extends 1
+  Length<UnionToTuple<T>> extends 1
     ? false
     : true
 

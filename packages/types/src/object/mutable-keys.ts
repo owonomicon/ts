@@ -1,4 +1,4 @@
-import { Exclude } from "../set-theory"
+import { Exclude } from "../set"
 import { ReadonlyKeys } from "."
 
 /**

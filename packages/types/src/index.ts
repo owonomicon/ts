@@ -19,8 +19,8 @@ export * as Object from "./object"
 import * as Primitive from "./primitive"
 export * as Primitive from "./primitive"
 
-import * as SetTheory from "./set-theory"
-export * as SetTheory from "./set-theory"
+import * as SetTheory from "./set"
+export * as SetTheory from "./set"
 
 import * as String from "./string"
 export * as String from "./string"

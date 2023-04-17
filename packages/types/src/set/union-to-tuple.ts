@@ -1,10 +1,10 @@
 import { Append } from "../list"
 import { IsNever, Unreachable } from "../type"
-import { AsIntersection } from "."
+import { UnionToIntersection } from "."
 
 type _PickMember<U> =
   // 2. convert these functions into an intersection, which gets interpreted as an overloaded function...
-  AsIntersection<
+  UnionToIntersection<
     // 1. distribute `U` into separate functions...
     U extends unknown ? (_: U) => 0 : Unreachable
   // 3. and capture the "last" overload
@@ -12,14 +12,14 @@ type _PickMember<U> =
     ? M
     : Unreachable
 
-type _AsTuple<U, Acc extends any[] = [], M = _PickMember<U>> =
+type _UnionToTuple<U, Acc extends any[] = [], M = _PickMember<U>> =
   IsNever<U> extends true
     ? Acc
-    : _AsTuple<Exclude<U, M>, Append<Acc, M>>
+    : _UnionToTuple<Exclude<U, M>, Append<Acc, M>>
 
 /**
  * converts union `U` into a tuple of its constituent members.
  * @warning PROVIDES NO GUARANTEES ABOUT ORDER
  */
-export type AsTuple<U> =
-  _AsTuple<U>
+export type UnionToTuple<U> =
+  _UnionToTuple<U>

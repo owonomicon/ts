@@ -7,7 +7,7 @@ import {
   List,
 } from "../list"
 import { _IncNonneg } from "../number/int"
-import { AsTuple, IsUnion } from "../set-theory"
+import { UnionToTuple, IsUnion } from "../set"
 import { Quote, Serializable, IsLiteral, IsLiteralString } from "../string"
 import {
   Equals,
@@ -202,7 +202,7 @@ type _IntrospectUnionTuple<L extends List, Ctx extends Context, Acc extends Stat
  * but properly updating the symbol mapping
  */
 type IntrospectUnion<U, Ctx extends Context> =
-  AsTuple<U> extends (infer L extends List)
+  UnionToTuple<U> extends (infer L extends List)
     ? _IntrospectUnionTuple<L, Ctx> extends State<infer S, infer Symbols, infer N>
       ? State<`(${S})`, Symbols, N>
       : Unreachable
@@ -314,7 +314,7 @@ type AllKeys<O> =
 type IntrospectObject<O, Ctx extends Context> =
   Ctx extends Context<infer D, infer Symbols, infer N>
     ? AllKeys<O> extends [infer MK, infer LK]
-      ? [AsTuple<MK>, AsTuple<LK>] extends [infer LMK extends List, infer LLK extends List]
+      ? [UnionToTuple<MK>, UnionToTuple<LK>] extends [infer LMK extends List, infer LLK extends List]
         ? IsEmpty<LMK> extends true
           ? IsEmpty<LLK> extends true
             ? State<'{}', Symbols, N>

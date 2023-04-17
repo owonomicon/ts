@@ -4,7 +4,7 @@
  */
 
 import { Append, Length, List } from "../list"
-import { Exclude } from "../set-theory"
+import { Exclude } from "../set"
 import { Unreachable } from "../type"
 
 /**

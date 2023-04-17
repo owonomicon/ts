@@ -1,4 +1,4 @@
-import { SetIntersection } from "../set-theory"
+import { SetIntersection } from "../set"
 
 /**
  * gets the intersection of the keys of `A` and `B`

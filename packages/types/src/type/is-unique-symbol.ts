@@ -1,5 +1,5 @@
 import { And, Not } from "../boolean"
-import { IsUnion } from "../set-theory"
+import { IsUnion } from "../set"
 import { Extends } from "."
 
 /**

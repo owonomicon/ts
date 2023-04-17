@@ -1,7 +1,7 @@
 import { And, If, Not, Or } from "../boolean"
 import { Append, Concat, List } from "../list"
 import { _IncNonneg } from "../number/int"
-import { Cut, Exclude, Select } from "../set-theory"
+import { Cut, Exclude, Select } from "../set"
 import { Extends, IsAny, IsNever, Satisfies } from "../type"
 import { NumericKey, Required } from "."
 

@@ -1,5 +1,5 @@
 import { Builtin } from "../primitive"
-import { Exclude } from "../set-theory"
+import { Exclude } from "../set"
 
 type Strategy =
   | 'shallow'
