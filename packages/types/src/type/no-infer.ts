@@ -1,7 +1,9 @@
 /**
  * prevents `T` from being inferred.
  * 
- * useful for when a type to be inferred is used in multiple places, but should specifically be inferred from a single place
+ * useful for when a type to be inferred is used in multiple places, but should specifically be inferred from a single place.
+ * 
+ * may become an intrinsic - track the issue at https://github.com/microsoft/TypeScript/pull/52968
  * 
  * @see https://github.com/Microsoft/TypeScript/issues/14829
  * 
