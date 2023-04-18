@@ -1,5 +1,7 @@
 import * as List from "./list"
 export * as List from "./list"
+import * as String from "./string"
+export * as String from "./string"
 
 import * as $ from "./$"
 export * from "./$"
@@ -14,6 +16,7 @@ export * from "./identity"
 
 export default {
   List,
+  String,
 
   ...$,
   ...composition,
