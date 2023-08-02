@@ -1,5 +1,7 @@
 /**
  * decimal digit
+ * 
+ * @since 0.0.6
  */
 export type Digit =
   | 0
