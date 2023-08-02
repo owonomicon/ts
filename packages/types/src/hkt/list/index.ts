@@ -1,5 +1,6 @@
 export * from "./all"
 export * from "./exists"
 export * from "./filter"
+export * from "./flatten"
 export * from "./fold"
 export * from "./map"
