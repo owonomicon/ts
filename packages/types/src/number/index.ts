@@ -16,6 +16,8 @@ import * as is_negative from "./is-negative"
 export * from "./is-negative"
 import * as negate from "./negate"
 export * from "./negate"
+import * as number_like from "./number-like"
+export * from "./number-like"
 import * as range from "./range"
 export * from "./range"
 
@@ -29,5 +31,6 @@ export default {
   ...is_literal,
   ...is_negative,
   ...negate,
+  ...number_like,
   ...range,
 }
