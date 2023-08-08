@@ -1,4 +1,5 @@
 export * from "./args"
+export * from "./arity"
 export * from "./function"
 export * from "./return"
 export * from "./slice-args"
