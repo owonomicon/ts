@@ -9,63 +9,29 @@ import { MutuallyAssignable, ShallowResolve } from "."
  * 
  * it may also fail on certain forms of variadic tuples (e.g. `[...T[], T]` is erroneously considered identical to `T[]`)
  * 
- * taken from MattMcCutchen's answer in {@link https://github.com/Microsoft/TypeScript/issues/27024#issuecomment-421529650}
- * 
- * @example
- * ```ts
- * // many of these examples taken from the thread https://github.com/Microsoft/TypeScript/issues/27024
- * 
- * type e0   = __Equals<never, never>                         // true
- * type e1   = __Equals<never, Exclude<string, string>>       // true
- * type e2   = __Equals<unknown, any>                         // false
- * type e3   = __Equals<number, string>                       // false
- * type e4   = __Equals<1, 1>                                 // true
- * type e5   = __Equals<any, 1>                               // false
- * type e6   = __Equals<1 | 2, 1>                             // false
- * type e7   = __Equals<any, never>                           // false
- * type e8   = __Equals<[any], [number]>                      // false
- * 
- * // object intersection
- * type e9   = __Equals<{ x: 1 } & { y: 2 }, { x: 1, y: 2 }>  // false
- * 
- * // primitive intersection
- * type e10   = __Equals<number & {}, number>                 // false
- * 
- * // variadic tuple
- *     
- * type t11a = string[] 
- * type t11b = [string, ...string[]] 
- * type t11c = [...string[], string] 
- * type t11d = [string, ...string[], string]
- * type e11a = __Equals<t11a, t11b>                           // false
- * type e11b = __Equals<t11b, t11a>                           // false
- * type e12a = __Equals<t11a, t11c>                           // true  // BUG: expect `false`
- * type e12b = __Equals<t11c, t11a>                           // true  // BUG: expect `false`
- * type e13a = __Equals<t11a, t11d>                           // false
- * type e13b = __Equals<t11d, t11a>                           // false
- * type e14a = __Equals<t11b, t11c>                           // false
- * type e14b = __Equals<t11c, t11b>                           // false
- * type e15a = __Equals<t11b, t11d>                           // true  // BUG: expect `false`
- * type e15b = __Equals<t11d, t11b>                           // true  // BUG: expect `false`
- * type e16a = __Equals<t11c, t11d>                           // false
- * type e16b = __Equals<t11d, t11c>                           // false
- * 
- * // function intersection
- * type t17a = (x: 0, y: null) => void
- * type t17b = (x: number, y: string) => void
- * type t17c = t17a & t17b
- * type t17d = t17b & t17a
- * type e17 = __Equals<t17c, t17d>                            // true
- * type e18 = __Equals<t17c, t17c | t17d>                     // false // BUG: expect `true`
- * 
- * type e19 = __Equals<                                       // false
- *   { (x: 0, y: null): void; (x: number, y: null): void },
- *   { (x: number, y: null): void; (x: 0, y: null): void }
- * >
- * ```
+ * adapted from MattMcCutchen's answer in {@link https://github.com/Microsoft/TypeScript/issues/27024#issuecomment-421529650}
  */
-type __Equals<A, B> =
-  (<T>() => T extends A ? true : false) extends (<T>() => T extends B ? true : false)
+type InternallyIdentical<A, B> =
+  // unioning the types with T resolves unions, e.g.
+  // ```ts
+  // InternallyIdentical<{ _: any }, { _: any } | {_: any }> // expect true; false, if no unioning the types with T
+  // ```
+  // it also happens to resolve it failing on _certain forms_ of variadic tuples (as described in the jsdoc for this type).
+  // however, it also borks a specific case of function intersections.
+  // ```ts
+  // type a = (x: 0) => void; type b = (x: 1) => void;
+  // type ab = a & b; type ba = b & a;
+  // InternallyIdentical<ab, ab | ba> // `true`, after unioning
+  // ```
+  // although considering how the function still considers ab == ba when they are unfortunately different at least it makes it more consistently wrong i guess,
+  // and that case was probably a "bug" (correcting another bug) from the union in the first place.
+  // 
+  // to see more on function overloads/intersections:
+  // - overload order matters, last overload always picked for function inference - https://github.com/microsoft/TypeScript/issues/30369#issuecomment-476402214 / https://github.com/microsoft/TypeScript/issues/29312#issuecomment-469071119
+  // or to quote the (admittedly extremely outdated) TS Language Specification (for v1.8, very outdated, deprecated):
+  // > While it is generally true that A & B is equivalent to B & A, the order of the constituent types may matter when determining the call and construct signatures of the intersection type.
+  //                     v                                            v
+  (<T>() => T extends (A | T) ? 0 : 1) extends (<T>() => T extends (B | T) ? 0 : 1)
     ? true
     : false
 
@@ -84,8 +50,8 @@ type __Equals<A, B> =
  *    it is thus used as the check for this variadic tuple case.
  */
 type _Equals<A, B> =
-  __Equals<A, B> extends true
-    // handle variadic tuple edge case(s) that `__Equals` exhibits incorrect behavior with.
+  InternallyIdentical<A, B> extends true
+    // handle variadic tuple edge case(s) that `InternallyIdentical` exhibits incorrect behavior with.
     // this should be safe since there aren't any false negatives with mutual assignability check, only false positives (afaik)
     ? MutuallyAssignable<A, B>
     : false
@@ -104,7 +70,9 @@ type Options<RI extends boolean = boolean> = {
  * @see https://github.com/Microsoft/TypeScript/issues/27024#issuecomment-421529650
  * 
  * @warning known issues:
- * - certain intersections don't get properly resolved, even when `resolve_intersections` is `true` (e.g. intersection of functions; see e14). as a result there may be false negatives with regards to function intersections.
+ * - it appears certain intersections may not produce the expected result, even when `resolve_intersections` is `true`.
+ * if you find one not already identified in tests, please submit an issue with a minimal example describing it
+ * - function overloads can be weird and not produce the expected result.
  * 
  * @example
  * ```ts
@@ -150,16 +118,166 @@ type Options<RI extends boolean = boolean> = {
  * type t17b = (x: number, y: string) => void
  * type t17c = t17a & t17b
  * type t17d = t17b & t17a
- * type e17 = Equals<t17c, t17d>                                                                // true
- * type e18 = Equals<t17c, t17c | t17d>                                                         // false // BUG: should produce `true`
- * 
- * type e19 = Equals<                                                                           // false
- *   { (x: 0, y: null): void; (x: number, y: null): void },
- *   { (x: number, y: null): void; (x: 0, y: null): void }
- * >
+ * type e17 = Equals<t17c, t17d>                                                                // false
+ * type e18 = Equals<t17c, t17c | t17d>                                                         // false
  * ```
  */
 export type Equals<A, B, Opts extends Options = Options<true>> =
   Opts extends Options<true>
     ? _Equals<ShallowResolve<A>, ShallowResolve<B>>
     : _Equals<A, B>
+
+/** @internal */
+module Tests {
+  type Expect<T extends true> = import('..').Test.Expect<T>
+  type Not<T extends boolean> = import('..').Boolean.Not<T>
+
+  type stringlist = string[]
+  type string_stringlist = [string, ...string[]]
+  type stringlist_string = [...string[], string]
+  type string_stringlist_string = [string, ...string[], string]
+  type string_stringlist_string_string = [string, ...string[], string, string]
+
+  type fn_a = (_: 0) => void
+  type fn_b = (_: 1) => void
+  type ab = fn_a & fn_b
+  type ba = fn_b & fn_a
+
+  /**
+   * many of these tests are courtesy of https://github.com/Microsoft/TypeScript/issues/27024
+   */
+  type _ = {
+    Equals: [
+      // basic tests
+
+      Expect<Not<Equals<number, string>>>,
+      Expect<Equals<1, 1>>,
+      Expect<Not<Equals<any, 1>>>,
+      Expect<Not<Equals<1 | 2, 1>>>,
+      Expect<Not<Equals<any, never>>>,
+      Expect<Not<Equals<[any], [number]>>>,
+      Expect<Not<Equals<void, unknown>>>,
+      Expect<Not<Equals<void, any>>>,
+      Expect<Not<Equals<void, never>>>,
+      Expect<Equals<never, never>>,
+      Expect<Equals<any, any>>,
+      Expect<Equals<unknown, unknown>>,
+      Expect<Equals<void, void>>,
+
+      // object intersection
+
+      Expect<Equals<{ x: 1 } & { y: 2 }, { x: 1, y: 2 }>>,
+      Expect<Not<Equals<{ x: 1 } & { y: 2 }, { x: 1, y: 2}, { resolve_intersections: false }>>>,
+
+      // primitive intersection
+
+      Expect<Equals<number & {}, number>>,
+      Expect<Not<Equals<number & {}, number, { resolve_intersections: false }>>>,
+
+      // variadic tuple
+
+      Expect<Not<Equals<stringlist, string_stringlist>>>,
+      Expect<Not<Equals<string_stringlist, stringlist>>>,
+      Expect<Not<Equals<stringlist, stringlist_string>>>,
+      Expect<Not<Equals<stringlist_string, stringlist>>>,
+      Expect<Not<Equals<stringlist, string_stringlist_string>>>,
+      Expect<Not<Equals<string_stringlist_string, stringlist>>>,
+      Expect<Not<Equals<string_stringlist, stringlist_string>>>,
+      Expect<Not<Equals<stringlist_string, string_stringlist>>>,
+      Expect<Not<Equals<string_stringlist, string_stringlist_string>>>,
+      Expect<Not<Equals<string_stringlist_string, string_stringlist>>>,
+      Expect<Not<Equals<stringlist_string, string_stringlist_string>>>,
+      Expect<Not<Equals<string_stringlist_string, stringlist_string>>>,
+      Expect<Not<Equals<string_stringlist_string, string_stringlist_string_string>>>,
+      Expect<Equals<stringlist, stringlist>>,
+      Expect<Equals<string_stringlist, string_stringlist>>,
+      Expect<Equals<stringlist_string, stringlist_string>>,
+      Expect<Equals<string_stringlist_string, string_stringlist_string>>,
+
+      // function intersections
+
+      Expect<Not<Equals<fn_a, fn_b>>>,
+      Expect<Equals<ab, ab>>,
+      Expect<Equals<ba, ba>>,
+      // @ts-expect-error BUG - function overload/intersection order does in fact matter
+      Expect<Not<Equals<ab, ba>>>,
+      // @ts-expect-error BUG - function overload/intersection order does in fact matter
+      Expect<Not<Equals<ab, ab | ba>>>,
+      Expect<Not<Equals<
+        { (_: 0): void; (_: 1): void },
+        { (_: 1): void; (_: 0): void }
+      >>>,
+    ]
+
+    __Equals: [
+      // basic tests
+
+      Expect<Not<InternallyIdentical<number, string>>>,
+      Expect<InternallyIdentical<1, 1>>,
+      Expect<Not<InternallyIdentical<any, 1>>>,
+      Expect<Not<InternallyIdentical<1 | 2, 1>>>,
+      Expect<Not<InternallyIdentical<any, never>>>,
+      Expect<Not<InternallyIdentical<[any], [number]>>>,
+      Expect<Not<Equals<void, unknown>>>,
+      Expect<Not<Equals<void, any>>>,
+      Expect<Not<Equals<void, never>>>,
+      Expect<InternallyIdentical<never, never>>,
+      Expect<InternallyIdentical<any, any>>,
+      Expect<InternallyIdentical<unknown, unknown>>,
+      Expect<InternallyIdentical<void, void>>,
+
+      // object intersection
+
+      // @ts-expect-error BUG - does not work with intersections
+      Expect<InternallyIdentical<{ x: 1 } & { y: 2 }, { x: 1, y: 2 }>>,
+
+      // primitive intersection
+
+      // @ts-expect-error BUG - does not work with intersections
+      Expect<InternallyIdentical<number & {}, number>>,
+
+      // variadic tuple
+
+      Expect<Not<InternallyIdentical<stringlist, string_stringlist>>>,
+      Expect<Not<InternallyIdentical<string_stringlist, stringlist>>>,
+      // (resolved with unioning with T) // @ts-expect-error BUG - cannot distinguish between x[] and [...x[], x]
+      Expect<Not<InternallyIdentical<stringlist, stringlist_string>>>,
+      // (resolved with unioning with T) // @ts-expect-error BUG - cannot distinguish between x[] and [...x[], x]
+      Expect<Not<InternallyIdentical<stringlist_string, stringlist>>>,
+      Expect<Not<InternallyIdentical<stringlist, string_stringlist_string>>>,
+      Expect<Not<InternallyIdentical<string_stringlist_string, stringlist>>>,
+      Expect<Not<InternallyIdentical<string_stringlist, stringlist_string>>>,
+      Expect<Not<InternallyIdentical<stringlist_string, string_stringlist>>>,
+      // @ts-expect-error BUG - cannot distinguish between x[] and [...x[], x]
+      Expect<Not<InternallyIdentical<string_stringlist, string_stringlist_string>>>,
+      // @ts-expect-error BUG - cannot distinguish between x[] and [...x[], x]
+      Expect<Not<InternallyIdentical<string_stringlist_string, string_stringlist>>>,
+      Expect<Not<InternallyIdentical<stringlist_string, string_stringlist_string>>>,
+      Expect<Not<InternallyIdentical<string_stringlist_string, stringlist_string>>>,
+      // @ts-expect-error BUG - cannot distinguish between x[] and [...x[], x]
+      Expect<Not<InternallyIdentical<string_stringlist_string, string_stringlist_string_string>>>,
+      Expect<InternallyIdentical<stringlist, stringlist>>,
+      Expect<InternallyIdentical<string_stringlist, string_stringlist>>,
+      Expect<InternallyIdentical<stringlist_string, stringlist_string>>,
+      Expect<InternallyIdentical<string_stringlist_string, string_stringlist_string>>,
+
+      // function intersections
+      
+      Expect<Not<InternallyIdentical<fn_a, fn_b>>>,
+      Expect<InternallyIdentical<ab, ab>>,
+      Expect<InternallyIdentical<ba, ba>>,
+      // @ts-expect-error BUG - function overload/intersection order does in fact matter
+      Expect<Not<InternallyIdentical<ab, ba>>>,
+      // @ts-expect-error BUG - unioning with T makes this resolve to true
+      Expect<Not<InternallyIdentical<ab, ab | ba>>>,
+      Expect<Not<InternallyIdentical<
+        { (_: 0): void; (_: 1): void },
+        { (_: 1): void; (_: 0): void }
+      >>>,
+    ]
+  }
+
+  type d = { _: any }
+  type dd = { _: any } | { _: any }
+  type idk = Expect<InternallyIdentical<d, dd>>
+}
