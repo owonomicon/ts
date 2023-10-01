@@ -5,14 +5,14 @@ import { ShallowResolve, Unreachable } from "../type"
 import { ElementOf, IsVariadic, List, Slice } from "."
 
 /**
- * get the "length" of the resultant named object from a list
+ * get the "length" of a list converted to an object, with non-index and variadic keys removed.
+ * 
+ * i.e., gets the number of leading non-variadic elements in the original list.
  */
-type _AsObject<L extends List, Named, N extends number = 0> =
-  _IncNonneg<N> extends (infer N extends number)
-    ? N extends keyof Named ? _AsObject<L, Named, N>
-      : `${N}` extends keyof Named ? _AsObject<L, Named, N>
-      : N
-    : Unreachable
+type _LeadingNonvariadicLengthOfListObject<O, N extends number = 0, NPlusOne extends number = _IncNonneg<N>> =
+  NPlusOne extends keyof O ? _LeadingNonvariadicLengthOfListObject<O, NPlusOne>
+  : `${NPlusOne}` extends keyof O ? _LeadingNonvariadicLengthOfListObject<O, NPlusOne>
+  : NPlusOne
 
 /**
  * coerces an array type into an object.
@@ -35,7 +35,7 @@ export type AsObject<L extends List> =
     If<
       IsVariadic<L>,  
       Omit<L, keyof any[]> extends infer X
-        ? { [x: number]: ElementOf<Slice<L, _AsObject<L, X>>> } & X
+        ? { [x: number]: ElementOf<Slice<L, _LeadingNonvariadicLengthOfListObject<X>>> } & X
         : Unreachable,
       Omit<L, keyof any[]>
     >  
