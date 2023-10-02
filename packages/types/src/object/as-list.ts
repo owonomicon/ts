@@ -93,6 +93,9 @@ type MappedValues<O> =
 
 /**
  * convert an object into a list
+ * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = AsList<{ 0: boolean, "1": string, 2: number }> // [boolean, string, number] // stringified number keys are recognized
  * type e1 = AsList<{ 0: boolean, 1: string, 2: number, [x: number]: {} }> // [boolean, string, number, ...{}[]]

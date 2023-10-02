@@ -2,6 +2,8 @@
 /**
  * whether string `S` contains substring `Infix`
  * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = Contains<never, never>             // never
  * type e1 = Contains<never, 'foo'>             // false

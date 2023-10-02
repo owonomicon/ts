@@ -440,6 +440,8 @@ type _Introspect<T, Ctx extends Context> =
  * @warning object keys may not appear in the same order. mapped keys will always appear before individual keys
  * @warning does not work on intersection types
  * 
+ * @since 0.0.2
+ * 
  * @example
  * ```ts
  * declare const s0: unique symbol

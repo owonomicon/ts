@@ -2,6 +2,8 @@
  * whether `S` is a numeric string.
  * if `S` is a union type, returns `1` only if all members are numeric
  * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = IsNumeric<never>       // true
  * type e1 = IsNumeric<''>          // false
@@ -17,6 +19,9 @@ export type IsNumeric<S extends string> =
     ? true
     : false
 
+/**
+ * @since 0.0.2
+ */
 export type IsNumericString<T> =
   T extends string
     ? IsNumeric<T>

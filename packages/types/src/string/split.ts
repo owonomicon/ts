@@ -15,7 +15,6 @@ type _Split<S extends string, P extends string, Acc extends string[] = []> =
  * 
  * @since 0.0.6
  * 
- * 
  * @example
  * ```ts
  * type ub0 = Split<`a${string}b${string}c`>, 'b'>    // [`a${string}`, `${string}c`]

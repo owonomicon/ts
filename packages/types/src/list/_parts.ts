@@ -51,6 +51,8 @@ type _Parts<L extends List, Acc extends List = []> =
  * 
  * @undefined_behavior `L` is `never`
  * 
+ * @since 0.0.2
+ * 
  * @example
  * ```ts
  * type e0 = Parts<[]>                              // [[], [], []]

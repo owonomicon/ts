@@ -12,6 +12,8 @@ declare const TS_TYPE_ERROR: unique symbol
  * @remark
  * the name of the type DOES matter, as it's what appears for custom type parameter constraints.
  * 
+ * @since 0.0.2
+ * 
  * @internal
  */
 type TS_TYPE_ERROR<Message extends string> =

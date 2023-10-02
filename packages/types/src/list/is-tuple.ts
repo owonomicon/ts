@@ -7,7 +7,7 @@ import { List } from "."
  * 
  * @time_complexity O(1)
  * 
- * @since 0.0.1
+ * @since 0.0.2
  * 
  * @example
  * ```ts
@@ -27,6 +27,9 @@ export type IsTuple<L extends List> =
       : false
     : true
 
+/**
+ * @since 0.0.2
+ */
 export type IsTupleList<T> =
   T extends List
     ? IsTuple<T>

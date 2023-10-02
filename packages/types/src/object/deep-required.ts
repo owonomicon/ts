@@ -5,6 +5,8 @@ import { Required } from "."
 
 /**
  * makes (nested) keys of an object required
+ * 
+ * @since 0.0.2
  */
 export type DeepRequired<T> =
   T extends Builtin ? T

@@ -18,6 +18,8 @@ type _$Exists<P extends HKT<any, boolean>, L extends List> =
  * 
  * @param P   - HKT predicate to operate on each individual element of `L`
  * @param L   - the list to search
+ * 
+ * @since 0.0.2
  */
 export type $Exists<P extends HKT<any, boolean>, L extends List> =
   IsEmpty<L> extends true ? false
@@ -42,6 +44,13 @@ export type $Exists<P extends HKT<any, boolean>, L extends List> =
   //   ? true
   //   : false
 
+/**
+ * checks whether there exists some element of the input list satisfies predicate `P`
+ * 
+ * an empty list is vacuously unsatisfied (i.e. returns false)
+ * 
+ * @since 0.0.2
+ */
 export interface Exists<P extends HKT<any, boolean>> extends HKT {
   [HKT.i]: Satisfies<_<this>, List<I<P>>>
   [HKT.o]: $Exists<P, I<this>>

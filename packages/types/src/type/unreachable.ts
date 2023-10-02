@@ -5,5 +5,7 @@
  * if the branch is unreachable given an invalid custom constraint, use `InvalidConstraint` instead.
  * 
  * mostly useful for grepping.
+ * 
+ * @since 0.0.2
  */
  export type Unreachable = never

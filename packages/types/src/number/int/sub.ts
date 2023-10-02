@@ -76,6 +76,8 @@ type __Sub<S1 extends string, S2 extends string, Borrow extends boolean = false,
  * subtracts nonnegative integer `N2` from nonnegative integer `N1`
  * 
  * @warning you probably want to use `SubNonneg` instead. this type does not enforce type constraints past `number`.
+ * 
+ * @since 0.0.2
  */
 export type _SubNonneg<N1 extends number, N2 extends number> =
   _PadZeros<N1, N2> extends [`${infer S1}`, `${infer S2}`]
@@ -93,6 +95,8 @@ export type _SubNonneg<N1 extends number, N2 extends number> =
  * subtracts integer `N2` from integer `N1`
  * 
  * @warning you probably want to use `Sub` instead. this type does not enforce type constraints past `number`.
+ * 
+ * @since 0.0.2
  */
 export type _Sub<N1 extends number, N2 extends number> =
   `${N1}` extends `-${infer Abs1 extends number}`
@@ -111,6 +115,8 @@ export type _Sub<N1 extends number, N2 extends number> =
  * subtracts nonnegative integer `N2` from nonnegative integer `N1`
  * 
  * validates that `N1 and `N2` are in fact nonnegative integers
+ * 
+ * @since 0.0.2
  */
 export type SubNonneg_Safe<N1 extends ValidateNonnegInt<N1, 'N1'>, N2 extends ValidateNonnegInt<N2, 'N2'>> =
   [ValidateNonnegInt<N1>, ValidateNonnegInt<N2>] extends [number, number]
@@ -123,6 +129,8 @@ export type SubNonneg_Safe<N1 extends ValidateNonnegInt<N1, 'N1'>, N2 extends Va
  * subtracts integer `N2` from integer `N1`
  *
  * validates that `N1 and `N2` are in fact integers
+ * 
+ * @since 0.0.2
  */
 export type Sub_Safe<N1 extends ValidateInt<N1, 'N1'>, N2 extends ValidateInt<N2, 'N2'>> =
   [ValidateInt<N1>, ValidateInt<N2>] extends [number, number]

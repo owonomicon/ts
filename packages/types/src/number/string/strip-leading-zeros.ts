@@ -5,6 +5,8 @@ type _StripLeadingZeros<S extends string> =
 
 /**
  * strips leading zeros from number string `S`
+ * 
+ * @since 0.0.2
  */
 export type StripLeadingZeros<S extends string> =
   S extends `-${infer T}` ? `-${_StripLeadingZeros<T>}`

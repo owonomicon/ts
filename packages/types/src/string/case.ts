@@ -1,6 +1,8 @@
 /**
  * converts a string to uppercase.
  * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = Uppercase<never>       // never
  * type e1 = Uppercase<''>          // ""
@@ -20,6 +22,8 @@ export type Uppercase<S extends string> = intrinsic
 
 /**
  * converts a string to lowercase.
+ * 
+ * @since 0.0.2
  * 
  * @example
  * type e0 = Lowercase<never>       // never
@@ -42,6 +46,8 @@ export type Lowercase<S extends string> = intrinsic
 /**
  * capitalizes a string
  * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = Capitalize<never>       // never
  * type e1 = Capitalize<''>          // ""
@@ -61,6 +67,8 @@ export type Capitalize<S extends string> = intrinsic
 
 /**
  * uncapitalizes a string.
+ * 
+ * @since 0.0.2
  * 
  * @example
  * type e0 = Uncapitalize<never>       // never

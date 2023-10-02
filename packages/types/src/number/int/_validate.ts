@@ -16,6 +16,9 @@ type ResolveName<S extends Serializable> =
     ? 'N'
     : S
 
+/**
+ * @since 0.0.2
+ */
 export type ValidatePosInt<N, Name extends Serializable = never> =
   If<
     IsNever<N>,
@@ -49,6 +52,9 @@ export type ValidatePosInt<N, Name extends Serializable = never> =
     >
   >
 
+/**
+ * @since 0.0.2
+ */
 export type ValidateNonnegInt<N, Name extends Serializable = never> =
   If<
     IsNever<N>,
@@ -78,6 +84,9 @@ export type ValidateNonnegInt<N, Name extends Serializable = never> =
     >
   >
 
+/**
+ * @since 0.0.2
+ */
 export type ValidateInt<N, Name extends Serializable = never> =
   If<
     IsNever<N>,

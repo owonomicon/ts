@@ -22,6 +22,8 @@ type __Dec<S extends string> =
  * decrements positive integer `N`
  * 
  * @warning you probably want to use `DecPos` instead. this type does not enforce type constraints past `number`.
+ * 
+ * @since 0.0.2
  */
 export type _DecPos<N extends number> =
   AsNumber<StripLeadingZeros<Reverse<__Dec<Reverse<`${N}`>>>>>
@@ -30,6 +32,8 @@ export type _DecPos<N extends number> =
  * decrements nonnegative integer `N`
  * 
  * @warning you probably want to use `DecNonneg` instead. this type does not enforce type constraints past `number`.
+ * 
+ * @since 0.0.2
  */
 export type _DecNonneg<N extends number> =
   N extends 0
@@ -40,6 +44,8 @@ export type _DecNonneg<N extends number> =
  * decrements integer `N`
  * 
  * @warning you probably want to use `Dec` instead. this type does not enforce type constraints past `number`.
+ * 
+ * @since 0.0.2
  */
 export type _Dec<N extends number> =
   `${N}` extends `-${infer Abs extends number}` // `-0` serializes to `"0"` so -0 will still be handled by `NonnegDec`
@@ -50,6 +56,8 @@ export type _Dec<N extends number> =
  * decrements positive integer `N`
  * 
  * validates that `N` is in fact a positive integer
+ * 
+ * @since 0.0.2
  */
 export type DecPos<N extends ValidatePosInt<N>> =
   ValidatePosInt<N> extends number
@@ -62,6 +70,8 @@ export type DecPos<N extends ValidatePosInt<N>> =
  * decrements nonnegative integer `N`
  * 
  * validates that `N` is in fact a nonnegative integer
+ * 
+ * @since 0.0.2
  */
 export type DecNonneg<N extends ValidateNonnegInt<N>> =
   ValidateNonnegInt<N> extends number
@@ -75,6 +85,8 @@ export type DecNonneg<N extends ValidateNonnegInt<N>> =
  * decrements integer `N`
  * 
  * validates that `N` is in fact an integer
+ * 
+ * @since 0.0.2
  */
 export type Dec<N extends ValidateInt<N>> =
   ValidateInt<N> extends number

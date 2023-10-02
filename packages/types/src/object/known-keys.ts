@@ -4,6 +4,8 @@ import { Extends } from "../type"
 
 /**
  * gets the "known" (i.e. non- index signature) keys of `T`
+ * 
+ * @since 0.0.2
  */
 export type KnownKeys<T> =
   keyof {

@@ -6,6 +6,8 @@ import { Extends } from "../type"
  * 
  * @warning check is O(n) wrt string length
  * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = IsLiteral<never>                        // never
  * type e1 = IsLiteral<''>                           // true
@@ -41,6 +43,9 @@ export type IsLiteral<S extends string> =
         : Not<Extends<string, S>> // only the plain `string` type or empty string "" should be able to reach here
     : false
 
+/**
+ * @since 0.0.2
+ */
 export type IsLiteralString<T> =
   T extends string
     ? IsLiteral<T>

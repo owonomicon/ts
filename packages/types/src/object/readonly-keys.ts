@@ -4,6 +4,8 @@ import { Equals } from "../type"
 /**
  * gets the readonly keys of `T`
  * does not capture index signatures.
+ * 
+ * @since 0.0.2
  *
  * @example
  * type e0 = ReadonlyKeys<{}> // never

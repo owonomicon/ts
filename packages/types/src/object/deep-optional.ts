@@ -5,6 +5,8 @@ import { Optional } from "."
 
 /**
  * makes (nested) keys of an object optional
+ * 
+ * @since 0.0.2
  */
 export type DeepOptional<T> =
   T extends Builtin ? T

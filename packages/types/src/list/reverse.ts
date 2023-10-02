@@ -65,6 +65,8 @@ type _ReverseNonvariadic<L extends List, Acc extends List = []> =
  * by default does not preserve labels. the `preserve_labels_nonvariadic` option allows for preserving labels.
  * however, this option should only be used with nonvariadic labeled tuples, as the algorithm for preserving labels is incompatible with variadic tuples.
  * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = Reverse<string[]> // string[]
  * type e1 = Reverse<[string, number, boolean]> // [boolean, number, string]

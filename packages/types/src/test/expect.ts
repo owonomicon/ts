@@ -5,7 +5,8 @@
  * used for testing types: use relations like `Equals`, `MutuallyAssignable` with boolean operators like `Not`
  * to assert that some relation holds between a tested type and the expected result.
  * 
- * @since 0.0.1
+ * @since 0.0.2
+ * 
  * @example
  * ```ts
  * // this code passes the type checker!

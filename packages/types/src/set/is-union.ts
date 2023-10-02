@@ -7,5 +7,7 @@ type _IsUnion<T, U = T> =
 
 /**
  * whether `T` is a union type
+ * 
+ * @since 0.0.2
  */
 export type IsUnion<T> = _IsUnion<T>

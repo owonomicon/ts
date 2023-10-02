@@ -13,6 +13,9 @@ export type Relation =
   | `${NonsymmetricRelation}->`
   | `<-${NonsymmetricRelation}`
   
+/**
+ * @since 0.0.2
+ */
 export type Relates<A, B, R extends Relation = 'extends'> =
   {
     'equals': Equals<A, B>

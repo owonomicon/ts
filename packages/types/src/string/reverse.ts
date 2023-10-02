@@ -5,7 +5,10 @@ type _Reverse<S extends string, Acc extends string = ''> =
 
 /**
  * reverses string `S`
+ * 
  * @warning may not behave properly on unicode symbols
+ * 
+ * @since 0.0.2
  * 
  * @example
  * type e0 = Reverse<never>             // never

@@ -18,6 +18,8 @@ type _$All<P extends HKT<any, boolean>, L extends List> =
  * 
  * @param P   - HKT predicate to operate on each individual element of `L`
  * @param L   - the list to search
+ * 
+ * @since 0.0.2
  */
 export type $All<P extends HKT<any, boolean>, L extends List> =
   IsEmpty<L> extends true ? true
@@ -36,6 +38,13 @@ export type $All<P extends HKT<any, boolean>, L extends List> =
     ? true
     : false
 
+/**
+ * checks whether all elements of the input list satisfy predicate `P`
+ * 
+ * an empty list is vacuously satisfied (i.e. returns false)
+ * 
+ * @since 0.0.2
+ */
 export interface All<P extends HKT<any, boolean>> extends HKT {
   [HKT.i]: Satisfies<_<this>, List<I<P>>>
   [HKT.o]: $All<P, I<this>>

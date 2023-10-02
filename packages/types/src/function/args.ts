@@ -10,7 +10,7 @@ import { Function } from "."
  * 
  * @undefined_behavior `F` is `never`
  * 
- * @since 0.0.1
+ * @since 0.0.2
  * 
  * @example
  * ```ts

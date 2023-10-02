@@ -30,10 +30,17 @@ type _$Map<F extends HKT<any, any>, L extends List, Acc extends List = []> =
  * 
  * @param P   - HKT predicate to operate on each individual element of `L`
  * @param L   - the list to filter
+ * 
+ * @since 0.0.2
  */
 export type $Map<F extends HKT<any, any>, L extends List> =
   _$Map<F, L>
 
+/**
+ * maps the elements of the input list by function `F`
+ * 
+ * @since 0.0.2
+ */
 export interface Map<F extends HKT<any, any>> extends HKT {
   [HKT.i]: Satisfies<_<this>, List<I<F>>>
   [HKT.o]: $Map<F, I<this>>

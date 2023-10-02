@@ -7,7 +7,7 @@ import { Args, Function, Return } from "../function"
  * @undefined_behavior `F` - see {@link Args}
  * @undefined_behavior `N` - see {@link Slice}
  * 
- * @since 0.0.1
+ * @since 0.0.2
  * 
  * @example
  * ```ts
@@ -24,7 +24,7 @@ export type SliceArgs<F extends Function, N extends number> =
  * 
  * @undefined_behavior `F` - see {@link SliceArgs}
  * 
- * @since 0.0.1
+ * @since 0.0.2
  * 
  * @example
  * ```ts

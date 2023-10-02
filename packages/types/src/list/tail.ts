@@ -3,6 +3,8 @@ import { List, IsEmpty } from "."
 /**
  * extracts the tail of list `L`.
  * If `L` is empty, resolves to the empty list `[]`
+ * 
+ * @since 0.0.2
  */
 export type Tail<L extends List> =
   IsEmpty<L> extends true ? []

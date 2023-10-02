@@ -10,6 +10,8 @@ import { Required } from "."
  * @remarks
  * may fail to capture keys that are also assignable to an index signature
  * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = OptionalKeys<{}> // never
  * type e1 = OptionalKeys<{ a?: 0 }> // "a"

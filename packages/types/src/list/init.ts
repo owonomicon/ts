@@ -22,6 +22,8 @@ type _Init<L extends List, Acc extends unknown[] = []> =
  * 
  * if `L` is empty, returns an empty list.
  * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = Init<never>                          // []
  * type e1 = Init<[]>                             // []

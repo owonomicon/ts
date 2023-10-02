@@ -3,6 +3,8 @@
  * 
  * @warning "numeric literals with absolute values equal to 2^53 or greater are too large to be represented accurately as integers.ts(80008)"
  * 
+ * @since 0.0.2
+ * 
  * @todo since all issues are with false positives maybe just Not<IsFractional>?
  * 
  * @example
@@ -27,6 +29,9 @@ export type IsInteger<N extends number> =
       : true
     : false
 
+/**
+ * @since 0.0.2
+ */
 export type IsIntegerNumber<T> =
   T extends number
     ? IsInteger<T>

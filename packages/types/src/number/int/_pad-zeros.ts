@@ -19,6 +19,8 @@ import { _IncNonneg } from "."
  * 
  * used for `Add` and `Sub`
  * 
+ * @since 0.0.2
+ * 
  * @private
  * @ignore
  */

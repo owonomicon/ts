@@ -13,7 +13,10 @@ type _Length<S extends string, Acc extends never[] = []> =
 
 /**
  * gets the length of a string as the number of characters.
+ * 
  * @warning unicode symbols may count as 2 characters, as code points are not distinguished.
+ * 
+ * @since 0.0.2
  * 
  * @example
  * type e0 = Length<string>             // number

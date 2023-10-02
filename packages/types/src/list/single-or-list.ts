@@ -4,6 +4,8 @@ import { List } from "."
  * type for either some type `T`, or an array of type `T`.
  * typically useful for libraries with external apis to improve end user experience (e.g. field is either a single string, or a list of strings)
  * 
+ * @since 0.0.2
+ * 
  * @example
  *    type Config = { paths: SingleOrList<string> }
  *    

@@ -14,6 +14,8 @@ type _Escape<S extends string, C extends string, E extends boolean = false, Acc 
  * escapes unescaped characters `C` in string `S`
  * 
  * @warning haven't tested if this works with the `\` character. it probably doesnt.
+ * 
+ * @since 0.0.2
  */
 export type Escape<S extends string, C extends string > =
   _Escape<S, C>

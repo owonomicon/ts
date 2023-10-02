@@ -4,6 +4,8 @@ import { Capitalize, Lowercase, Uncapitalize, Uppercase } from "."
 /**
  * checks whether string `S` is uppercase
  * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = IsUppercase<never>       // false
  * type e1 = IsUppercase<''>          // true
@@ -19,6 +21,9 @@ import { Capitalize, Lowercase, Uncapitalize, Uppercase } from "."
 export type IsUppercase<S extends string> =
   Extends<S, Uppercase<S>>
 
+/**
+ * @since 0.0.2
+ */
 export type IsUppercaseString<T> =
   T extends string
     ? IsUppercase<T>
@@ -26,6 +31,8 @@ export type IsUppercaseString<T> =
 
 /**
  * checks whether string `S` is lowercase
+ * 
+ * @since 0.0.2
  * 
  * @example
  * type e0 = IsLowercase<never>       // false
@@ -42,6 +49,9 @@ export type IsUppercaseString<T> =
 export type IsLowercase<S extends string> =
   Extends<S, Lowercase<S>>
 
+/**
+ * @since 0.0.2
+ */
 export type IsLowercaseString<T> =
   T extends string
     ? IsLowercase<T>
@@ -49,6 +59,8 @@ export type IsLowercaseString<T> =
 
 /**
  * checks whether string `S` is capitalized
+ * 
+ * @since 0.0.2
  * 
  * @example
  * type e0 = IsCapitalized<never>       // false
@@ -65,6 +77,9 @@ export type IsLowercaseString<T> =
 export type IsCapitalized<S extends string> =
   Extends<S, Capitalize<S>>
 
+/**
+ * @since 0.0.2
+ */
 export type IsCapitalizedString<T> =
   T extends string
     ? IsCapitalized<T>
@@ -72,6 +87,8 @@ export type IsCapitalizedString<T> =
 
 /**
  * checks whether string `S` is uncapitalized
+ * 
+ * @since 0.0.2
  * 
  * @example
  * type e0 = IsUncapitalized<never>       // false
@@ -88,6 +105,9 @@ export type IsCapitalizedString<T> =
 export type IsUncapitalized<S extends string> =
   Extends<S, Uncapitalize<S>>
 
+/**
+ * @since 0.0.2
+ */
 export type IsUncapitalizedString<T> =
   T extends string
     ? IsUncapitalized<T>

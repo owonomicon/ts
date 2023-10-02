@@ -5,6 +5,8 @@ import { Mutable } from "."
 
 /**
  * makes (nested) keys of an object mutable (i.e. not readonly)
+ * 
+ * @since 0.0.2
  */
 export type DeepMutable<T> =
   T extends Builtin ? T

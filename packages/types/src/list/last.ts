@@ -5,6 +5,8 @@ import { Length, List } from "."
  * 
  * if `L` is empty, resolves to `never`.
  * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = Last<never>                          // never
  * type e1 = Last<[]>                             // never

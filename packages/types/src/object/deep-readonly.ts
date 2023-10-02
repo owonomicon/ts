@@ -5,6 +5,8 @@ import { Readonly } from "."
 
 /**
  * makes (nested) keys of an object readonly
+ * 
+ * @since 0.0.2
  */
 export type DeepReadonly<T> =
   T extends Builtin ? T

@@ -13,7 +13,9 @@ interface IsPairPipeable extends HKT {
 }
 
 /**
- * checks if a list of hkts is composable.
+ * checks if a list of hkts is composable
+ * 
+ * @since 0.0.2
  */
 export type $IsPipeable<Kinds extends List<HKT>> =
   MutuallyAssignable<
@@ -25,7 +27,9 @@ export type $IsPipeable<Kinds extends List<HKT>> =
   >
 
 /**
- * checks if a list of hkts is composable.
+ * checks if a list of hkts is composable
+ * 
+ * @since 0.0.2
  */
 export type $IsComposable<Kinds extends List<HKT>> =
   MutuallyAssignable<
@@ -73,6 +77,8 @@ type _$Pipe<Kinds extends List<HKT>, X> = __$Pipe<Kinds, X>
 /**
  * pipes `X` through HKTs `Kinds` and returns the resultant type
  * 
+ * @since 0.0.2
+ * 
  * @example
  * ```ts
  * // some sample kinds for transforming an input
@@ -107,6 +113,9 @@ export type $Pipe<
 > =
   _$Pipe<Kinds, X>
 
+/**
+ * @since 0.0.2
+ */
 export interface Pipe<
   Kinds extends
     If<
@@ -118,6 +127,9 @@ export interface Pipe<
   [HKT.o]: $Pipe<Kinds, I<this>>
 }
 
+/**
+ * @since 0.0.2
+ */
 export type $Compose<
   Kinds extends
     If<
@@ -129,6 +141,9 @@ export type $Compose<
   // it's easier to extract the first element of a list than the last so we'll reverse the list and pass that to `_$Pipe`
   _$Pipe<Reverse<Kinds>, X>
 
+/**
+ * @since 0.0.2
+ */
 export interface Compose<
   Kinds extends
     If<

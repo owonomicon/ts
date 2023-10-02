@@ -7,6 +7,8 @@
  * 
  * @see https://github.com/Microsoft/TypeScript/issues/14829
  * 
+ * @since 0.0.2
+ * 
  * @example
  * ```ts
  * // we want `A` to only be inferred from `f`

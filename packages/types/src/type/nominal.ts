@@ -3,6 +3,8 @@
  *  organizations or teams may want to use nominal types.
  * This file provides mechanisms for emulating nominal types, or converting nominal types back to structural types.
  * 
+ * @since 0.0.2
+ * 
  * @todo
  * TODO: make `Nominal` a monadic type (if its possible)
  * maybe look into higher kinded types in ts?

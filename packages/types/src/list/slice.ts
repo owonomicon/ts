@@ -15,6 +15,8 @@ type _Slice<T extends List, N extends number, I extends number = 0> =
  * works with arbitrary lists, variadic tuples, etc.
  * does not do anything to spread elements encountered in the front.
  * 
+ * @since 0.0.2
+ * 
  * @todo support end index
  * @todo support negative indexes
  * @todo add integer type constraint
@@ -26,5 +28,7 @@ export type Slice<L extends List, N extends number> = _Slice<L, N>
  * omits the first element of list `L`.
  * 
  * @see {@link Slice}
+ * 
+ * @since 0.0.2
  */
 export type SliceFirst<L extends List> = Slice<L, 1>

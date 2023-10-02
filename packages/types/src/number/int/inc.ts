@@ -26,6 +26,8 @@ type __Inc<S extends string> =
  * increments nonnegative integer `N`
  * 
  * @warning you probably want to use `IncNonneg` instead. this type does not enforce type constraints past `number`.
+ * 
+ * @since 0.0.2
  */
 export type _IncNonneg<N extends number> =
   AsNumber<StripLeadingZeros<Reverse<__Inc<Reverse<`${N}`>>>>>
@@ -34,6 +36,8 @@ export type _IncNonneg<N extends number> =
  * increments integer `N`
  * 
  * @warning you probably want to use `Inc` instead. this type does not enforce type constraints past `number`.
+ * 
+ * @since 0.0.2
  */
 export type _Inc<N extends number> =
   `${N}` extends (infer S extends string)
@@ -47,6 +51,8 @@ export type _Inc<N extends number> =
  * increments nonnegative integer `N`
  * 
  * validates that `N` is in fact a nonnegative integer
+ * 
+ * @since 0.0.2
  */
 export type IncNonneg<N extends ValidateNonnegInt<N>> =
   ValidateNonnegInt<N> extends number
@@ -59,6 +65,8 @@ export type IncNonneg<N extends ValidateNonnegInt<N>> =
  * increments integer `N`
  *
  * validates that `N` is in fact an integer
+ * 
+ * @since 0.0.2
  */
 export type Inc<N extends ValidateInt<N>> =
   ValidateInt<N> extends number

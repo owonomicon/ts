@@ -18,6 +18,8 @@ type _LeadingNonvariadicLengthOfListObject<O, N extends number = 0, NPlusOne ext
  * coerces an array type into an object.
  * this can be useful for then e.g. detecting optional arguments in the parameters of a function
  * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = AsObject<[]> // {}
  * type e1 = AsObject<[string, number, object]> // { 0: string, 1: number, 2: object }

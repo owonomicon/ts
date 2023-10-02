@@ -37,6 +37,8 @@ type _Contains<L extends List, Q, R extends Relation> =
  * checks whether list `L` contains some element that relates to `Q` by relation `R`.
  * properly handles variadic tuples.
  * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = Contains<string[], string> // true
  * type e1 = Contains<string[], number> // false

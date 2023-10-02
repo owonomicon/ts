@@ -4,6 +4,8 @@
  * this is subtly different from types being "equal"/"identical".
  * 
  * for example, `[string, any]` is not `[any, string]` but both _are_ assignable to each other
+ * 
+ * @since 0.0.2
  */
 export type MutuallyAssignable<A, B> =
   /* as of TS4.9, conditional types are only deferred for single-element tuples, not multi-element ones.

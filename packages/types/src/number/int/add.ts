@@ -58,6 +58,8 @@ type __Add<S1 extends string, S2 extends string, Carry extends 0 | 1 = 0, Acc ex
  * adds nonnegative integer `N2` to nonnegative integer `N1`
  * 
  * @warning you probably want to use `AddNonneg` instead. this type does not enforce type constraints past `number`.
+ * 
+ * @since 0.0.2
  */
 export type _AddNonneg<N1 extends number, N2 extends number> =
   _PadZeros<N1, N2> extends [infer S1 extends string, infer S2 extends string]
@@ -68,6 +70,8 @@ export type _AddNonneg<N1 extends number, N2 extends number> =
  * adds integer `N2` to integer `N1`
  * 
  * @warning you probably want to use `Add` instead. this type does not enforce type constraints past `number`.
+ * 
+ * @since 0.0.2
  */
 export type _Add<N1 extends number, N2 extends number> =
   `${N1}` extends `-${infer Abs1 extends number}`
@@ -87,6 +91,8 @@ export type _Add<N1 extends number, N2 extends number> =
  * adds nonnegative integer `N2` to nonnegative integer `N1`
  * 
  * validates that `N1 and `N2` are in fact nonnegative integers
+ * 
+ * @since 0.0.2
  */
 export type AddNonneg<N1 extends ValidateNonnegInt<N1, 'N1'>, N2 extends ValidateNonnegInt<N2, 'N2'>> =
   [ValidateNonnegInt<N1>, ValidateNonnegInt<N2>] extends [number, number]
@@ -99,6 +105,8 @@ export type AddNonneg<N1 extends ValidateNonnegInt<N1, 'N1'>, N2 extends Validat
  * adds integer `N2` to integer `N1`
  *
  * validates that `N1 and `N2` are in fact integers
+ * 
+ * @since 0.0.2
  */
 export type Add_Safe<N1 extends ValidateInt<N1, 'N1'>, N2 extends ValidateInt<N2, 'N2'>> =
   [ValidateInt<N1>, ValidateInt<N2>] extends [number, number] 

@@ -52,6 +52,8 @@ type _Filter<L extends List, Q, R extends Relation, Acc extends unknown[] = []> 
  * filters from list `L` only the elements that relate to `Q` by relation `R`.
  * properly handles variadic tuples.
  * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = Filter<string[], string> // string[]
  * type e1 = Filter<string[], number> // []

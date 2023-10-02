@@ -8,10 +8,14 @@ type _AtLeastNElements<T, N extends number, Acc extends T[] = []> =
 
 /**
  * a `T[]` with at least `N` elements inside of it
+ * 
+ * @since 0.0.2
  */
 export type AtLeastNElements<T, N extends number> = _AtLeastNElements<T, N>
 
 /**
  * a nonempty `T[]`
+ * 
+ * @since 0.0.2
  */
 export type Nonempty<T> = AtLeastNElements<T, 1>

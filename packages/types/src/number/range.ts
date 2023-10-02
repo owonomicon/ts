@@ -18,6 +18,8 @@ type _RangeTuple<N extends number, Acc extends number[] = []> =
 
 /**
  * enumeration of integers from `0` to `N`, exclusive. i.e. the range [0, N)
+ * 
+ * @since 0.0.2
  */
 export type Enumerate<N extends number> =
    _RangeTuple<N> extends (infer L extends List)
@@ -26,5 +28,7 @@ export type Enumerate<N extends number> =
 
 /**
  * range of integers from `Start` to `End - 1`, inclusive. i.e. the range [Start, End)
+ * 
+ * @since 0.0.2
  */
 export type Range<Start extends number, End extends number> = Exclude<Enumerate<End>, Enumerate<Start>>

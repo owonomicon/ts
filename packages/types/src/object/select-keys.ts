@@ -1,6 +1,9 @@
 import { If } from "../boolean"
 import { Relates, Relation } from "../type"
 
+/**
+ * @since 0.0.2
+ */
 export type SelectKeys<T, Q, R extends Relation = 'extends'> =
   {
     [K in keyof T]-?:
@@ -10,6 +13,9 @@ export type SelectKeys<T, Q, R extends Relation = 'extends'> =
       >
   }[keyof T]
 
+/**
+ * @since 0.0.2
+ */
 export type SelectKeysByValue<T, Q, R extends Relation = 'extends'> =
   {
     [K in keyof T]-?:

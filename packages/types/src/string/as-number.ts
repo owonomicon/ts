@@ -9,6 +9,8 @@
  * @warning does not properly handle decimals that can be simplified into whole numbers (e.g. `"1.0"`)
  * @warning does not properly handle exponent number strings (e.g. `"1e2"`)
  * 
+ * @since 0.0.2
+ * 
  * @example
  * ```ts
  * type e0 = AsNumber<never>                // never

@@ -12,6 +12,8 @@ import { IsUnknown } from "../type"
 
 /**
  * makes (nested) values of an object nullishable (i.e. possibly null or undefined)
+ * 
+ * @since 0.0.2
  */
 export type DeepNullishable<T> =
   T extends Builtin ? Nullishable<T>
@@ -30,6 +32,8 @@ export type DeepNullishable<T> =
 
 /**
  * makes (nested) values of an object nullable
+ * 
+ * @since 0.0.2
  */
 export type DeepNullable<T> =
   T extends Builtin ? Nullable<T>
@@ -48,6 +52,8 @@ export type DeepNullable<T> =
 
 /**
  * makes (nested) values of an object undefinable
+ * 
+ * @since 0.0.2
  */
 export type DeepUndefinable<T> =
   T extends Builtin ? Undefinable<T>
@@ -66,6 +72,8 @@ export type DeepUndefinable<T> =
 
 /**
  * makes (nested) values of an object nonnullishable (i.e. cannot be null or undefined)
+ * 
+ * @since 0.0.2
  */
 export type DeepNonNullish<T> =
   T extends Builtin ? NonNullish<T>
@@ -84,6 +92,8 @@ export type DeepNonNullish<T> =
 
 /**
  * makes (nested) values of an object nonnullable
+ * 
+ * @since 0.0.2
  */
 export type DeepNonNull<T> =
   T extends Builtin ? NonNull<T>
@@ -102,6 +112,8 @@ export type DeepNonNull<T> =
 
 /**
  * makes (nested) values of an object nonundefinable
+ * 
+ * @since 0.0.2
  */
 export type DeepNonUndefined<T> =
   T extends Builtin ? NonUndefined<T>

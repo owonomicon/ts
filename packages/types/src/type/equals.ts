@@ -74,6 +74,8 @@ type Options<RI extends boolean = boolean> = {
  * if you find one not already identified in tests, please submit an issue with a minimal example describing it
  * - function overloads can be weird and not produce the expected result.
  * 
+ * @since 0.0.2
+ * 
  * @example
  * ```ts
  * // many of these examples taken from the thread https://github.com/Microsoft/TypeScript/issues/27024

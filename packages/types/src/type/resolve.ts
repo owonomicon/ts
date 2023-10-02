@@ -17,12 +17,18 @@ type _Resolve<T> =
   : unknown extends T ? T // in this case `T` is either `any` or `unknown`; whatever the case, neither of those two types need reducing
   : { [K in keyof T]: T[K] } /* & {} */ // mapped type seems to force most intersection types to be computed. not sure if intersection with empty object is needed here because is already mapped type (?)
 
+/**
+ * @since 0.0.2
+ */
 export type ShallowResolve<T> =
   T extends null | undefined ? T
   : T extends Builtin ? T & {}
   : unknown extends T ? T
   : { [K in keyof T]: T[K] }
 
+/**
+ * @since 0.0.2
+ */
 export type DeepResolve<T, Memo = never> =
   T extends null | undefined ? T
   : T extends Builtin ? T & {}
@@ -33,6 +39,8 @@ export type DeepResolve<T, Memo = never> =
 /**
  * resolve a type to simplify unions/intersections and expand type aliases.
  * mostly useful to see the result of a complex type in the IDE when debugging.
+ * 
+ * @since 0.0.2
  * 
  * @example
  * 

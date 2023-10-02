@@ -16,6 +16,8 @@
  * ```
  * 
  * To evaluate an HKT, use the `$` type, passing in the HKT to evaluate and then the type evaluate on.
+ * 
+ * @since 0.0.2
  */
 export declare interface HKT<I = unknown, O = unknown> {
   readonly [HKT._]: unknown
@@ -23,6 +25,9 @@ export declare interface HKT<I = unknown, O = unknown> {
   [HKT.o]: O
 }
 
+/**
+ * @since 0.0.2
+ */
 export declare namespace HKT {
   const _: unique symbol
   type _ = typeof _
@@ -34,14 +39,21 @@ export declare namespace HKT {
   type o = typeof o
 }
 
+/**
+ * @since 0.0.2
+ */
 export type _<Kind extends HKT> = Kind[HKT._]
 
 /**
  * extracts the expected input of HKT `Kind`
+ * 
+ * @since 0.0.2
  */
 export type I<Kind extends HKT> = Kind[HKT.i]
 
 /**
  * extracts the output of HKT `Kind`
+ * 
+ * @since 0.0.2
  */
 export type O<Kind extends HKT> = Kind[HKT.o]

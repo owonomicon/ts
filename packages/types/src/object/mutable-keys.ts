@@ -5,6 +5,8 @@ import { ReadonlyKeys } from "."
  * gets the mutable keys of `T`
  * does not capture index signatures.
  * 
+ * @since 0.0.2
+ * 
  * @example
  * type e0 = MutableKeys<{}> // never
  * type e1 = MutableKeys<{ a: 0 }> // "a"

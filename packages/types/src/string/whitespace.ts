@@ -1,6 +1,8 @@
 /**
  * a unicode Category Zs whitespace character
  * 
+ * @since 0.0.6
+ * 
  * @see https://www.unicode.org/Public/UCD/latest/ucd/PropList.txt
  */
 export type CategoryZsWhitespace =
@@ -25,6 +27,8 @@ export type CategoryZsWhitespace =
 /**
  * a ECMAScript whitespace character
  * 
+ * @since 0.0.6
+ * 
  * @see https://262.ecma-international.org/6.0/#table-32
  */
 export type EcmascriptWhitespace =
@@ -38,6 +42,8 @@ export type EcmascriptWhitespace =
 
 /**
  * a ECMAScript line break character
+ * 
+ * @since 0.0.6
  * 
  * @see https://262.ecma-international.org/6.0/#table-33
  */

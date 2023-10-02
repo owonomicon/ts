@@ -6,7 +6,7 @@
  * 
  * @undefined_behavior `T` is `never`
  * 
- * @since 0.0.1
+ * @since 0.0.2
  * 
  * @example
  * ```ts

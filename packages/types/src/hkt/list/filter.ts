@@ -39,10 +39,17 @@ type _$Filter<P extends HKT<any, boolean>, L extends List, Acc extends List = []
  * 
  * @param P   - HKT predicate to operate on each individual element of `L`
  * @param L   - the list to filter
+ * 
+ * @since 0.0.2
  */
 export type $Filter<P extends HKT<any, boolean>, L extends List> =
   _$Filter<P, L>
 
+/**
+ * filters through only the elements of the input list that satisfy predicate `P`
+ * 
+ * @since 0.0.2
+ */
 export interface Filter<P extends HKT<any, boolean>> extends HKT {
   [HKT.i]: Satisfies<_<this>, List<I<P>>>
   [HKT.o]: $Filter<P, I<this>>

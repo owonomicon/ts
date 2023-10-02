@@ -4,6 +4,8 @@ import { Extends } from "../type"
 /**
  * gets the required keys of `T`.
  * does not capture index signatures.
+ * 
+ * @since 0.0.2
  *
  * @example
  * type e0 = RequiredKeys<{}> // never

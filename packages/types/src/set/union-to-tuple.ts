@@ -7,8 +7,11 @@ type _UnionToTuple<U, Acc extends any[] = [], M = Member<U>> =
     : _UnionToTuple<Exclude<U, M>, [...Acc, M]>
 
 /**
- * converts union `U` into a tuple of its constituent members.
+ * converts union `U` into a tuple of its constituent members
+ * 
  * @warning PROVIDES NO GUARANTEES ABOUT ORDER
+ * 
+ * @since 0.0.6
  */
 export type UnionToTuple<U> =
   _UnionToTuple<U>
