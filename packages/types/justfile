@@ -31,8 +31,8 @@ build_dir := "dist"
 
 @publish:
     mkdir "{{justfile_directory()}}/{{publish_dir}}"
-    cp -r "{{justfile_directory()}}/{{publish_template_dir}}/*" "{{justfile_directory()}}/{{publish_dir}}"
-    cp -r "{{justfile_directory()}}/{{build_dir}}/*" "{{justfile_directory()}}/{{publish_dir}}"
+    cp -r "{{justfile_directory()}}/{{publish_template_dir}}"/* "{{justfile_directory()}}/{{publish_dir}}"
+    cp -r "{{justfile_directory()}}/{{build_dir}}"/* "{{justfile_directory()}}/{{publish_dir}}"
     cd "{{justfile_directory()}}/{{publish_dir}}" && npm publish --dry-run
     cd "{{justfile_directory()}}" && rm -rf "./{{publish_dir}}"
 
@@ -40,8 +40,8 @@ build_dir := "dist"
 # `just version` should have been run before this.
 @publish-like-actually-for-real version=`just get-version`:
     mkdir "{{justfile_directory()}}/{{publish_dir}}"
-    cp -r "{{justfile_directory()}}/{{publish_template_dir}}/*" "{{justfile_directory()}}/{{publish_dir}}"
-    cp -r "{{justfile_directory()}}/{{build_dir}}/*" "{{justfile_directory()}}/{{publish_dir}}"
+    cp -r "{{justfile_directory()}}/{{publish_template_dir}}"/* "{{justfile_directory()}}/{{publish_dir}}"
+    cp -r "{{justfile_directory()}}/{{build_dir}}"/* "{{justfile_directory()}}/{{publish_dir}}"
     cd "{{justfile_directory()}}/{{publish_dir}}" && npm publish
     cd "{{justfile_directory()}}" && rm -rf "./{{publish_dir}}"
     git push --atomic origin main {{version}}
