@@ -1,11 +1,9 @@
 import {
-  Append,
-  AppendOptional,
   IsTuple,
   IsVariadic,
   List,
-  Prepend,
 } from "."
+import { Unreachable } from "../type"
 
 /**
  * gets the spread and tail parts of a list with a leading spread.
@@ -16,8 +14,11 @@ import {
  */
 type __Parts<L extends List, Acc extends List = []> =
   L extends readonly [...infer Init, infer Last]
-    ? __Parts<Init, Prepend<Acc, Last>>
-    : [L, Acc]
+    // preserve labels
+    ? L extends [...Init, ...infer Last extends [any]]
+      ? __Parts<Init, [...Last, ...Acc]>
+      : Unreachable
+    : [spread: L, tail: Acc]
 
 /**
  * gets the three distinct parts of a list consisting of
@@ -30,19 +31,30 @@ type __Parts<L extends List, Acc extends List = []> =
  * if no spread element was encountered in the entire list, then the Spread and Tail are trivially empty lists. 
  */
 type _Parts<L extends List, Acc extends List = []> =
-  L extends readonly [infer H, ...infer T] ? _Parts<T, Append<Acc, H>>
-  : L extends readonly [...any, any] ? [Acc, ...__Parts<L>] 
+  L extends readonly [infer H, ...infer T]
+    // preserve labels
+    ? L extends [...infer H extends [any], ...any]
+      ? _Parts<T, [...Acc, ...H]>
+      : Unreachable
+  : L extends readonly [...any, any] ? [init: Acc, ...__Parts<L>] 
   : L extends { 0?: any } ?
     L extends readonly [_?: infer H, ...__: infer T]
-      ? _Parts<T, AppendOptional<Acc, H>>
-      : [Acc, L, []]
-  : [Acc, L, []]
+      // preserve labels
+      ? L extends [...infer H extends [any?], ...any]
+        ? _Parts<T, [...Acc, ...H]>
+        : Unreachable
+      : [init: Acc, spread: L, tail: []]
+  : [init: Acc, spread: L, tail: []]
 
 /**
- * splits a list into its constituent parts `[Init, Spread, Tail]`, where:
- * - `Init` is a list of the elements before the spread element
- * - `Spread` is the spread element
- * - `Tail` is a list of the elements following the spread element
+ * splits a list into its constituent parts `[init, spread, tail]`, where:
+ * - `init` is a list of the elements before the spread element
+ * - `spread` is the spread element
+ * - `tail` is a list of the elements following the spread element
+ * 
+ * labels in `L` are preserved (ts5.2+).
+ * the exception to this is the spread element, which loses its label (if it had any).
+ * this is because `[...foo: bar[]]` automatically reduces to `bar[]` (last checked: ts5.3.3)
  * 
  * @time_complexity
  * - O(1) on plain lists
@@ -55,20 +67,20 @@ type _Parts<L extends List, Acc extends List = []> =
  * 
  * @example
  * ```ts
- * type e0 = Parts<[]>                              // [[], [], []]
- * type e1 = Parts<[string]>                        // [[string], [], []]
- * type e2 = Parts<[string, number]>                // [[string, number], [], []]
- * type e3 = Parts<string[]>                        // [[], string[], []]
- * type e4 = Parts<[...string[], number]>           // [[], string[], number]
- * type e5 = Parts<[string, ...number[]]>           // [[string], number[]]
- * type e6 = Parts<[string, ...number[], boolean]>  // [[string], number[], [boolean]]
- * type e7 = Parts<[string?]>                       // [[string?], [], []]
- * type e8 = Parts<[string?, ...number[]]>          // [[string?], number[], []]
+ * type e0 = Parts<[]>                                            // [init: [], spread: [], tail: []]
+ * type e1 = Parts<[string]>                                      // [init: [string], spread: [], tail: []]
+ * type e2 = Parts<[string, number]>                              // [init: [string, number], spread: [], tail: []]
+ * type e3 = Parts<string[]>                                      // [init: [], spread: string[], tail: []]
+ * type e4 = Parts<[...foo: string[], bar: number]>               // [init: [], spread: string[], tail: [bar: number]]
+ * type e5 = Parts<[string, ...number[]]>                         // [init: [string], spread: number[]]
+ * type e6 = Parts<[foo: string, ...bar: number[], baz: boolean]> // [init: [foo: string], spread: number[], tail: [baz: boolean]]
+ * type e7 = Parts<[string?]>                                     // [init: [string?], spread: [], tail: []]
+ * type e8 = Parts<[string?, foo?: number, ...boolean[]]>         // [init: [string?, foo?: number], spread: number[], tail: []]
  * ```
  */
 export type Parts<L extends List> =
   IsTuple<L> extends true
     ? IsVariadic<L> extends true
       ? _Parts<L>
-      : [L, [], []]
-    : [[], L, []]
+      : [init: L, spread: [], tail: []]
+    : [init: [], spread: L, tail: []]
