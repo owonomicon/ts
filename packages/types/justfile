@@ -1,0 +1,51 @@
+@_:
+    just --list
+
+# temporary directory where actual publishing occurs
+publish_dir := "__owonomicon_tmp_publish_dir__"
+
+# directory containing publish-specific files (e.g. npmignore)
+publish_template_dir := "publish"
+
+build_dir := "dist"
+
+@build:
+    pnpm build
+
+@test:
+    pnpm clean
+    @pnpm test
+    @pnpm build
+    @pnpm test:build
+
+@version newversion="patch": test
+    # bump version
+    cd {{publish_template_dir}} && npm version {{newversion}} --json
+
+    # commit changes
+    git add {{publish_template_dir}}/package.json
+    git commit --allow-empty -m "{{"release(types): " + `just get-version`}}"
+
+    # tag commit
+    git tag `just get-version`
+
+@publish:
+    mkdir "{{justfile_directory()}}/{{publish_dir}}"
+    cp -r "{{justfile_directory()}}/{{publish_template_dir}}/*" "{{justfile_directory()}}/{{publish_dir}}"
+    cp -r "{{justfile_directory()}}/{{build_dir}}/*" "{{justfile_directory()}}/{{publish_dir}}"
+    cd "{{justfile_directory()}}/{{publish_dir}}" && npm publish --dry-run
+    cd "{{justfile_directory()}}" && rm -rf "./{{publish_dir}}"
+
+# pushes the given version and publishes to npm.
+# `just version` should have been run before this.
+@publish-like-actually-for-real version=`just get-version`:
+    mkdir "{{justfile_directory()}}/{{publish_dir}}"
+    cp -r "{{justfile_directory()}}/{{publish_template_dir}}/*" "{{justfile_directory()}}/{{publish_dir}}"
+    cp -r "{{justfile_directory()}}/{{build_dir}}/*" "{{justfile_directory()}}/{{publish_dir}}"
+    cd "{{justfile_directory()}}/{{publish_dir}}" && npm publish
+    cd "{{justfile_directory()}}" && rm -rf "./{{publish_dir}}"
+    git push --atomic origin main {{version}}
+    
+[private]
+@get-version:
+    jq -r ".version" < {{justfile_directory()}}/publish/package.json

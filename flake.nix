@@ -20,6 +20,8 @@
           buildInputs = with pkgs; [
             nodejs
             nodePackages.pnpm
+            # version doesn't really matter too much here so we'll just use the existing input for jq as wells
+            jq
           ];
         };
       });
