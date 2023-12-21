@@ -21,7 +21,6 @@ jobs:
         ts:
           - '5.2'
           - '5.3'
-          - '5.4'
           - 'next'
     steps:
       - name: checkout repository
