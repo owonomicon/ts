@@ -24,8 +24,8 @@ export type DeepNullishable<T> =
   : T extends Set<infer U> ? Set<DeepNullishable<U>>
   : T extends ReadonlyMap<infer K, infer V> ? ReadonlyMap<DeepNullishable<K>, DeepNullishable<V>>
   : T extends ReadonlySet<infer U> ? ReadonlySet<DeepNullishable<U>>
-  : T extends WeakMap<infer K, infer V> ? WeakMap<DeepNullishable<K>, DeepNullishable<V>>
-  : T extends WeakSet<infer U> ? WeakSet<DeepNullishable<U>>
+  : T extends WeakMap<infer K, infer V> ? WeakMap<K, DeepNullishable<V>>
+  : T extends WeakSet<infer U> ? WeakSet<U>
   : T extends {} ? { [K in keyof T]?: DeepNullishable<T[K]> }
   : IsUnknown<T> extends true ? unknown
   : Nullishable<T>
@@ -44,8 +44,8 @@ export type DeepNullable<T> =
   : T extends Set<infer U> ? Set<DeepNullable<U>>
   : T extends ReadonlyMap<infer K, infer V> ? ReadonlyMap<DeepNullable<K>, DeepNullable<V>>
   : T extends ReadonlySet<infer U> ? ReadonlySet<DeepNullable<U>>
-  : T extends WeakMap<infer K, infer V> ? WeakMap<DeepNullable<K>, DeepNullable<V>>
-  : T extends WeakSet<infer U> ? WeakSet<DeepNullable<U>>
+  : T extends WeakMap<infer K, infer V> ? WeakMap<K, DeepNullable<V>>
+  : T extends WeakSet<infer U> ? WeakSet<U>
   : T extends {} ? { [K in keyof T]?: DeepNullable<T[K]> }
   : IsUnknown<T> extends true ? unknown
   : Nullable<T>
@@ -64,8 +64,8 @@ export type DeepUndefinable<T> =
   : T extends Set<infer U> ? Set<DeepUndefinable<U>>
   : T extends ReadonlyMap<infer K, infer V> ? ReadonlyMap<DeepUndefinable<K>, DeepUndefinable<V>>
   : T extends ReadonlySet<infer U> ? ReadonlySet<DeepUndefinable<U>>
-  : T extends WeakMap<infer K, infer V> ? WeakMap<DeepUndefinable<K>, DeepUndefinable<V>>
-  : T extends WeakSet<infer U> ? WeakSet<DeepUndefinable<U>>
+  : T extends WeakMap<infer K, infer V> ? WeakMap<K, DeepUndefinable<V>>
+  : T extends WeakSet<infer U> ? WeakSet<U>
   : T extends {} ? { [K in keyof T]?: DeepUndefinable<T[K]> }
   : IsUnknown<T> extends true ? unknown
   : Undefinable<T>
