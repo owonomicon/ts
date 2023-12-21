@@ -17,11 +17,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ['16', '18']
+        node: ['18', '20']
         ts:
-          - '4.8'
-          - '4.9'
-          - '5.0'
+          - '5.2'
+          - '5.3'
+          - '5.4'
           - 'next'
     steps:
       - name: checkout repository
