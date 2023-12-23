@@ -19,6 +19,8 @@ import * as intersection from "./intersection"
 export * from "./intersection"
 import * as json from "./json"
 export * from "./json"
+import * as key_paths from "./key-paths"
+export * from "./key-paths"
 import * as key from "./key"
 export * from "./key"
 import * as known_keys from "./known-keys"
@@ -86,6 +88,7 @@ export default {
   ...deep_required,
   ...intersection,
   ...json,
+  ...key_paths,
   ...key,
   ...known_keys,
   ...mutable_keys,
