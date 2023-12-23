@@ -55,6 +55,8 @@ import * as pick_required from "./pick-required"
 export * from "./pick-required"
 import * as pick_select from "./pick-select"
 export * from "./pick-select"
+import * as pick_shape from "./pick-shape"
+export * from "./pick-shape"
 import * as pick from "./pick"
 export * from "./pick"
 import * as properties from "./properties"
@@ -110,6 +112,7 @@ export default {
   ...pick_readonly,
   ...pick_required,
   ...pick_select,
+  ...pick_shape,
   ...pick,
   ...properties,
   ...readonly_keys,
