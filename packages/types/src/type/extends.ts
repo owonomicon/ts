@@ -18,12 +18,17 @@ export type Extends<A, B> =
     ? true
     : false
 
-/**
- * checks whether `A` extends `B` without distributing over `A`
- * 
- * @since 0.0.2
- */
-export type ExtendsNondistributive<A, B> =
-  [A] extends [B]
-    ? true
-    : false
+export namespace Extends {
+  /**
+   * checks whether `A` extends `B`
+   * 
+   * @remarks
+   * does not distribute over `A`
+   * 
+   * @since 0.0.9
+   */
+  export type Nondistributive<A, B> =
+    [A] extends [B]
+      ? true
+      : false
+}

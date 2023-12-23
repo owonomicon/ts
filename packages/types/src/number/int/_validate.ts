@@ -2,7 +2,6 @@ import { If, Not } from "../../boolean"
 import { Serializable } from "../../string"
 import {
     Extends,
-    ExtendsNondistributive,
     IsNever,
     Unreachable,
 } from "../../type"
@@ -24,7 +23,7 @@ export type ValidatePosInt<N, Name extends Serializable = never> =
     IsNever<N>,
     TS_TYPE_ERROR<`expected a positive integer for ${ResolveName<Name>} but found \`never\``>,
     If<
-      Not<ExtendsNondistributive<N, number>>,
+      Not<Extends.Nondistributive<N, number>>,
       TS_TYPE_ERROR<
         N extends Serializable
           ? `expected a positive integer for ${ResolveName<Name>} but found non-number type \`${N}\``
@@ -60,7 +59,7 @@ export type ValidateNonnegInt<N, Name extends Serializable = never> =
     IsNever<N>,
     TS_TYPE_ERROR<`expected a nonnegative integer for ${ResolveName<Name>} but found \`never\``>,
     If<
-      Not<ExtendsNondistributive<N, number>>,
+      Not<Extends.Nondistributive<N, number>>,
       TS_TYPE_ERROR<
         N extends Serializable
           ? `expected a nonnegative integer for ${ResolveName<Name>} but found non-number type \`${N}\``
@@ -92,7 +91,7 @@ export type ValidateInt<N, Name extends Serializable = never> =
     IsNever<N>,
     TS_TYPE_ERROR<`expected an integer for ${ResolveName<Name>} but found \`never\``>,
     If<
-      Not<ExtendsNondistributive<N, number>>,
+      Not<Extends.Nondistributive<N, number>>,
       TS_TYPE_ERROR<
         N extends Serializable
           ? `expected an integer for ${ResolveName<Name>} but found non-number type \`${N}\``
