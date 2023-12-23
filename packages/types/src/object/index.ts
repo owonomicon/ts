@@ -17,6 +17,8 @@ import * as deep_readonly from "./deep-readonly"
 export * from "./deep-readonly"
 import * as deep_required from "./deep-required"
 export * from "./deep-required"
+import * as from_path from "./from-path"
+export * from "./from-path"
 import * as intersection from "./intersection"
 export * from "./intersection"
 import * as json from "./json"
@@ -89,6 +91,7 @@ export default {
   ...deep_optional,
   ...deep_readonly,
   ...deep_required,
+  ...from_path,
   ...intersection,
   ...json,
   ...key_paths,
