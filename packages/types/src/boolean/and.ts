@@ -1,3 +1,7 @@
+import { Identity } from "../hkt"
+import { $All } from "../hkt/list"
+import { IsEmpty, List } from "../list"
+
 /**
  * gets the boolean AND of booleans `A` and `B`.
  * 
@@ -34,3 +38,36 @@ export type And<A extends boolean, B extends boolean> =
       ? true
       : false
     : false
+
+export namespace And {
+
+  /**
+   * gets the boolean AND of booleans `A` and `B`
+   * 
+   * @remarks
+   * distributes over `A` and `B`
+   * 
+   * @undefined_behavior `A` is `any`, `unknown`, `never`, or `boolean`
+   * @undefined_behavior `B` is `any`, `unknown`, `never`, or `boolean`
+   * 
+   * @since 0.0.9
+   */
+  export type Distributive<A extends boolean, B extends boolean> =
+    A extends true
+      ? B extends true
+        ? true
+        : false
+    : false
+
+  /**
+   * unbounded logical AND
+   * 
+   * @undefined_behavior an element is `any`, `unknown`, `never`, or `boolean`
+   * 
+   * @since 0.0.9
+   */
+  export type Unbounded<L extends List<boolean>, Vacuous = true> =
+    IsEmpty<L> extends true
+      ? Vacuous
+      : $All<Identity.Satisfies<boolean>, L>
+}

@@ -1,3 +1,8 @@
+import { HKT, I, Identity, _ } from "../hkt"
+import { $Exists, $Fold } from "../hkt/list"
+import { List, IsEmpty } from "../list"
+import { Satisfies, Unreachable } from "../type"
+
 /**
  * gets the boolean XOR of booleans `A` and `B`
  * 
@@ -36,3 +41,48 @@ export type Xor<A extends boolean, B extends boolean> =
       ? true
       : false
   : false
+
+
+export namespace Xor {
+
+  /**
+   * gets the boolean XOR of booleans `A` and `B`
+   * 
+   * @remarks
+   * distributes over `A` and `B`
+   * 
+   * @undefined_behavior `A` is `any`, `unknown`, `never`, or `boolean`
+   * @undefined_behavior `B` is `any`, `unknown`, `never`, or `boolean`
+   * 
+   * @since 0.0.9
+   */
+  export type Distributive<A extends boolean, B extends boolean> =
+    A extends true
+      ? B extends false
+        ? true
+        : false 
+    : A extends false
+      ? B extends true
+        ? true
+        : false
+    : false
+
+  interface _Xor extends HKT<[boolean, boolean], boolean> {
+    [HKT.i]: Satisfies<_<this>, [boolean, boolean]>
+    [HKT.o]: I<this> extends [infer A extends boolean, infer B extends boolean]
+      ? Xor<A, B>
+      : Unreachable
+  }
+
+  /**
+   * unbounded logical XOR (PARITY mod 2)
+   * 
+   * @undefined_behavior an element is `any`, `unknown`, `never`, or `boolean`
+   * 
+   * @since 0.0.9
+   */
+  export type Unbounded<L extends List<boolean>, Vacuous = false> =
+    IsEmpty<L> extends true
+      ? Vacuous
+      : $Fold<_Xor, false, L>
+}

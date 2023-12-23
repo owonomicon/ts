@@ -1,3 +1,7 @@
+import { Identity } from "../hkt"
+import { $Exists } from "../hkt/list"
+import { IsEmpty, List } from "../list"
+
 /**
  * gets the boolean OR of booleans `A` and `B`
  * 
@@ -30,3 +34,34 @@ export type Or<A extends boolean, B extends boolean> =
   [A] extends [true] ? true
   : [B] extends [true] ? true
   : false
+
+export namespace Or {
+
+  /**
+   * gets the boolean OR of booleans `A` and `B`
+   * 
+   * @remarks
+   * distributes over `A` and `B`
+   * 
+   * @undefined_behavior `A` is `any`, `unknown`, `never`, or `boolean`
+   * @undefined_behavior `B` is `any`, `unknown`, `never`, or `boolean`
+   * 
+   * @since 0.0.9
+   */
+  export type Distributive<A extends boolean, B extends boolean> =
+    A extends true ? true
+    : B extends true ? true
+    : false
+
+  /**
+   * unbounded logical OR
+   * 
+   * @undefined_behavior an element is `any`, `unknown`, `never`, or `boolean`
+   * 
+   * @since 0.0.9
+   */
+  export type Unbounded<L extends List<boolean>, Vacuous = false> =
+    IsEmpty<L> extends true
+      ? Vacuous
+      : $Exists<Identity.Satisfies<boolean>, L>
+}
