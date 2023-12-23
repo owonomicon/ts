@@ -4,7 +4,7 @@
  * @remarks
  * distributes over `Condition`
  * 
- * @undefined_behavior `Condition` is `never`
+ * @undefined_behavior `Condition` is `any`, `unknown`, `never`, or `boolean`
  * 
  * @template Condition the type to evaluate
  * @template Then resultant type if `Condition` evaluates to `true`

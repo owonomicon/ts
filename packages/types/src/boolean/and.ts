@@ -4,8 +4,8 @@
  * @remarks
  * does not distribute over `A` or `B`.
  * 
- * @undefined_behavior `A` is `never` or `boolean`
- * @undefined_behavior `B` is `never` or `boolean`
+ * @undefined_behavior `A` is `any`, `unknown`, `never`, or `boolean`
+ * @undefined_behavior `B` is `any`, `unknown`, `never`, or `boolean`
  * 
  * @since 0.0.2
  * 
@@ -23,6 +23,8 @@
 export type And<A extends boolean, B extends boolean> =
   /* as of TS4.9, conditional types are only deferred for single-element tuples, not multi-element ones.
    * this should be fixed in https://github.com/microsoft/TypeScript/pull/52091/, slated for the TS5.0 milestone.
+   *
+   * note: as of ts5.3 seems there are still some questions regarding that syntax (?). see https://github.com/microsoft/TypeScript/issues/56270
    */
   // [A, B] extends [true, true]
   //   ? true

@@ -2,9 +2,9 @@
  * negates boolean `T`
  * 
  * @remarks
- * distributes over `T`. this way `Not<boolean>` is still `boolean`
+ * distributes over `T`
  * 
- * @undefined_behavior `T` is `never`
+ * @undefined_behavior `T` is `any`, `unknown`, `never`, or `boolean`
  * 
  * @since 0.0.2
  * 
