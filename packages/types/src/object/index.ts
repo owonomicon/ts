@@ -5,6 +5,8 @@ import * as as_list from "./as-list"
 export * from "./as-list"
 import * as as_properties from "./as-properties"
 export * from "./as-properties"
+import * as deep_get from "./deep-get"
+export * from "./deep-get"
 import * as deep_mutable from "./deep-mutable"
 export * from "./deep-mutable"
 import * as deep_nullish from "./deep-nullish"
@@ -81,6 +83,7 @@ export default {
 
   ...as_list,
   ...as_properties,
+  ...deep_get,
   ...deep_mutable,
   ...deep_nullish,
   ...deep_optional,
