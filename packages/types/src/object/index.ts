@@ -39,6 +39,8 @@ import * as optional from "./optional"
 export * from "./optional"
 import * as optional_keys from "./optional-keys"
 export * from "./optional-keys"
+import * as partial from "./partial"
+export * from "./partial"
 import * as pick_known from "./pick-known"
 export * from "./pick-known"
 import * as pick_mutable from "./pick-mutable"
@@ -104,6 +106,7 @@ export default {
   ...omit,
   ...optional_keys,
   ...optional,
+  ...partial,
   ...pick_known,
   ...pick_mutable,
   ...pick_n,
