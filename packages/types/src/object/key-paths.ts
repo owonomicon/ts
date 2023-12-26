@@ -19,9 +19,10 @@ export type KeyPaths<O, K extends Key = Key, Leaf = Builtin> =
   O extends Record<K, any>
     ? _KeyPaths<O, K, Leaf> extends infer R
       // sanity check: path should never be empty
-      // (e.g. objects that satisfy the Record check but don't make sense e.g. are a leaf e.g. RegExp given the default leaf type)
-      ? R extends [[], any]
-        ? never
-        : R
+      // (e.g. objects that satisfy the Record check but don't make sense e.g. are a leaf e.g. RegExp given the default leaf type).
+      // this also handles cases where R would be undefined (e.g. `KeyPaths<{ a: { b?: 0, c: 1 }}>`)
+      ? R extends [[any, ...any], any]
+        ? R
+        : never
       : Unreachable
     : never

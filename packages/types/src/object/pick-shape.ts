@@ -26,6 +26,10 @@ type _PickPath<O, Path extends List<Key>> =
  * 
  * does not account for property modifiers.
  * 
+ * all keys of the result are required.
+ * i.e. if `O1 = { k?: V }`, then the result will have `{ k: V | undefined `},
+ * or however your typescript configuration handles optional properties.
+ * 
  * @since 0.0.9
  * 
  * @example
@@ -39,6 +43,11 @@ type _PickPath<O, Path extends List<Key>> =
  * type t1b = { a: 9, b: {       d: {      f: 8 } },       h: 7,              z: 6 }
  * //         { a: 1; b: {       d: {      f: 4;};};       h: { i: 6; j: 7; };}
  * type e1 = PickShape<t1a, t1b>
+ * 
+ * type t2a = { a: { b?: 0, c: 1 },       d: 4, e: 5 }
+ * type t2b = { a: { b: 6       },        d?: 7,       z: 8 }
+ * //         { a: { b: 0 | undefined; }; d: 4;      }
+ * type e2 = PickShape<t2a, t2b>
  * ```
  */
 export type PickShape<O1, O2> =
