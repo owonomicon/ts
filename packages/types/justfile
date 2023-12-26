@@ -38,7 +38,7 @@ build_dir := "dist"
 
 # pushes the given version and publishes to npm.
 # `just version` should have been run before this.
-@publish-like-actually-for-real version=`just get-version`:
+@publish-like-actually-for-real version:
     mkdir "{{justfile_directory()}}/{{publish_dir}}"
     cp -r "{{justfile_directory()}}/{{publish_template_dir}}"/* "{{justfile_directory()}}/{{publish_dir}}"
     cp -r "{{justfile_directory()}}/{{build_dir}}"/* "{{justfile_directory()}}/{{publish_dir}}"
@@ -48,4 +48,4 @@ build_dir := "dist"
     
 [private]
 @get-version:
-    jq -r ".version" < {{justfile_directory()}}/publish/package.json
+    jq -r ".version" < "{{justfile_directory()}}/{{publish_template_dir}}/package.json"
